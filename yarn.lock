@@ -1209,6 +1209,11 @@
     lodash "^4.17.15"
     tmp-promise "^3.0.2"
 
+"@mdi/font@^6.5.95":
+  version "6.5.95"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-6.5.95.tgz#203922f6dd46397de9eb1f5956b85339adb6344d"
+  integrity sha512-ES5rj6J39FUkHe/b3C9SJs8bqIungYhuU7rBINTBaHOv/Ce4RCb3Gw08CZVl32W33UEkgRkzyWaIedV4at+QHg==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -9187,7 +9192,7 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.27, postcss@^7.0.3
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
-postcss@^8.1.10:
+postcss@^8.1.10, postcss@^8.4.6:
   version "8.4.6"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.6.tgz#c5ff3c3c457a23864f32cb45ac9b741498a09ae1"
   integrity sha512-OovjwIzs9Te46vlEx7+uXB0PLijpwjXGKXjVGGPIGubGpq7uh5Xgf6D6FiJ/SzJMBosHDp6a2hiXOS97iBXcaA==
@@ -11613,6 +11618,13 @@ watchpack@^1.7.4:
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
+
+wave-ui@^2.31.0:
+  version "2.31.0"
+  resolved "https://registry.yarnpkg.com/wave-ui/-/wave-ui-2.31.0.tgz#b5233e1f832b9a8674d32f87116be431eba9527b"
+  integrity sha512-HYxtqLiBzVYhtGK+urU2v9t1RS8GiEsr+3aXlyUszd1Rht0Pudv+MXktPkEz90OrgDBLv9aQ0DnbG8sm9tSKrA==
+  dependencies:
+    postcss "^8.4.6"
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
