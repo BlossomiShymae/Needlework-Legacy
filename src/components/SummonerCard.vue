@@ -10,7 +10,7 @@
       />
     </div>
 
-    <p id="summoner-level" class="body floating">
+    <p id="summoner-level" class="body floating text-bold">
       {{ currentSummoner.summonerLevel }}
     </p>
     <div id="summoner-content" class="sh4">
@@ -84,6 +84,7 @@ export default {
     padding: 4px;
     position: fixed;
     margin-top: 7.5px;
+    letter-spacing: 2px;
   }
 
   #summoner-icon {
