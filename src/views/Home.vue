@@ -4,6 +4,62 @@
       <Suspense>
         <SummonerCard :current-summoner="currentSummoner" :wallet="wallet" />
       </Suspense>
+      <div id="loot-button-grid">
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/all.png"
+            alt="All loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/champion.png"
+            alt="Champion loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest.png"
+            alt="Chest loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/companion.png"
+            alt="Companion loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/emote.png"
+            alt="Emote loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/eternals.png"
+            alt="Eternals loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/skin.png"
+            alt="Skin loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/summonericon.png"
+            alt="Summoner loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/wardskin.png"
+            alt="Ward skin loot button"
+          />
+        </w-button>
+      </div>
     </div>
     <div>
       <h2 class="title2">Disenchant</h2>
@@ -54,8 +110,37 @@ export default {
 
   #left-grid-area {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding-top: 32px;
+  }
+
+  #loot-button-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 16px;
+    row-gap: 16px;
+
+    margin-top: 32px;
+
+    button {
+      background-color: $app-palette-color1;
+      padding: 16px;
+      border-radius: 0.5rem;
+      height: 32px;
+      width: 32px;
+
+      box-shadow: 4px 4px 12px grey;
+      img {
+        image-rendering: -webkit-optimize-contrast;
+
+        height: 16px;
+        width: auto;
+      }
+    }
   }
 
   div {
