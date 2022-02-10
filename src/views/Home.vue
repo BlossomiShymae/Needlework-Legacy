@@ -1,11 +1,9 @@
 <template>
   <div class="home">
     <div id="left-grid-area">
-      <SummonerCard
-        src="local-resource://./src/assets/4409.png"
-        summoner-name="time for uwu"
-        :summoner-level="600"
-      />
+      <Suspense>
+        <SummonerCard :current-summoner="currentSummoner" :wallet="wallet" />
+      </Suspense>
     </div>
     <div>
       <h2 class="title2">Disenchant</h2>
@@ -21,12 +19,25 @@
 </template>
 
 <script>
+import { ref } from "vue";
 import SummonerCard from "@/components/SummonerCard";
 
 export default {
   name: "Home",
   components: {
     SummonerCard,
+  },
+  async setup() {
+    const currentSummoner = ref(null);
+    const wallet = ref(null);
+
+    currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
+    wallet.value = await window.ipcRenderer.invoke("wallet");
+
+    return {
+      currentSummoner,
+      wallet,
+    };
   },
 };
 </script>

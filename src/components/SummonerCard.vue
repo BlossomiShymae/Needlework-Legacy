@@ -1,34 +1,56 @@
 <template>
   <div class="summoner-card">
-    <img
-      id="summoner-icon"
-      class="floating"
-      :src="src"
-      alt="Summoner profile icon"
-    />
-    <p id="summoner-level" class="body floating">{{ summonerLevel }}</p>
+    <div id="summoner-icon" class="floating">
+      <w-image
+        class="bdrs4 sh2"
+        :src="profileIcon"
+        ratio="1/1"
+        alt="Summoner profile icon"
+        transition="scale-fade"
+      />
+    </div>
+
+    <p id="summoner-level" class="body floating">
+      {{ currentSummoner.summonerLevel }}
+    </p>
     <div id="summoner-content" class="sh4">
-      <h3 class="title3">{{ summonerName }}</h3>
+      <h3 class="title3">{{ currentSummoner.displayName }}</h3>
+      <w-divider class="ma1" />
+      <div id="wallet">
+        <img
+          src="local-resource://./src/assets/riot_static/icon-blue-essence.png"
+          alt="Blue essence icon"
+        />
+        <p class="body">{{ wallet.ip }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { toRefs } from "vue";
+import useProfileIcon from "@/composables/useProfileIcon";
+
 export default {
   name: "SummonerCard",
   props: {
-    src: {
-      type: String,
+    currentSummoner: {
+      type: Object,
       required: true,
     },
-    summonerName: {
-      type: String,
+    wallet: {
+      type: Object,
       required: true,
     },
-    summonerLevel: {
-      type: Number,
-      required: true,
-    },
+  },
+  async setup(props) {
+    const { currentSummoner } = toRefs(props);
+
+    const { profileIcon } = await useProfileIcon(currentSummoner);
+
+    return {
+      profileIcon,
+    };
   },
 };
 </script>
@@ -70,7 +92,24 @@ export default {
     margin-top: -105px;
     width: 128px;
     height: auto;
-    border-radius: 1rem;
+  }
+
+  #wallet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+
+    img {
+      image-rendering: -webkit-optimize-contrast;
+      margin-right: 2px;
+      width: 16px;
+      height: auto;
+    }
+  }
+
+  .w-divider {
+    width: 100%;
   }
 }
 
