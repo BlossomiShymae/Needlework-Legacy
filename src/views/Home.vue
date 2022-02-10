@@ -114,7 +114,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    padding-top: 32px;
+    padding-top: 64px;
   }
 
   #loot-button-grid {
