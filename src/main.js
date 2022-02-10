@@ -10,4 +10,4 @@ const app = createApp(App);
 
 new WaveUI(app, {});
 
-createApp(App).use(store).use(router).mount("#app");
+app.use(store).use(router).mount("#app");
