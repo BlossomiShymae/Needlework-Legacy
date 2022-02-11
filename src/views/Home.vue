@@ -13,32 +13,14 @@
         </w-button>
         <w-button>
           <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/champion.png"
-            alt="Champion loot button"
-          />
-        </w-button>
-        <w-button>
-          <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest.png"
             alt="Chest loot button"
           />
         </w-button>
         <w-button>
           <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/companion.png"
-            alt="Companion loot button"
-          />
-        </w-button>
-        <w-button>
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/emote.png"
-            alt="Emote loot button"
-          />
-        </w-button>
-        <w-button>
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/eternals.png"
-            alt="Eternals loot button"
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/champion.png"
+            alt="Champion loot button"
           />
         </w-button>
         <w-button>
@@ -49,14 +31,32 @@
         </w-button>
         <w-button>
           <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/summonericon.png"
-            alt="Summoner loot button"
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/companion.png"
+            alt="Companion loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/eternals.png"
+            alt="Eternals loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/emote.png"
+            alt="Emote loot button"
           />
         </w-button>
         <w-button>
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/wardskin.png"
             alt="Ward skin loot button"
+          />
+        </w-button>
+        <w-button>
+          <img
+            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/summonericon.png"
+            alt="Summoner loot button"
           />
         </w-button>
       </div>
