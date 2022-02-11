@@ -1,13 +1,15 @@
 <template>
   <div class="summoner-card">
     <div id="summoner-icon" class="floating">
-      <w-image
-        class="bdrs4 sh2"
-        :src="profileIcon"
-        ratio="1/1"
-        alt="Summoner profile icon"
-        transition="scale-fade"
-      />
+      <div id="wrapper">
+        <w-image
+          class="bdrs4 sh2"
+          :src="profileIcon"
+          ratio="1/1"
+          alt="Summoner profile icon"
+          transition="scale-fade"
+        />
+      </div>
     </div>
 
     <p id="summoner-level" class="body floating text-bold">
@@ -92,7 +94,37 @@ export default {
     position: fixed;
     margin-top: -105px;
     width: 128px;
-    height: auto;
+    height: 128px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5rem;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: calc(0px - 20%);
+      left: calc(0px - 20%);
+      border-radius: 0.5rem;
+      background: conic-gradient(
+        $app-palette-color1,
+        $app-palette-color2,
+        $app-palette-color3,
+        $app-palette-color1
+      );
+
+      height: 140%;
+      width: 140%;
+      background-color: black;
+      animation: spin 4s infinite linear;
+    }
+
+    #wrapper {
+      width: 120px;
+      height: auto;
+    }
   }
 
   #wallet {
@@ -130,6 +162,12 @@ export default {
   }
   100% {
     transform: translate(0, -0px);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(-360deg);
   }
 }
 </style>

@@ -5,7 +5,7 @@
         <SummonerCard :current-summoner="currentSummoner" :wallet="wallet" />
       </Suspense>
       <div id="loot-button-grid">
-        <w-button>
+        <w-button @click="$router.push('/home/material')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/all.png"
             alt="All loot button"
@@ -61,15 +61,8 @@
         </w-button>
       </div>
     </div>
-    <div>
-      <h2 class="title2">Disenchant</h2>
-      <w-button medium shadow round>
-        <img
-          src="local-resource://./src/assets/riot_static/icon-blue-essence.png"
-          alt=""
-        />
-        All Champion Shards
-      </w-button>
+    <div id="right-grid-area">
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -114,7 +107,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    padding-top: 64px;
+    padding-top: 64px + 16px;
   }
 
   #loot-button-grid {
@@ -152,6 +145,7 @@ export default {
     img {
       height: 20px;
       width: auto;
+      filter: grayscale(1);
     }
   }
 }
