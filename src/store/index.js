@@ -1,9 +1,18 @@
 import { createStore } from "vuex";
 
+const filterMapByCategory = (playerLootMap, category) => {
+  const array = Array.from(playerLootMap.values());
+  return array.filter((loot) => loot.displayCategories === category);
+};
+
 export default createStore({
   state() {
     return {
       playerLootMap: new Map(),
+      beSum: {
+        disenchant: null,
+        upgrade: null,
+      },
     };
   },
   getters: {
@@ -14,18 +23,28 @@ export default createStore({
       return state.playerLootMap.get("CHEST_129");
     },
     lootChampions(state) {
-      const array = Array.from(state.playerLootMap.values());
-      return array.filter((loot) => loot.displayCategories === "CHAMPION");
+      return filterMapByCategory(state.playerLootMap, "CHAMPION");
     },
     lootEternals(state) {
-      const array = Array.from(state.playerLootMap.values());
-      return array.filter((loot) => loot.displayCategories === "ETERNALS");
+      return filterMapByCategory(state.playerLootMap, "ETERNALS");
+    },
+    lootChests(state) {
+      return filterMapByCategory(state.playerLootMap, "CHEST");
+    },
+    lootEmotes(state) {
+      return filterMapByCategory(state.playerLootMap, "EMOTE");
+    },
+    beSum(state) {
+      return state.beSum;
     },
   },
   mutations: {
     update(state, jsonMap) {
       const entries = Object.entries(jsonMap);
       state.playerLootMap = new Map(entries);
+    },
+    setBalance(state, object) {
+      state.beSum = object;
     },
   },
   actions: {},

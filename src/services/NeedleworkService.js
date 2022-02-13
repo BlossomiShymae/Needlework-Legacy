@@ -7,6 +7,7 @@ export default class NeedleworkService {
 
     this.currentSummonerHandler();
     this.walletHandler();
+    this.playerLootMapHandler();
   }
 
   currentSummonerHandler() {
@@ -18,6 +19,12 @@ export default class NeedleworkService {
   walletHandler() {
     ipcMain.handle("wallet", (event, args) => {
       return this.needlework.wallet;
+    });
+  }
+
+  playerLootMapHandler() {
+    ipcMain.handle("player-loot-map", (event, args) => {
+      return this.needlework.playerLootMap;
     });
   }
 }

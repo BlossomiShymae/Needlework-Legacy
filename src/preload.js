@@ -9,7 +9,7 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     }
   },
   invoke: async (channel, data) => {
-    let validChannels = ["current-summoner", "wallet", "dd-profile-icon"];
+    let validChannels = ["current-summoner", "wallet", "player-loot-map", "dd-profile-icon"];
     if (validChannels.includes(channel)) {
       return await ipcRenderer.invoke(channel, data);
     }

@@ -16,15 +16,9 @@
       {{ currentSummoner.summonerLevel }}
     </p>
     <div id="summoner-content" class="sh4">
-      <h3 class="title3">{{ currentSummoner.displayName }}</h3>
+      <h3 class="title3 text-bold">{{ currentSummoner.displayName }}</h3>
       <w-divider class="ma1" />
-      <div id="wallet">
-        <img
-          src="local-resource://./src/assets/riot_static/icon-blue-essence.png"
-          alt="Blue essence icon"
-        />
-        <p class="body">{{ wallet.ip }}</p>
-      </div>
+      <WalletStatus :wallet="wallet" />
     </div>
   </div>
 </template>
@@ -32,9 +26,13 @@
 <script>
 import { toRefs } from "vue";
 import useProfileIcon from "@/composables/useProfileIcon";
+import WalletStatus from "@/components/WalletStatus";
 
 export default {
   name: "SummonerCard",
+  components: {
+    WalletStatus,
+  },
   props: {
     currentSummoner: {
       type: Object,
@@ -123,20 +121,6 @@ export default {
 
     #wrapper {
       width: 120px;
-      height: auto;
-    }
-  }
-
-  #wallet {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-
-    img {
-      image-rendering: -webkit-optimize-contrast;
-      margin-right: 2px;
-      width: 16px;
       height: auto;
     }
   }

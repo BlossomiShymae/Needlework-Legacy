@@ -16,27 +16,24 @@ export default class NeedleworkLCU {
   }
 
   get currentSummoner() {
-    return (async () => {
-      try {
-        const response = await this.instance.get(
-          "/lol-summoner/v1/current-summoner"
-        );
-        return response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    return this.fetch("/lol-summoner/v1/current-summoner");
   }
 
   get wallet() {
-    return (async () => {
-      try {
-        const response = await this.instance.get("/lol-store/v1/wallet");
-        return response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    return this.fetch("/lol-store/v1/wallet");
+  }
+
+  get playerLootMap() {
+    return this.fetch("/lol-loot/v1/player-loot-map");
+  }
+
+  async fetch(api) {
+    try {
+      const response = await this.instance.get(api);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async setupForWin() {

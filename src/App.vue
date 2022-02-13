@@ -1,9 +1,5 @@
 <template>
   <w-app>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
     <Suspense>
       <router-view />
     </Suspense>
@@ -11,8 +7,7 @@
 </template>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 html {
   box-sizing: border-box;
   overflow-y: hidden;
@@ -25,7 +20,7 @@ html {
 }
 
 #app {
-  font-family: "Quicksand", Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Oxygen", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -42,5 +37,13 @@ html {
       color: #42b983;
     }
   }
+}
+
+.loot-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 100px;
+  gap: 20px;
 }
 </style>
