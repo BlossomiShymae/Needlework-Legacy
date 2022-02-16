@@ -28,15 +28,17 @@ export default {
 
     const { champions } = usePlayerLoot(store);
 
-    const sum = champions.value.reduce((a, b) => {
-      return (a.disenchantValue ?? a) + b.disenchantValue;
-    });
+    if (champions.value.length > 0) {
+      const sum = champions.value.reduce((a, b) => {
+        return (a.disenchantValue ?? a) + b.disenchantValue;
+      });
 
-    store.commit("setBalance", { disenchant: sum, upgrade: null });
+      store.commit("setBalance", { disenchant: sum, upgrade: null });
 
-    onUnmounted(() => {
-      store.commit("setBalance", { disenchant: null, upgrade: null });
-    });
+      onUnmounted(() => {
+        store.commit("setBalance", { disenchant: null, upgrade: null });
+      });
+    }
 
     return {
       champions,

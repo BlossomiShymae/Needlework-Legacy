@@ -6,7 +6,7 @@
     />
     <p class="body">{{ wallet.ip }}</p>
     <p class="body ml1" style="color: green" v-if="beSum.disenchant">
-      + {{ beSum.disenchant }}
+      + {{ beSum.disenchant }} = {{ wallet.ip + beSum.disenchant }}
     </p>
   </div>
 </template>
