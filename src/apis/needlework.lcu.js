@@ -5,6 +5,8 @@ const axios = require("axios");
 const https = require("https");
 const exec = require("child_process").execSync;
 const { app } = require("electron");
+import paths from "../static/paths";
+import FileLoader from "../libs/FileLoader";
 
 const WS_OPCODES = Object.freeze({
   WELCOME: 0,
@@ -101,35 +103,30 @@ class LeagueClientAuth {
   }
 
   createAgent() {
-    const paths = {
-      data: app.getPath("userData"),
-      dir: path.join(app.getPath("userData"), "data"),
-      cert: path.join(app.getPath("userData"), "data", "riotgames.pem"),
-    };
     const agent = (path) => {
       return new https.Agent({ ca: fs.readFileSync(path) });
     };
 
     try {
-      if (!fs.existsSync(paths.dir)) {
-        fs.mkdirSync(paths.dir);
+      if (!fs.existsSync(paths.data)) {
+        fs.mkdirSync(paths.data);
       }
 
       // Check if cached certificate is missing
-      if (!fs.existsSync(paths.cert)) {
+      if (!fs.existsSync(paths.certificate)) {
         // Get certificate
         const certificateURL =
           "https://static.developer.riotgames.com/docs/lol/riotgames.pem";
-        const wfile = fs.createWriteStream(paths.cert);
+        const wfile = fs.createWriteStream(paths.certificate);
         const request = https.get(certificateURL, (response) => {
           response.pipe(wfile);
         });
 
         wfile.on("finish", () => {
-          return agent(paths.cert);
+          return agent(paths.certificate);
         });
       } else {
-        return agent(paths.cert);
+        return agent(paths.certificate);
       }
     } catch (error) {
       console.error(error);

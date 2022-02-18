@@ -6,11 +6,13 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import NeedleworkService from "./services/NeedleworkService";
 import DataDragonService from "./services/DataDragonService";
+import CommunityDragonService from "./services/CommunityDragonService";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Service modules
 const apiService = new NeedleworkService();
 const ddService = new DataDragonService();
+const cdService = new CommunityDragonService();
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
