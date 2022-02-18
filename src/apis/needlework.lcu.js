@@ -6,10 +6,22 @@ const https = require("https");
 const exec = require("child_process").execSync;
 const { app } = require("electron");
 
+const WS_OPCODES = Object.freeze({
+  WELCOME: 0,
+  PREFIX: 1,
+  CALL: 2,
+  CALLRESULT: 3,
+  CALLERROR: 4,
+  SUBSCRIBE: 5,
+  UNSUBSCRIBE: 6,
+  PUBLISH: 7,
+  EVENT: 8,
+});
+
 export default class NeedleworkLCU {
   constructor() {
     this.clientHTTPS = new LeagueClientHTTPS();
-    this.ws = null;
+    // this.clientWS = new LeagueClientWebSocket();
   }
 
   get currentSummoner() {
@@ -23,38 +35,16 @@ export default class NeedleworkLCU {
   get playerLootMap() {
     return this.clientHTTPS.fetch("/lol-loot/v1/player-loot-map");
   }
-
-  setupWebSocket(port, password) {
-    const wsAddress = "wss://riot:" + password + "@127.0.0.1:" + port + "/";
-
-    console.log("Needlework: Setting up web socket...");
-    const ws = new WebSocket(wsAddress, "wamp", {
-      agent: this.agent,
-    });
-
-    ws.addEventListener("open", () => {
-      console.log("Needlework - Established websocket");
-      ws.send(JSON.stringify([5, "OnJsonApiEvent"]));
-    });
-
-    ws.addEventListener("message", (event) => {
-      console.log("Needlework - ws event !!!", event.data);
-    });
-
-    ws.addEventListener("error", (event) => {
-      console.error(event);
-    });
-
-    ws.addEventListener("close", (event) => {
-      console.log(event);
-    });
-
-    this.ws = ws;
-  }
 }
 
 class LeagueClientAuth {
+  static _instance = null;
+
   constructor() {
+    if (LeagueClientAuth._instance) {
+      return LeagueClientAuth._instance;
+    }
+
     const _data = this.parseForWindows();
 
     this.auth = _data.auth;
@@ -62,6 +52,28 @@ class LeagueClientAuth {
     this.token = _data.token;
 
     this.agent = this.createAgent();
+
+    LeagueClientAuth._instance = this;
+  }
+
+  isClientActive() {
+    try {
+      const cmd =
+        "wmic PROCESS WHERE name='LeagueClientUx.exe' GET commandline";
+      const stdout = exec(cmd);
+
+      return !!stdout;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  refreshAuth() {
+    const _data = this.parseForWindows();
+
+    this.auth = _data.auth;
+    this.port = _data.port;
+    this.token = _data.token;
   }
 
   parseForWindows() {
@@ -78,6 +90,9 @@ class LeagueClientAuth {
       _data.token = tokenRe.exec(stdout)[0];
       // Encode token for Riot Basic Authentication
       _data.auth = Buffer.from("riot:" + _data.token).toString("base64");
+
+      NeedleworkConsole.log("Established authentication!");
+      NeedleworkConsole.log(_data);
 
       return _data;
     } catch (error) {
@@ -144,6 +159,58 @@ class LeagueClientHTTPS {
       return response.data;
     } catch (error) {
       console.error(error);
+    }
+  }
+}
+
+class LeagueClientWebSocket {
+  constructor() {
+    this.leagueClientAuth = new LeagueClientAuth();
+    this.OPCODES = WS_OPCODES;
+    this.ws = this.setupWebSocket();
+
+    this.ws.addListener("open", () => {
+      NeedleworkConsole.log("WebSocket opened! :3");
+      this.subscribe("/lol-store/v1/wallet", NeedleworkConsole.log);
+    });
+
+    this.ws.addListener("close", () => {
+      NeedleworkConsole.log("WebSocket closed! :<");
+      this.unsubscribe("/lol-store/v1/wallet", NeedleworkConsole.log);
+    });
+  }
+
+  setupWebSocket() {
+    const password = this.leagueClientAuth.token;
+    const port = this.leagueClientAuth.port;
+    const agent = this.leagueClientAuth.agent;
+    const wsURL = `wss://riot:${password}@127.0.0.1:${port}/`;
+
+    const ws = new WebSocket(wsURL, "wamp", {
+      agent: agent,
+    });
+
+    return ws;
+  }
+
+  subscribe(topic, func) {
+    this.ws.addListener(topic, func);
+    this.ws.send(JSON.stringify[(this.OPCODES.SUBSCRIBE, topic)]);
+  }
+
+  unsubscribe(topic, func) {
+    this.ws.removeListener(topic, func);
+    this.ws.send(JSON.stringify[(this.OPCODES.UNSUBSCRIBE, topic)]);
+  }
+}
+
+class NeedleworkConsole {
+  static signature = "Needlework: ";
+  static log(args) {
+    if (args instanceof Object) {
+      console.log(NeedleworkConsole.signature, args);
+    } else {
+      console.log(NeedleworkConsole.signature + args);
     }
   }
 }
