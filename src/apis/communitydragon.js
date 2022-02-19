@@ -8,13 +8,13 @@ export default class CommunityDragon {
     this.fileloader = new FileLoader();
   }
 
-  async getLootTable() {
+  async getLootTranslation() {
     const endpoint =
       "/latest/plugins/rcp-fe-lol-loot/global/default/trans.json";
     const file = await this.fileloader.load(
       this.baseURL + endpoint,
       paths.data,
-      paths.loottable,
+      paths.lootTranslation,
       "stream"
     );
 

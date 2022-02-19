@@ -13,6 +13,7 @@ export default createStore({
         disenchant: null,
         upgrade: null,
       },
+      lootTable: {},
     };
   },
   getters: {
@@ -37,6 +38,9 @@ export default createStore({
     beSum(state) {
       return state.beSum;
     },
+    lootTable(state) {
+      return state.lootTable;
+    },
   },
   mutations: {
     update(state, jsonMap) {
@@ -45,6 +49,9 @@ export default createStore({
     },
     setBalance(state, object) {
       state.beSum = object;
+    },
+    setLootTable(state, object) {
+      state.lootTable = object;
     },
   },
   actions: {},

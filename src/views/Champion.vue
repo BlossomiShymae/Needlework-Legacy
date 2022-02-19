@@ -2,9 +2,9 @@
   <div id="champion" class="ml4">
     <h2 class="title2">Champions</h2>
     <w-divider class="fill-width my2" />
-    <div class="loot-grid" v-if="champions">
+    <div class="loot-grid" v-if="translatedChampions">
       <ChampionCard
-        v-for="champion in champions"
+        v-for="champion in translatedChampions"
         :key="champion"
         :champion="champion"
       />
@@ -15,6 +15,7 @@
 <script>
 import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import ChampionCard from "@/components/ChampionCard";
 import { onUnmounted } from "@vue/runtime-core";
 
@@ -40,8 +41,10 @@ export default {
       });
     }
 
+    const translatedChampions = useTranslatedLoot(store, champions);
+
     return {
-      champions,
+      translatedChampions,
     };
   },
 };

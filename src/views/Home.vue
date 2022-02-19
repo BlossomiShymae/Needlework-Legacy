@@ -102,6 +102,10 @@ export default {
       playerLootMapObject.value
     );
 
+    const lootTable = ref(null);
+    lootTable.value = await window.ipcRenderer.invoke("cd-loot-translation");
+    store.commit("setLootTable", lootTable.value);
+
     return {
       currentSummoner,
       wallet,

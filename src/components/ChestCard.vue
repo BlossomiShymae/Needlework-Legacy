@@ -2,8 +2,8 @@
   <div id="chest-card">
     <BaseLootCard
       :src="src"
-      :name="chestName"
-      :loot-name="chest.lootName"
+      :name="lootName"
+      :loot-name="rawName"
       :type="chest.type"
       :count="chest.count"
     />
@@ -23,6 +23,10 @@ export default {
       type: Object,
       required: true,
     },
+    rawName: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -30,24 +34,11 @@ export default {
     };
   },
   computed: {
-    chestName() {
-      switch (this.chest?.type) {
-        case "CHAMPION_TOKEN":
-          return (
-            "Mastery " +
-            this.chest.lootName.charAt(this.chest.lootName.length - 1) +
-            " Token - " +
-            this.chest.itemDesc
-          );
-        case "CHEST":
-          switch (this.chest?.lootId) {
-            case "CHEST_128":
-              return "Champion Capsule";
-            case "CHEST_129":
-              return "Glorious Champion Capsule";
-          }
+    lootName() {
+      if (this.chest?.lootName.includes("Mastery")) {
+        return `${this.chest?.lootName} ${this.chest?.itemDesc}`;
       }
-      return "";
+      return this.chest?.lootName;
     },
   },
 };

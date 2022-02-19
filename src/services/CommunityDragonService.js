@@ -5,12 +5,12 @@ export default class CommunityDragonService {
   constructor() {
     this.communitydragon = new CommunityDragon();
 
-    this.lootTableHandler();
+    this.lootTranslationHandler();
   }
 
-  lootTableHandler() {
-    ipcMain.handle("cd-loot-table", (event) => {
-      return this.communitydragon.getLootTable();
+  lootTranslationHandler() {
+    ipcMain.handle("cd-loot-translation", (event) => {
+      return this.communitydragon.getLootTranslation();
     });
   }
 }
