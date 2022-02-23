@@ -2,7 +2,10 @@ module.exports = {
   css: {
     loaderOptions: {
       // `additionalData` was called `prependData` prior sass-loader 9.
-      sass: { prependData: '@import "@/scss/_variables.scss";' },
+      sass: {
+        prependData:
+          '@import "@/scss/_variables.scss"; @import "@/scss/_styles.scss";',
+      },
     },
   },
   pluginOptions: {

@@ -5,7 +5,7 @@
         <SummonerCard :current-summoner="currentSummoner" :wallet="wallet" />
       </Suspense>
       <div id="loot-button-grid">
-        <w-button>
+        <w-button @click="$router.push('/home/all')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/all.png"
             alt="All loot button"
@@ -23,37 +23,37 @@
             alt="Champion loot button"
           />
         </w-button>
-        <w-button>
+        <w-button @click="$router.push('/home/skin')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/skin.png"
             alt="Skin loot button"
           />
         </w-button>
-        <w-button>
+        <w-button @click="$router.push('/home/tactician')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/companion.png"
             alt="Companion loot button"
           />
         </w-button>
-        <w-button>
+        <w-button @click="$router.push('/home/eternal')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/eternals.png"
             alt="Eternals loot button"
           />
         </w-button>
-        <w-button>
+        <w-button @click="$router.push('/home/emote')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/emote.png"
             alt="Emote loot button"
           />
         </w-button>
-        <w-button>
+        <w-button @click="$router.push('/home/wardskin')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/wardskin.png"
             alt="Ward skin loot button"
           />
         </w-button>
-        <w-button>
+        <w-button @click="$router.push('/home/icon')">
           <img
             src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/summonericon.png"
             alt="Summoner loot button"
@@ -62,7 +62,9 @@
       </div>
     </div>
     <div id="right-grid-area">
-      <router-view></router-view>
+      <div id="overflow-router-view">
+        <router-view></router-view>
+      </div>
       <div id="flex-controls">
         <w-button> Disenchant all </w-button>
         <w-button> Disenchant </w-button>
@@ -116,6 +118,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#overflow-router-view {
+  overflow-y: scroll;
+}
 .home {
   margin: 1px;
   height: calc(100vh - 2px);

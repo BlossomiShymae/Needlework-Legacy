@@ -38,7 +38,14 @@ export default {
       if (this.chest?.lootName.includes("Mastery")) {
         return `${this.chest?.lootName} ${this.chest?.itemDesc}`;
       }
-      return this.chest?.lootName;
+      if (this.chest?.localizedName) {
+        return this.chest.localizedName;
+      }
+      if (this.chest?.lootId === "MATERIAL_key_fragment") {
+        if (this.chest?.count > 1) return "Key Fragments";
+        return "Key Fragment";
+      }
+      return this.chest?.lootName ?? "Unknown Material, Contact Dev";
     },
   },
 };

@@ -35,6 +35,18 @@ export default createStore({
     lootEmotes(state) {
       return filterMapByCategory(state.playerLootMap, "EMOTE");
     },
+    lootSkins(state) {
+      return filterMapByCategory(state.playerLootMap, "SKIN");
+    },
+    lootIcons(state) {
+      return filterMapByCategory(state.playerLootMap, "ICON");
+    },
+    lootWardSkins(state) {
+      return filterMapByCategory(state.playerLootMap, "WARD_SKIN");
+    },
+    lootTacticians(state) {
+      return filterMapByCategory(state.playerLootMap, "COMPANION");
+    },
     beSum(state) {
       return state.beSum;
     },

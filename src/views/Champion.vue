@@ -1,8 +1,8 @@
 <template>
-  <div id="champion" class="ml4">
+  <div class="loot-view-component">
     <h2 class="title2">Champions</h2>
     <w-divider class="fill-width my2" />
-    <div class="loot-grid" v-if="translatedChampions">
+    <div class="loot-dynamic-grid-subcomponent" v-if="translatedChampions">
       <ChampionCard
         v-for="champion in translatedChampions"
         :key="champion"

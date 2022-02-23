@@ -38,12 +38,4 @@ html {
     }
   }
 }
-
-.loot-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 100px;
-  gap: 20px;
-}
 </style>

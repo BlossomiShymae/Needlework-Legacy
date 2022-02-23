@@ -1,8 +1,8 @@
 <template>
-  <div id="material" class="ml4">
+  <div class="loot-view-component">
     <h2 class="title2">Materials</h2>
     <w-divider class="fill-width my2" />
-    <div class="loot-grid" v-if="translatedChests">
+    <div class="loot-dynamic-grid-subcomponent" v-if="translatedChests">
       <ChestCard
         v-for="(chest, index) in translatedChests"
         :key="chest"
@@ -31,6 +31,8 @@ export default {
 
     const translatedChests = useTranslatedLoot(store, chests);
 
+    console.log(translatedChests.value);
+
     return {
       translatedChests,
       chests,
@@ -40,10 +42,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#material {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  overflow-y: auto;
-}
 </style>

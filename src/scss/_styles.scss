@@ -1,0 +1,16 @@
+@import "wave-ui/src/wave-ui/scss/_variables";
+
+.loot-view-component {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 8px;
+}
+
+.loot-dynamic-grid-subcomponent {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 100px;
+  gap: 20px;
+}
