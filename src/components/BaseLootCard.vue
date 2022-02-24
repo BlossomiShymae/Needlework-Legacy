@@ -54,11 +54,13 @@ export default {
 
 <style lang="scss" scoped>
 .loot-item {
+  --card-border-radius: 0.5rem;
+
   position: relative;
   width: 100px;
   height: 100px;
   background-color: $app-base-card-color;
-  border-radius: 0.5rem;
+  border-radius: var(--card-border-radius);
   box-shadow: 2px 2px 8px inset grey;
 
   img {
@@ -75,38 +77,39 @@ export default {
     padding: 6px;
     right: 0;
     bottom: 0;
+    border-radius: 50% 0 var(--card-border-radius) 0;
   }
-}
 
-#menu-actions {
-  .action {
-    background-color: white;
-    padding: 4px;
-    text-align: left;
-    width: 100%;
+  #menu-actions {
+    .action {
+      background-color: white;
+      padding: 4px;
+      text-align: left;
+      width: 100%;
 
-    filter: brightness(100%);
-    transition: filter 0.25s ease-in-out;
+      filter: brightness(100%);
+      transition: filter 0.25s ease-in-out;
 
-    &:hover {
-      filter: brightness(87.5%);
+      &:hover {
+        filter: brightness(87.5%);
+      }
     }
   }
-}
 
-.shimmer {
-  animation: shimmer 6s infinite cubic-bezier(0.19, 1, 0.22, 1);
-}
+  .shimmer {
+    animation: shimmer 6s infinite cubic-bezier(0.19, 1, 0.22, 1);
+  }
 
-@keyframes shimmer {
-  0% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.25);
-  }
-  100% {
-    filter: brightness(1);
+  @keyframes shimmer {
+    0% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.25);
+    }
+    100% {
+      filter: brightness(1);
+    }
   }
 }
 </style>

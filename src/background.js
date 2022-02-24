@@ -45,6 +45,8 @@ async function createWindow() {
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
   }
+
+  // win.setMenu(null);
 }
 
 function registerLocalResourceProtocol() {

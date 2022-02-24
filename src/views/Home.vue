@@ -79,6 +79,7 @@
 
 <script>
 import { ref } from "vue";
+import router from "@/router/index.js";
 import SummonerCard from "@/components/SummonerCard";
 import store from "@/store/index";
 
@@ -107,6 +108,8 @@ export default {
     const lootTable = ref(null);
     lootTable.value = await window.ipcRenderer.invoke("cd-loot-translation");
     store.commit("setLootTable", lootTable.value);
+
+    router.push("/home/all");
 
     return {
       currentSummoner,
