@@ -1,7 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <h2 class="title2">Eternals</h2>
-    <w-divider class="fill-width my2"></w-divider>
+    <ContentCard><h2 class="title2">Eternals</h2></ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedEternals">
       <EternalCard
         v-for="eternal in translatedEternals"
@@ -17,11 +16,13 @@ import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import EternalCard from "@/components/EternalCard";
+import ContentCard from '@/components/ContentCard';
 
 export default {
   name: "Eternal",
   components: {
     EternalCard,
+    ContentCard
   },
   data() {
     return {

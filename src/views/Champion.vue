@@ -1,7 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <h2 class="title2">Champions</h2>
-    <w-divider class="fill-width my2" />
+    <ContentCard><h2 class="title2">Champions</h2></ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedChampions">
       <ChampionCard
         v-for="champion in translatedChampions"
@@ -18,11 +17,13 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import ChampionCard from "@/components/ChampionCard";
 import { onUnmounted } from "@vue/runtime-core";
+import ContentCard from "@/components/ContentCard";
 
 export default {
   name: "Champion",
   components: {
     ChampionCard,
+    ContentCard,
   },
   setup() {
     const store = useStore();

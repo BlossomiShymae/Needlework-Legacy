@@ -1,7 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <h2 class="title2">Emotes</h2>
-    <w-divider class="fill-width my2"></w-divider>
+    <ContentCard> <h2 class="title2">Emotes</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedEmotes">
       <EmoteCard
         v-for="emote in translatedEmotes"
@@ -17,11 +16,13 @@ import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import EmoteCard from "@/components/EmoteCard";
+import ContentCard from "@/components/ContentCard";
 
 export default {
   name: "Emote",
   components: {
     EmoteCard,
+    ContentCard,
   },
   data() {
     return {

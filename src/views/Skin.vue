@@ -1,7 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <h2 class="title2">Skins</h2>
-    <w-divider class="fill-width my2"></w-divider>
+    <ContentCard> <h2 class="title2">Skins</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedSkins">
       <SkinCard v-for="skin in translatedSkins" :key="skin" :skin="skin" />
     </div>
@@ -13,11 +12,13 @@ import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import SkinCard from "@/components/SkinCard";
+import ContentCard from "@/components/ContentCard";
 
 export default {
   name: "Skin",
   components: {
     SkinCard,
+    ContentCard,
   },
   data() {
     return {

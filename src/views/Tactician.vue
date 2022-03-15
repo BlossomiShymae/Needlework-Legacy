@@ -1,17 +1,16 @@
 <template>
   <div class="loot-view-component">
-    <h2 class="title2">Tacticians</h2>
-    <w-divider class="fill-width my2"></w-divider>
+    <ContentCard> <h2 class="title2">Tacticians</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedTacticians">
       <BaseLootCard
-      v-for="(tactician, index) in translatedTacticians"
-      :key="tactician"
-      :src="src"
-      :name="tactician.lootName"
-      :loot-name="tacticians[index].lootName"
-      :type="tactician.type"
-      :count="tactician.count"
-       />
+        v-for="(tactician, index) in translatedTacticians"
+        :key="tactician"
+        :src="src"
+        :name="tactician.lootName"
+        :loot-name="tacticians[index].lootName"
+        :type="tactician.type"
+        :count="tactician.count"
+      />
     </div>
   </div>
 </template>
@@ -21,11 +20,13 @@ import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import BaseLootCard from "@/components/BaseLootCard";
+import ContentCard from "@/components/ContentCard";
 
 export default {
   name: "Tactician",
   components: {
     BaseLootCard,
+    ContentCard,
   },
   data() {
     return {

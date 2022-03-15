@@ -1,7 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <h2 class="title2">Materials</h2>
-    <w-divider class="fill-width my2" />
+    <ContentCard> <h2 class="title2">Materials</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedChests">
       <ChestCard
         v-for="(chest, index) in translatedChests"
@@ -18,11 +17,13 @@ import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import ChestCard from "@/components/ChestCard";
+import ContentCard from "@/components/ContentCard";
 
 export default {
   name: "Material",
   components: {
     ChestCard,
+    ContentCard,
   },
   setup() {
     const store = useStore();
