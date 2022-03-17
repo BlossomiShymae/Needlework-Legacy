@@ -1,12 +1,9 @@
-import fs from "fs";
-import path from "path";
 import WebSocket from "ws";
 const axios = require("axios");
 const https = require("https");
 const exec = require("child_process").execSync;
-const { app } = require("electron");
 import paths from "../static/paths";
-import FileLoader from "../libs/FileLoader";
+import DynamicFileService from "../services/DynamicFileService";
 
 const WS_OPCODES = Object.freeze({
   WELCOME: 0,
@@ -22,8 +19,14 @@ const WS_OPCODES = Object.freeze({
 
 export default class NeedleworkLCU {
   constructor() {
-    this.clientHTTPS = new LeagueClientHTTPS();
+    this.clientHTTPS = null;
     // this.clientWS = new LeagueClientWebSocket();
+  }
+
+  async initialize() {
+    const https = new LeagueClientHTTPS();
+    await https.initialize();
+    this.clientHTTPS = https;
   }
 
   get currentSummoner() {
@@ -52,10 +55,13 @@ class LeagueClientAuth {
     this.auth = _data.auth;
     this.port = _data.port;
     this.token = _data.token;
-
-    this.agent = this.createAgent();
+    this.agent = null;
 
     LeagueClientAuth._instance = this;
+  }
+
+  async initialize() {
+    this.agent = await this.createAgent();
   }
 
   isClientActive() {
@@ -102,47 +108,36 @@ class LeagueClientAuth {
     }
   }
 
-  createAgent() {
-    const agent = (path) => {
-      return new https.Agent({ ca: fs.readFileSync(path) });
-    };
+  async createAgent() {
+    const url = "https://static.developer.riotgames.com/docs/lol/riotgames.pem";
+    const file = new DynamicFileService({
+      url,
+      responseType: "stream",
+      filePath: paths.certificate,
+    });
 
-    try {
-      if (!fs.existsSync(paths.data)) {
-        fs.mkdirSync(paths.data);
-      }
+    const buffer = await file.toBuffer();
 
-      // Check if cached certificate is missing
-      if (!fs.existsSync(paths.certificate)) {
-        // Get certificate
-        const certificateURL =
-          "https://static.developer.riotgames.com/docs/lol/riotgames.pem";
-        const wfile = fs.createWriteStream(paths.certificate);
-        const request = https.get(certificateURL, (response) => {
-          response.pipe(wfile);
-        });
-
-        wfile.on("finish", () => {
-          return agent(paths.certificate);
-        });
-      } else {
-        return agent(paths.certificate);
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    return new https.Agent({ ca: buffer });
   }
 }
 
 class LeagueClientHTTPS {
   constructor() {
-    this.leagueClientAuth = new LeagueClientAuth();
-    this.https = axios;
+    this.leagueClientAuth = null;
+    this.instance = null;
+  }
+
+  async initialize() {
+    const auth = new LeagueClientAuth();
+    await auth.initialize();
+    this.leagueClientAuth = auth;
+
     this.instance = this.createInstance();
   }
 
   createInstance() {
-    return this.https.create({
+    return axios.create({
       baseURL: "https://127.0.0.1:" + this.leagueClientAuth.port,
       timeout: 1000,
       headers: { authorization: "Basic " + this.leagueClientAuth.auth },

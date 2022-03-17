@@ -1,30 +1,33 @@
+import DynamicFileService from "../services/DynamicFileService";
+import paths from "../static/paths";
+import path from "path";
 const axios = require("axios");
 
 export default class DataDragon {
   constructor() {
+    this.baseURL = "https://ddragon.leagueoflegends.com";
     this.instance = axios.create({
-      baseURL: "https://ddragon.leagueoflegends.com",
+      baseURL: this.baseURL,
       timeout: 5000,
     });
-
     this.latestVersion = null;
 
     this.getLatestVersion();
   }
 
-  async profileIcon(id) {
-    // Check if stored in data cache before accessing DataDragon.
-    try {
-      const path =
-        "/cdn/" + this.latestVersion + "/img/profileicon/" + id + ".png";
-      const response = await this.instance.get(path, {
-        responseType: "arraybuffer",
-      });
+  async getProfileIcon(id) {
+    const endpoint =
+      "/cdn/" + this.latestVersion + "/img/profileicon/" + id + ".png";
 
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
+    const file = new DynamicFileService({
+      url: this.baseURL + endpoint,
+      responseType: "stream",
+      filePath: path.join(paths.data, "profileicon_" + id + ".png"),
+    });
+
+    const buffer = await file.toBuffer();
+
+    return buffer;
   }
 
   async getLatestVersion() {

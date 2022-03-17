@@ -3,7 +3,13 @@ import { ipcMain } from "electron";
 
 export default class NeedleworkService {
   constructor() {
-    this.needlework = new NeedleworkLCU();
+    this.needlework = null;
+  }
+
+  async initialize() {
+    const needlework = new NeedleworkLCU();
+    await needlework.initialize();
+    this.needlework = needlework;
 
     this.currentSummonerHandler();
     this.walletHandler();

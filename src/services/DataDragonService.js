@@ -10,7 +10,7 @@ export default class DataDragonService {
 
   profileIconHandler() {
     ipcMain.handle("dd-profile-icon", (event, id) => {
-      return this.datadragon.profileIcon(id);
+      return this.datadragon.getProfileIcon(id);
     });
   }
 }

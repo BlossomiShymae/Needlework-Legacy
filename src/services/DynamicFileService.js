@@ -9,12 +9,13 @@ export default class DynamicFileService extends FileService {
   }
 
   async toBuffer() {
-    const buffer = super.toBuffer();
+    let buffer = super.toBuffer();
 
     if (buffer == null) {
       // Download file if not found
       const response = await this.fileDownloader.download();
       await this.fileWriter.write(response);
+      buffer = super.toBuffer();
     }
 
     return buffer;

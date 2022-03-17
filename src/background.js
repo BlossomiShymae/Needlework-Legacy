@@ -9,15 +9,19 @@ import DataDragonService from "./services/DataDragonService";
 import CommunityDragonService from "./services/CommunityDragonService";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
-// Service modules
-const apiService = new NeedleworkService();
-const ddService = new DataDragonService();
-const cdService = new CommunityDragonService();
-
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
+
+async function initializeServices() {
+  // Service modules
+  const apiService = new NeedleworkService();
+  await apiService.initialize();
+
+  const ddService = new DataDragonService();
+  const cdService = new CommunityDragonService();
+}
 
 async function createWindow() {
   // Create the browser window.
@@ -92,6 +96,7 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
+  await initializeServices();
   registerLocalResourceProtocol();
   createWindow();
 });
