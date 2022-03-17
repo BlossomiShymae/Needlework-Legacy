@@ -17,6 +17,6 @@ export default class DynamicFileService extends FileService {
       await this.fileWriter.write(response);
     }
 
-    return this.fileReader.read();
+    return buffer;
   }
 }
