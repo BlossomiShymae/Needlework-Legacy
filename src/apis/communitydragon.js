@@ -1,23 +1,22 @@
-const axios = require("axios");
 import paths from "../static/paths";
-import FileLoader from "../libs/FileLoader";
-
+import DynamicFileService from "../services/DynamicFileService";
 export default class CommunityDragon {
   constructor() {
     this.baseURL = "https://raw.communitydragon.org";
-    this.fileloader = new FileLoader();
   }
 
   async getLootTranslation() {
     const endpoint =
       "/latest/plugins/rcp-fe-lol-loot/global/default/trans.json";
-    const file = await this.fileloader.load(
-      this.baseURL + endpoint,
-      paths.data,
-      paths.lootTranslation,
-      "stream"
-    );
 
-    return JSON.parse(file);
+    const file = new DynamicFileService({
+      url: this.baseURL + endpoint,
+      responseType: "stream",
+      filePath: paths.lootTranslation,
+    });
+
+    const buffer = await file.toBuffer();
+
+    return JSON.parse(buffer);
   }
 }
