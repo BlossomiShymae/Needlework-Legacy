@@ -39,6 +39,10 @@ export default class FileDownloader {
         responseType: this.responseType,
       });
 
+      console.log(
+        `FileDownloader: Downloading file by ${this.responseType} from ${this.url}`
+      );
+
       return await response;
     } catch (error) {
       console.error(error);
