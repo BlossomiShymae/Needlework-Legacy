@@ -2,7 +2,7 @@
   <w-menu arrow left shadow id="base-loot-card">
     <template #activator="{ on }">
       <div class="loot-item" v-on="on">
-        <img :src="src" class="shimmer" />
+        <img :src="tileIcon" class="shimmer" />
         <p class="body loot-count">x{{ count }}</p>
       </div>
     </template>
@@ -25,10 +25,13 @@
 </template>
 
 <script>
+import { toRefs } from "vue";
+import useTileIcon from "@/composables/useTileIcon";
+
 export default {
   name: "BaseLootCard",
   props: {
-    src: {
+    tileIconPath: {
       type: String,
       required: true,
     },
@@ -48,6 +51,15 @@ export default {
       type: String,
       required: true,
     },
+  },
+  async setup(props) {
+    const { tileIconPath } = toRefs(props);
+
+    const { tileIcon } = await useTileIcon(tileIconPath);
+
+    return {
+      tileIcon,
+    };
   },
 };
 </script>

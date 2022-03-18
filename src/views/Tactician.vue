@@ -2,15 +2,17 @@
   <div class="loot-view-component">
     <ContentCard> <h2 class="title2">Tacticians</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedTacticians">
-      <BaseLootCard
-        v-for="(tactician, index) in translatedTacticians"
-        :key="tactician"
-        :src="src"
-        :name="tactician.lootName"
-        :loot-name="tacticians[index].lootName"
-        :type="tactician.type"
-        :count="tactician.count"
-      />
+      <Suspense>
+        <BaseLootCard
+          v-for="(tactician, index) in translatedTacticians"
+          :key="tactician"
+          :tileIconPath="tactician.tilePath"
+          :name="tactician.lootName"
+          :loot-name="tacticians[index].lootName"
+          :type="tactician.type"
+          :count="tactician.count"
+        />
+      </Suspense>
     </div>
   </div>
 </template>
@@ -27,11 +29,6 @@ export default {
   components: {
     BaseLootCard,
     ContentCard,
-  },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
   },
   setup() {
     const store = useStore();

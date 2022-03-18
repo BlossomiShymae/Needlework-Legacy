@@ -1,12 +1,14 @@
 <template>
   <div id="chest-card">
-    <BaseLootCard
-      :src="src"
-      :name="lootName"
-      :loot-name="rawName"
-      :type="chest.type"
-      :count="chest.count"
-    />
+    <Suspense>
+      <BaseLootCard
+        :tileIconPath="chest.tilePath"
+        :name="lootName"
+        :loot-name="rawName"
+        :type="chest.type"
+        :count="chest.count"
+      />
+    </Suspense>
   </div>
 </template>
 
@@ -27,11 +29,6 @@ export default {
       type: String,
       required: true,
     },
-  },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
   },
   computed: {
     lootName() {

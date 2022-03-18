@@ -1,12 +1,14 @@
 <template>
   <div id="eternal-card">
-    <BaseLootCard
-      :src="src"
-      :name="eternal.localizedName"
-      :loot-name="eternal.lootName"
-      :type="eternal.type"
-      :count="eternal.count"
-    />
+    <Suspense>
+      <BaseLootCard
+        :tileIconPath="eternal.tilePath"
+        :name="eternal.localizedName"
+        :loot-name="eternal.lootName"
+        :type="eternal.type"
+        :count="eternal.count"
+      />
+    </Suspense>
   </div>
 </template>
 
@@ -23,11 +25,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
   },
 };
 </script>

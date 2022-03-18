@@ -2,15 +2,17 @@
   <div class="loot-view-component">
     <ContentCard> <h2 class="title2">Icons</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedIcons">
-      <BaseLootCard
-        v-for="(icon, index) in translatedIcons"
-        :key="icon"
-        :src="src"
-        :name="icon.lootName"
-        :loot-name="icons[index].lootName"
-        :type="icon.type"
-        :count="icon.count"
-      />
+      <Suspense>
+        <BaseLootCard
+          v-for="(icon, index) in translatedIcons"
+          :key="icon"
+          :tileIconPath="icon.tilePath"
+          :name="icon.lootName"
+          :loot-name="icons[index].lootName"
+          :type="icon.type"
+          :count="icon.count"
+        />
+      </Suspense>
     </div>
   </div>
 </template>
@@ -27,11 +29,6 @@ export default {
   components: {
     BaseLootCard,
     ContentCard,
-  },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
   },
   setup() {
     const store = useStore();

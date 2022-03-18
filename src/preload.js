@@ -15,6 +15,7 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
       "player-loot-map",
       "dd-profile-icon",
       "cd-loot-translation",
+      "cd-tile-icon",
     ];
     if (validChannels.includes(channel)) {
       return await ipcRenderer.invoke(channel, data);

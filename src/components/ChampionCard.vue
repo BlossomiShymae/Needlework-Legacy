@@ -1,12 +1,14 @@
 <template>
   <div id="champion-card">
-    <BaseLootCard
-      :src="src"
-      :name="champion.itemDesc"
-      :loot-name="champion.lootName"
-      :type="champion.type"
-      :count="champion.count"
-    />
+    <Suspense>
+      <BaseLootCard
+        :tileIconPath="champion.tilePath"
+        :name="champion.itemDesc"
+        :loot-name="champion.lootName"
+        :type="champion.type"
+        :count="champion.count"
+      />
+    </Suspense>
   </div>
 </template>
 
@@ -23,11 +25,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
   },
 };
 </script>

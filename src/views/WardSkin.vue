@@ -2,15 +2,17 @@
   <div class="loot-view-component">
     <ContentCard> <h2 class="title2">Ward Skins</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedWardSkins">
-      <BaseLootCard
-        v-for="(wardSkin, index) in translatedWardSkins"
-        :key="wardSkin"
-        :src="src"
-        :name="wardSkin.lootName"
-        :loot-name="wardSkins[index].lootName"
-        :type="wardSkin.type"
-        :count="wardSkin.count"
-      />
+      <Suspense>
+        <BaseLootCard
+          v-for="(wardSkin, index) in translatedWardSkins"
+          :key="wardSkin"
+          :tileIconPath="wardSkin.tilePath"
+          :name="wardSkin.lootName"
+          :loot-name="wardSkins[index].lootName"
+          :type="wardSkin.type"
+          :count="wardSkin.count"
+        />
+      </Suspense>
     </div>
   </div>
 </template>
@@ -27,11 +29,6 @@ export default {
   components: {
     BaseLootCard,
     ContentCard,
-  },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
   },
   setup() {
     const store = useStore();

@@ -2,7 +2,12 @@ import { app } from "electron";
 import path from "path";
 
 // Snip-Snip application data folder
-const appdata = app.getPath("userData");
+const appdata =
+  app?.getPath("userData") ??
+  (path.join(process.env.APPDATA, "snip-snip") ||
+    (process.platform == "darwin"
+      ? process.env.HOME + "/Library/Preferences"
+      : process.env.HOME + "/.local/share"));
 
 // Data subfolder
 const data = path.join(appdata, "data");
