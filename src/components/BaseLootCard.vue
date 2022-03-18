@@ -2,8 +2,9 @@
   <w-menu arrow left shadow id="base-loot-card">
     <template #activator="{ on }">
       <div class="loot-item" v-on="on">
-        <img :src="tileIcon" class="shimmer" />
-        <p class="body loot-count">x{{ count }}</p>
+        <img :src="tileIcon" class="tile-icon shimmer" />
+        <div class="icon-overlay"></div>
+        <p class="loot-count">x{{ count }}</p>
       </div>
     </template>
     <div class="text-left lh2" id="menu">
@@ -67,29 +68,49 @@ export default {
 <style lang="scss" scoped>
 .loot-item {
   --card-border-radius: 0.5rem;
+  --card-width: 100px;
+  --card-height: 100px;
 
   position: relative;
-  width: 100px;
-  height: 100px;
-  background-color: $app-base-card-color;
-  border-radius: var(--card-border-radius);
-  box-shadow: 2px 2px 8px inset grey;
+  width: var(--card-width);
+  height: var(--card-height);
 
-  img {
-    position: relative;
-    z-index: 10;
+  .tile-icon {
+    position: absolute;
+    height: var(--card-height);
+    width: var(--card-width);
+    top: 0;
+    left: 0;
+
+    border-radius: var(--card-border-radius);
     image-rendering: -webkit-optimize-contrast;
-    width: 95%;
-    height: auto;
+    z-index: 97;
+  }
+
+  .icon-overlay {
+    position: absolute;
+    height: var(--card-height);
+    width: var(--card-width);
+    top: 0;
+    left: 0;
+
+    border-radius: var(--card-border-radius);
+    box-shadow: 2px 2px 8px inset black;
+    z-index: 98;
   }
 
   .loot-count {
     position: absolute;
-    background-color: $app-palette-color3;
+    font-size: 1rem;
+    color: white;
+    font-family: "Consolas", sans-serif;
+    text-shadow: 2px 2px 2px #000, -1px -1px 2px #000, 1px -1px 0 #000,
+      -1px 1px 0 #000, 1px 1px 0 #000;
     padding: 6px;
     right: 0;
     bottom: 0;
     border-radius: 50% 0 var(--card-border-radius) 0;
+    z-index: 99;
   }
 
   #menu-actions {
