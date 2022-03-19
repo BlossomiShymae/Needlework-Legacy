@@ -129,7 +129,7 @@ export default {
 .swap-leave-active {
   position: absolute;
   width: 99%;
-  height: 100%;
+  height: calc(88.8889% - 10px);
   overflow-y: scroll;
 
   transition: transform 0.5s ease-in-out;
@@ -140,7 +140,7 @@ export default {
 .swap-leave-to {
   position: absolute;
   width: 99%;
-  height: 100%;
+  height: calc(88.8889% - 10px);
 
   transform: translateX(100%);
 }
