@@ -39,13 +39,16 @@ export default createStore({
       return filterMapByCategory(state.playerLootMap, "SKIN");
     },
     lootIcons(state) {
-      return filterMapByCategory(state.playerLootMap, "ICON");
+      return filterMapByCategory(state.playerLootMap, "SUMMONERICON");
     },
     lootWardSkins(state) {
-      return filterMapByCategory(state.playerLootMap, "WARD_SKIN");
+      return filterMapByCategory(state.playerLootMap, "WARDSKIN");
     },
     lootTacticians(state) {
       return filterMapByCategory(state.playerLootMap, "COMPANION");
+    },
+    lootOthers(state) {
+      return filterMapByCategory(state.playerLootMap, "OTHER");
     },
     beSum(state) {
       return state.beSum;
