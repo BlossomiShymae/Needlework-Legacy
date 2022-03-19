@@ -42,6 +42,9 @@ export default {
         if (this.chest?.count > 1) return "Key Fragments";
         return "Key Fragment";
       }
+      if (this.chest?.lootName === "CHEST_212") {
+        return "Glorious Champion Capsule - Gemstone";
+      }
       return this.chest?.lootName ?? "Unknown Material, Contact Dev";
     },
   },
