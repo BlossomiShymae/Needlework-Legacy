@@ -63,7 +63,11 @@
     </div>
     <div id="right-grid-area">
       <div id="overflow-router-view">
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+          <transition name="swap">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </div>
       <div id="flex-controls">
         <w-button> Disenchant all </w-button>
@@ -121,6 +125,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.swap-enter-active,
+.swap-leave-active {
+  position: absolute;
+  width: 99%;
+  height: 100%;
+  overflow-y: scroll;
+
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(0);
+}
+
+.swap-enter-from,
+.swap-leave-to {
+  position: absolute;
+  width: 99%;
+  height: 100%;
+
+  transform: translateX(100%);
+}
+
 #overflow-router-view {
   overflow-y: scroll;
 }

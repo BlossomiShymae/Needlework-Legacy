@@ -43,14 +43,15 @@ async function createWindow() {
     const options = {
       mode: "detach",
     };
-    if (!process.env.IS_TEST) win.webContents.openDevTools(options);
+    if (!process.env.IS_TEST) {
+      win.webContents.openDevTools(options);
+    }
   } else {
     createProtocol("app");
     // Load the index.html when not in development
     win.loadURL("app://./index.html");
+    win.setMenu(null);
   }
-
-  win.setMenu(null);
 }
 
 function registerLocalResourceProtocol() {
