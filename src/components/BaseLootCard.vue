@@ -104,8 +104,10 @@ export default {
     font-size: 1rem;
     color: white;
     font-family: "Consolas", sans-serif;
+    font-weight: bold;
     text-shadow: 2px 2px 2px #000, -1px -1px 2px #000, 1px -1px 0 #000,
-      -1px 1px 0 #000, 1px 1px 0 #000;
+      -1px 1px 0 #000, 1px 1px 0 #000, 2px 2px 2px #000, -1px -1px 2px #000,
+      1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     padding: 6px;
     right: 0;
     bottom: 0;
