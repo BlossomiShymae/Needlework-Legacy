@@ -128,11 +128,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.home {
+  // Where is the magic number of 7px coming from? ?.?
+  // 88.8889% is determined from 8fr 1fr #right-grid-area.
+  --swap-height: calc(88.8889% - 7px);
+}
 .swap-enter-active,
 .swap-leave-active {
   position: absolute;
   width: 99%;
-  height: calc(88.8889% - 10px);
+  height: calc(var(--swap-height) - $window-button-bar-height);
   overflow-y: scroll;
 
   transition: transform 0.5s ease-in-out;
@@ -143,7 +148,7 @@ export default {
 .swap-leave-to {
   position: absolute;
   width: 99%;
-  height: calc(88.8889% - 10px);
+  height: calc(var(--swap-height) - $window-button-bar-height);
 
   transform: translateX(100%);
 }

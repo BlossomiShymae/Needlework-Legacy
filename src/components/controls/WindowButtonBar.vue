@@ -40,11 +40,12 @@ function exitApplication() {
   top: -1px;
   right: 0;
   z-index: 9999;
+  height: $window-button-bar-height;
   background-color: transparent;
 
   .window-button {
+    height: inherit;
     width: 36px;
-    height: 20px;
     background-color: $app-base-card-color;
     color: $app-palette-color1;
     border: 0;
