@@ -63,7 +63,7 @@
       </div>
     </div>
     <div id="right-grid-area">
-      <div id="overflow-router-view">
+      <div id="loot-view-router">
         <router-view v-slot="{ Component }">
           <transition name="swap">
             <component :is="Component" />
@@ -153,8 +153,9 @@ export default {
   transform: translateX(100%);
 }
 
-#overflow-router-view {
+#loot-view-router {
   overflow-y: scroll;
+  padding-left: 8px;
 }
 
 .home {
