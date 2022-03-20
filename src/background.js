@@ -7,6 +7,7 @@ import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import NeedleworkService from "./services/NeedleworkService";
 import DataDragonService from "./services/DataDragonService";
 import CommunityDragonService from "./services/CommunityDragonService";
+import ElectronService from "./services/ElectronService";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
@@ -21,13 +22,19 @@ async function initializeServices() {
 
   const ddService = new DataDragonService();
   const cdService = new CommunityDragonService();
+  const electronService = new ElectronService();
+
+  return electronService;
 }
 
 async function createWindow() {
+  // Frameless for release, framed for testing.
+  const isFrame = process.env.WEBPACK_DEV_SERVER_URL ? true : false;
   // Create the browser window.
   const win = new BrowserWindow({
     width: 1280,
     height: 720,
+    frame: isFrame,
     webPreferences: {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
@@ -52,6 +59,8 @@ async function createWindow() {
     win.loadURL("app://./index.html");
     win.setMenu(null);
   }
+
+  return win;
 }
 
 function registerLocalResourceProtocol() {
@@ -97,9 +106,9 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
-  await initializeServices();
+  const electronService = await initializeServices();
   registerLocalResourceProtocol();
-  createWindow();
+  electronService.setWindow(await createWindow());
 });
 
 // Exit cleanly on request from parent process in development mode.

@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <WindowButtonBar />
     <div id="left-grid-area">
       <Suspense>
         <SummonerCard :current-summoner="currentSummoner" :wallet="wallet" />
@@ -85,12 +86,14 @@
 import { ref } from "vue";
 import router from "@/router/index.js";
 import SummonerCard from "@/components/SummonerCard";
+import WindowButtonBar from "@/components/controls/WindowButtonBar";
 import store from "@/store/index";
 
 export default {
   name: "Home",
   components: {
     SummonerCard,
+    WindowButtonBar,
   },
   async setup() {
     const currentSummoner = ref(null);
@@ -148,6 +151,7 @@ export default {
 #overflow-router-view {
   overflow-y: scroll;
 }
+
 .home {
   margin: 1px;
   height: calc(100vh - 2px);
@@ -171,6 +175,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 8fr 1fr;
+    padding-top: 20px;
     row-gap: 10px;
     overflow: hidden;
 
