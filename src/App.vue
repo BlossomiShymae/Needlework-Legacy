@@ -48,7 +48,8 @@ html {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  opacity: 1;
+  transition: opacity 0.33s ease;
 }
 
 .fade-enter-from,
