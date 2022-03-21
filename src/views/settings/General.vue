@@ -13,7 +13,12 @@ export default {
 </script>
 
 <script setup>
-let darkMode = false;
+import { useStore } from "vuex";
+import useSettings from "@/composables/useSettings";
+
+const store = useStore();
+
+const { darkMode } = useSettings(store);
 </script>
 
 <style lang="scss" scoped>

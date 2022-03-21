@@ -18,6 +18,8 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
       "cd-tile-icon",
       "app-minimize-window",
       "app-exit-application",
+      "app-get-store",
+      "app-set-store",
     ];
     if (validChannels.includes(channel)) {
       return await ipcRenderer.invoke(channel, data);

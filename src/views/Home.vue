@@ -88,6 +88,7 @@ import router from "@/router/index.js";
 import SummonerCard from "@/components/SummonerCard";
 import WindowButtonBar from "@/components/controls/WindowButtonBar";
 import store from "@/store/index";
+import useSettings from "@/composables/useSettings";
 
 export default {
   name: "Home",
@@ -96,6 +97,12 @@ export default {
     WindowButtonBar,
   },
   async setup() {
+    // Init global app state
+    const sourceState = ref(null);
+    sourceState.value = await window.ipcRenderer.invoke("app-get-store");
+    const { setStore } = useSettings(store);
+    setStore(sourceState);
+
     const currentSummoner = ref(null);
     const wallet = ref(null);
 

@@ -8,6 +8,7 @@ import NeedleworkService from "./services/NeedleworkService";
 import DataDragonService from "./services/DataDragonService";
 import CommunityDragonService from "./services/CommunityDragonService";
 import ElectronService from "./services/ElectronService";
+import ElectronStoreService from "./services/ElectronStoreService";
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Scheme must be registered before the app is ready
@@ -23,6 +24,7 @@ async function initializeServices() {
   const ddService = new DataDragonService();
   const cdService = new CommunityDragonService();
   const electronService = new ElectronService();
+  const electronStoreService = ElectronStoreService.getInstance();
 
   return electronService;
 }

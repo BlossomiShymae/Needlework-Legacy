@@ -1,4 +1,6 @@
 import { createStore } from "vuex";
+import settings from "./modules/settings";
+import createIpcRendererPlugin from "./plugins/createIpcRendererPlugin";
 
 const filterMapByCategory = (playerLootMap, category) => {
   const array = Array.from(playerLootMap.values());
@@ -70,5 +72,8 @@ export default createStore({
     },
   },
   actions: {},
-  modules: {},
+  modules: {
+    settings: settings,
+  },
+  plugins: [createIpcRendererPlugin],
 });
