@@ -1,16 +1,22 @@
 import themes from "../themes";
+import types from "./types";
 
+// User Configuration Settings
+//
+// Properties must include a TYPE from 'types' and a default value.
+// Config object is injected as a schema into ElectronStore,
+//                           as a init state into Vuex,
 const config = Object.freeze({
   darkMode: {
-    type: "boolean",
+    type: types.BOOLEAN,
     default: false,
   },
   debugMode: {
-    type: "boolean",
+    type: types.BOOLEAN,
     default: false,
   },
   selectedTheme: {
-    type: "string",
+    type: types.STRING,
     default: themes.keys().next().value,
   },
 });
