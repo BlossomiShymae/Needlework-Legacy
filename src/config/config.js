@@ -1,3 +1,5 @@
+import themes from "../themes";
+
 const config = Object.freeze({
   darkMode: {
     type: "boolean",
@@ -6,6 +8,10 @@ const config = Object.freeze({
   debugMode: {
     type: "boolean",
     default: false,
+  },
+  selectedTheme: {
+    type: "string",
+    default: themes.keys().next().value,
   },
 });
 
@@ -24,7 +30,6 @@ const vuexInjector = (config) => {
   for (const property in config) {
     object[property] = config[property].default;
   }
-  console.log(object);
   return object;
 };
 

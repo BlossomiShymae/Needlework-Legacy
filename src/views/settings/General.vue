@@ -2,6 +2,11 @@
   <div id="general-settings" class="settings-view-component">
     <h2 class="title2">General</h2>
     <h3 class="title3">Theme</h3>
+    <w-select
+      v-model="selectedTheme"
+      :items="themeItems"
+      no-unselect
+    ></w-select>
     <w-checkbox v-model="darkMode">Enable dark mode</w-checkbox>
   </div>
 </template>
@@ -18,7 +23,7 @@ import useSettings from "@/composables/useSettings";
 
 const store = useStore();
 
-const { darkMode } = useSettings(store);
+const { darkMode, selectedTheme, themeItems } = useSettings(store);
 </script>
 
 <style lang="scss" scoped>

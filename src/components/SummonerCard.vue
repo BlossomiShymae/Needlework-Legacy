@@ -27,6 +27,8 @@
 import { toRefs } from "vue";
 import useProfileIcon from "@/composables/useProfileIcon";
 import WalletStatus from "@/components/WalletStatus";
+import useSettings from "@/composables/useSettings";
+import store from "@/store/index";
 
 export default {
   name: "SummonerCard",
@@ -48,8 +50,11 @@ export default {
 
     const { profileIcon } = await useProfileIcon(currentSummoner);
 
+    const { theme } = useSettings(store);
+
     return {
       profileIcon,
+      theme,
     };
   },
 };
@@ -65,11 +70,12 @@ export default {
 
   #summoner-content {
     z-index: 10;
-    background-color: rgba($app-base-card-color, 0.8);
+    background-color: v-bind("theme.cardColor");
     width: 200px;
     border-radius: 0.5rem;
     padding: 8px;
     padding-top: 32px;
+    color: v-bind("theme.textColor");
 
     display: flex;
     flex-direction: column;
@@ -78,7 +84,7 @@ export default {
 
   #summoner-level {
     z-index: 12;
-    background-color: rgba($app-palette-color1, 0.75);
+    background-color: v-bind("theme.paletteColor[0]");
     border-radius: 0.5rem;
     color: white;
     padding: 4px;
@@ -107,10 +113,10 @@ export default {
       left: calc(0px - 20%);
       border-radius: 0.5rem;
       background: conic-gradient(
-        $app-palette-color1,
-        $app-palette-color2,
-        $app-palette-color3,
-        $app-palette-color1
+        v-bind("theme.paletteColor[0]"),
+        v-bind("theme.paletteColor[1]"),
+        v-bind("theme.paletteColor[2]"),
+        v-bind("theme.paletteColor[0]")
       );
 
       height: 140%;

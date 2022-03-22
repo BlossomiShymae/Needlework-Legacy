@@ -20,6 +20,8 @@ export default {
 
 <script setup>
 import router from "@/router";
+import { useStore } from "vuex";
+import useSettings from "@/composables/useSettings";
 
 function minimizeWindow() {
   window.ipcRenderer.invoke("app-minimize-window");
@@ -32,12 +34,15 @@ function openSettings() {
 function exitApplication() {
   window.ipcRenderer.invoke("app-exit-application");
 }
+
+const store = useStore();
+const { theme } = useSettings(store);
 </script>
 
 <style lang="scss" scoped>
 #window-button-bar {
   position: absolute;
-  top: -1px;
+  top: -2px;
   right: 0;
   z-index: 9999;
   height: $window-button-bar-height;
@@ -46,8 +51,8 @@ function exitApplication() {
   .window-button {
     height: inherit;
     width: 36px;
-    background-color: $app-base-card-color;
-    color: $app-palette-color1;
+    background-color: v-bind("theme.cardColor");
+    color: v-bind("theme.textColor");
     border: 0;
 
     &:first-of-type {

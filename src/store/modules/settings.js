@@ -16,6 +16,9 @@ const settings = {
     setDarkMode(state, truthValue) {
       state.darkMode = truthValue;
     },
+    setSelectedTheme(state, key) {
+      state.selectedTheme = key;
+    }
   },
   actions: {
     async updateConfig(context) {

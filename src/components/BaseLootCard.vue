@@ -15,10 +15,10 @@
       <w-divider class="full-width my2"></w-divider>
 
       <div id="menu-actions">
-        <div class="action">Open</div>
-        <div class="action">Open by amount</div>
+        <div class="action"><p>Open</p></div>
+        <div class="action"><p>Open by amount</p></div>
         <div class="action">
-          Open all <span class="caption">"Snip snip!"</span>
+          <p>Open all <span class="caption">"Snip snip!"</span></p>
         </div>
       </div>
     </div>
@@ -28,6 +28,8 @@
 <script>
 import { toRefs } from "vue";
 import useTileIcon from "@/composables/useTileIcon";
+import store from "@/store/index";
+import useSettings from "@/composables/useSettings";
 
 export default {
   name: "BaseLootCard",
@@ -58,14 +60,20 @@ export default {
 
     const { tileIcon } = await useTileIcon(tileIconPath);
 
+    const { theme } = useSettings(store);
+
     return {
       tileIcon,
+      theme,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.caption {
+  color: v-bind("theme.textColor");
+}
 .loot-item {
   --card-border-radius: 0.5rem;
   --card-width: 100px;
@@ -117,7 +125,8 @@ export default {
 
   #menu-actions {
     .action {
-      background-color: white;
+      background-color: v-bind("theme.backgroundColor");
+      color: v-bind("theme.textColor");
       padding: 4px;
       text-align: left;
       width: 100%;

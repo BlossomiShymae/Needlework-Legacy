@@ -123,21 +123,27 @@ export default {
     lootTable.value = await window.ipcRenderer.invoke("cd-loot-translation");
     store.commit("setLootTable", lootTable.value);
 
+    // Theme
+    const { theme } = useSettings(store);
+
     router.push("/home/all");
 
     return {
       currentSummoner,
       wallet,
       updatePlayerLootMap,
+      theme,
     };
   },
 };
 </script>
 
+
 <style lang="scss" scoped>
 .home {
   // Where is the magic number of 7px coming from? ?.?
   // 88.8889% is determined from 8fr 1fr #right-grid-area.
+  background-color: inherit;
   --swap-height: calc(88.8889% - 7px);
 }
 .swap-enter-active,
@@ -166,8 +172,8 @@ export default {
 }
 
 .home {
-  margin: 1px;
-  height: calc(100vh - 2px);
+  height: 100vh;
+  background-color: v-bind("theme.backgroundColor");
 
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -205,7 +211,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     & * {
-      background-color: $app-palette-color1;
+      background-color: v-bind("theme.paletteColor[0]");
       margin-left: 20px;
     }
   }
@@ -220,7 +226,7 @@ export default {
     margin-top: 32px;
 
     button {
-      background-color: $app-palette-color1;
+      background-color: v-bind("theme.paletteColor[0]");
       padding: 16px;
       border-radius: 0.5rem;
       height: 32px;
@@ -237,7 +243,7 @@ export default {
   }
 
   div {
-    background-color: $app-frame-color;
+    background-color: v-bind("theme.frameColor");
     color: black;
   }
 

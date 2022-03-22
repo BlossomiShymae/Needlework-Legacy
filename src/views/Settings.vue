@@ -11,10 +11,11 @@
       </w-list>
       <router-view />
     </div>
-
-    <w-button id="exit-settings-button" @click="$router.push('/home')"
-      >Exit</w-button
-    >
+    <div id="settings-exit-area">
+      <w-button id="exit-settings-button" @click="$router.push('/home')"
+        >Exit</w-button
+      >
+    </div>
   </div>
 </template>
 
@@ -30,6 +31,9 @@ export default {
 </script>
 
 <script setup>
+import { useStore } from "vuex";
+import useSettings from "@/composables/useSettings";
+
 const settingLinks = [
   {
     label: "General",
@@ -38,11 +42,15 @@ const settingLinks = [
     route: "/settings/general",
   },
 ];
+
+const store = useStore();
+const { theme } = useSettings(store);
 </script>
 
 <style lang="scss" scoped>
 #settings {
-  background-color: transparent;
+  background-color: v-bind("theme.backgroundColor");
+  color: v-bind("theme.textColor");
   z-index: 10;
   height: 100%;
   width: 100%;
@@ -62,8 +70,14 @@ const settingLinks = [
 }
 
 #exit-settings-button {
-  background-color: $app-palette-color1;
-  margin: 0;
-  margin-top: 15px;
+  background-color: v-bind("theme.paletteColor[0]");
+  margin: auto;
+}
+
+#settings-exit-area {
+  display: flex;
+  height: 10vh;
+  justify-content: center;
+  align-items: center;
 }
 </style>
