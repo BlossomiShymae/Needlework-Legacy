@@ -1,12 +1,8 @@
 <template>
   <div class="loot-view-component">
-    <ContentCard> <h2 class="title2">Emotes</h2> </ContentCard>
-    <div class="loot-dynamic-grid-subcomponent" v-if="translatedEmotes">
-      <EmoteCard
-        v-for="emote in translatedEmotes"
-        :key="emote"
-        :emote="emote"
-      />
+    <ContentCard> <h2 class="title2">Skins</h2> </ContentCard>
+    <div class="loot-dynamic-grid-subcomponent" v-if="translatedSkins">
+      <SkinCard v-for="skin in translatedSkins" :key="skin" :skin="skin" />
     </div>
   </div>
 </template>
@@ -15,13 +11,13 @@
 import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import EmoteCard from "@/components/EmoteCard";
+import SkinCard from "@/components/loots/SkinCard";
 import ContentCard from "@/components/ContentCard";
 
 export default {
-  name: "Emote",
+  name: "Skin",
   components: {
-    EmoteCard,
+    SkinCard,
     ContentCard,
   },
   data() {
@@ -32,17 +28,17 @@ export default {
   setup() {
     const store = useStore();
 
-    const { emotes } = usePlayerLoot(store);
+    const { skins } = usePlayerLoot(store);
 
-    const translatedEmotes = useTranslatedLoot(store, emotes);
+    const translatedSkins = useTranslatedLoot(store, skins);
 
     return {
-      translatedEmotes,
-      emotes,
+      translatedSkins,
+      skins,
     };
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style>
 </style>

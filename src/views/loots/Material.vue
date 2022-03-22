@@ -16,7 +16,7 @@
 import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import ChestCard from "@/components/ChestCard";
+import ChestCard from "@/components/loots/ChestCard";
 import ContentCard from "@/components/ContentCard";
 
 export default {

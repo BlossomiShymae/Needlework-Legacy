@@ -15,7 +15,7 @@
 import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import ChampionCard from "@/components/ChampionCard";
+import ChampionCard from "@/components/loots/ChampionCard";
 import { onUnmounted } from "@vue/runtime-core";
 import ContentCard from "@/components/ContentCard";
 

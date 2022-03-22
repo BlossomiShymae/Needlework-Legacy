@@ -15,7 +15,7 @@
 import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import EternalCard from "@/components/EternalCard";
+import EternalCard from "@/components/loots/EternalCard";
 import ContentCard from '@/components/ContentCard';
 
 export default {

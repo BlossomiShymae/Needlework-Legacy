@@ -1,5 +1,5 @@
-import hallowedTheme from "./themes/hallowedSeamstress";
-import cafeTheme from "./themes/cafeCuties";
+import hallowedTheme from "./modules/hallowedSeamstress";
+import cafeTheme from "./modules/cafeCuties";
 
 const themes = new Map([
   ["hallowed_seamstress", hallowedTheme],

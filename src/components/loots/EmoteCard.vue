@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import BaseLootCard from "@/components/BaseLootCard";
+import BaseLootCard from "@/components/loots/BaseLootCard";
 
 export default {
   name: "EmoteCard",
