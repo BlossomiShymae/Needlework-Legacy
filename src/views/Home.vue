@@ -202,7 +202,7 @@ export default {
       position: absolute;
       right: calc(0px - 2px);
       bottom: calc(0px - 16px);
-      filter: opacity(0.08) drop-shadow(0 0 0px $app-palette-color2);
+      filter: opacity(0.08) drop-shadow(0 0 0px v-bind("theme.paletteColor[1]"));
     }
   }
 
