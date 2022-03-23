@@ -10,14 +10,12 @@ export default class DataDragon {
       baseURL: this.baseURL,
       timeout: 5000,
     });
-    this.latestVersion = null;
-
-    this.getLatestVersion();
   }
 
   async getProfileIcon(id) {
+    const latestVersion = await this.getLatestVersion();
     const endpoint =
-      "/cdn/" + this.latestVersion + "/img/profileicon/" + id + ".png";
+      "/cdn/" + latestVersion + "/img/profileicon/" + id + ".png";
 
     const file = new DynamicFileService({
       url: this.baseURL + endpoint,
@@ -33,7 +31,7 @@ export default class DataDragon {
   async getLatestVersion() {
     try {
       const response = await this.instance.get("/api/versions.json");
-      this.latestVersion = response.data.shift();
+      return response.data.shift();
     } catch (error) {
       console.error(error);
     }

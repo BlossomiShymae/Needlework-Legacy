@@ -1,15 +1,23 @@
 /*** @jest-environment node*/
 
-import CommunityDragon from "../../src/apis/communitydragon";
+import CommunityDragon from "../../src/apis/CommunityDragon";
 
-describe("communitydragon.js", () => {
-  it("processes a tile icon when passed", async () => {
-    const api = new CommunityDragon();
+describe("CommunityDragon.js", () => {
+  let api;
 
+  beforeEach(() => {
+    api = new CommunityDragon();
+  });
+
+  it("getTileIcon(path) returns a buffer object", async () => {
     const buffer = await api.getTileIcon(
       "/lol-game-data/assets/v1/champion-tiles/711/711000.jpg"
     );
+    expect(Buffer.isBuffer(buffer)).toBeTruthy();
+  });
 
-    expect(buffer).toBeTruthy();
+  it("getLootTranslation() returns a valid loot translation json object", async () => {
+    const json = await api.getLootTranslation();
+    expect(json?.loot_type_material?.includes("Material")).toBeTruthy();
   });
 });
