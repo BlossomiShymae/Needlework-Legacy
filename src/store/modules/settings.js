@@ -1,5 +1,5 @@
 import { config, vuexInjector } from "../../config/config";
-import Serialize from "../../utils/serialize";
+import Serialize from "../../utils/Serialize";
 
 const settings = {
   namespaced: true,
@@ -18,7 +18,7 @@ const settings = {
     },
     setSelectedTheme(state, key) {
       state.selectedTheme = key;
-    }
+    },
   },
   actions: {
     async updateConfig(context) {

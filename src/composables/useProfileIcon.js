@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import Serialize from "../utils/serialize";
+import Serialize from "../utils/Serialize";
 
 export default async function useProfileIcon(currentSummoner) {
   const profileIcon = ref(null);

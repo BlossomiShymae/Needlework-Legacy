@@ -1,4 +1,4 @@
-import NeedleworkLCU from "../apis/needlework.lcu";
+import Needlework from "../apis/Needlework";
 import { ipcMain } from "electron";
 
 export default class NeedleworkService {
@@ -7,7 +7,7 @@ export default class NeedleworkService {
   }
 
   async initialize() {
-    const needlework = new NeedleworkLCU();
+    const needlework = new Needlework();
     await needlework.initialize();
     this.needlework = needlework;
 

@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import ElectronStore from "../apis/electronstore";
+import ElectronStore from "../apis/ElectronStore";
 
 export default class ElectronStoreService {
   static instance = null;

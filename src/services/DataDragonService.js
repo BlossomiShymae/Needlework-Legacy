@@ -1,4 +1,4 @@
-import DataDragon from "../apis/datadragon";
+import DataDragon from "../apis/DataDragon";
 import { ipcMain } from "electron";
 
 export default class DataDragonService {

@@ -17,7 +17,7 @@ const WS_OPCODES = Object.freeze({
   EVENT: 8,
 });
 
-export default class NeedleworkLCU {
+export default class Needlework {
   constructor() {
     this.clientHTTPS = null;
     // this.clientWS = new LeagueClientWebSocket();

@@ -1,4 +1,4 @@
-import CommunityDragon from "../apis/communitydragon";
+import CommunityDragon from "../apis/CommunityDragon";
 import { ipcMain } from "electron";
 
 export default class CommunityDragonService {
