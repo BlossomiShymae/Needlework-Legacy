@@ -1,4 +1,4 @@
-import Needlework from "../apis/Needlework";
+import Needlework from "../apis/needlework";
 import { ipcMain } from "electron";
 
 export default class NeedleworkService {
