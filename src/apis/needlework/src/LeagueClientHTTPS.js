@@ -1,28 +1,34 @@
-import LeagueClientAuth from "./LeagueClientAuth";
-
 const axios = require("axios");
 
 export default class LeagueClientHTTPS {
   constructor() {
-    this.leagueClientAuth = null;
+    this.leagueClientAuthentication = null;
     this.instance = null;
   }
 
-  async initialize() {
-    const auth = new LeagueClientAuth();
-    await auth.initialize();
-    this.leagueClientAuth = auth;
+  async initialize(leagueClientAuthentication) {
+    this.leagueClientAuthentication = leagueClientAuthentication;
 
+    if (this.leagueClientAuthentication.token != null) {
+      this.instance = this.createInstance();
+    }
+  }
+
+  reinit() {
     this.instance = this.createInstance();
   }
 
   createInstance() {
-    return axios.create({
-      baseURL: "https://127.0.0.1:" + this.leagueClientAuth.port,
+    const instance = axios.create({
+      baseURL: "https://127.0.0.1:" + this.leagueClientAuthentication.port,
       timeout: 1000,
-      headers: { authorization: "Basic " + this.leagueClientAuth.auth },
-      httpsAgent: this.leagueClientAuth.agent,
+      headers: {
+        authorization: "Basic " + this.leagueClientAuthentication.auth,
+      },
+      httpsAgent: this.leagueClientAuthentication.agent,
     });
+
+    return instance;
   }
 
   async fetch(api) {

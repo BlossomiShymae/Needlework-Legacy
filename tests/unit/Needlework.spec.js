@@ -2,15 +2,19 @@
 
 import Needlework from "@/apis/Needlework";
 
-// Currently this test suite only works with an active League Client instance.
-// Make sure the League Client is running before starting this suite.
+jest.useFakeTimers();
 
 describe("Needlework.js", () => {
   let api;
 
   beforeEach(() => {
-    api = new Needlework();
+    const POLL_PERIOD = 2500;
+    api = new Needlework(POLL_PERIOD);
     return api.initialize();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
   });
 
   it("currentSummoner() getter returns an object", async () => {

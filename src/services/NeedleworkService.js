@@ -1,13 +1,15 @@
 import Needlework from "../apis/needlework";
 import { ipcMain } from "electron";
 
+const POLL_PERIOD = 2500;
+
 export default class NeedleworkService {
   constructor() {
     this.needlework = null;
   }
 
   async initialize() {
-    const needlework = new Needlework();
+    const needlework = new Needlework(POLL_PERIOD);
     await needlework.initialize();
     this.needlework = needlework;
 

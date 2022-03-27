@@ -1,5 +1,4 @@
 import NeedleworkConsole from "./NeedleworkConsole";
-import LeagueClientAuth from "./LeagueClientAuth";
 
 import WebSocket from "ws";
 
@@ -17,41 +16,76 @@ const WS_OPCODES = Object.freeze({
 
 export default class LeagueClientWebSocket {
   constructor() {
-    this.leagueClientAuth = new LeagueClientAuth();
-    this.OPCODES = WS_OPCODES;
+    this.leagueClientAuthentication = null;
+    this.ws = null;
+  }
+
+  async initialize(leagueClientAuthentication) {
+    this.leagueClientAuthentication = leagueClientAuthentication;
+
+    if (this.leagueClientAuthentication.token != null) {
+      this.ws = this.setupWebSocket();
+      this.setupWebSocketListeners();
+    }
+  }
+
+  reinit() {
+    if (this.ws != undefined) {
+      this.ws.removeAllListeners("open");
+      this.ws.removeAllListeners("close");
+    }
+
     this.ws = this.setupWebSocket();
-
-    this.ws.addListener("open", () => {
-      NeedleworkConsole.log("WebSocket opened! :3");
-      this.subscribe("/lol-store/v1/wallet", NeedleworkConsole.log);
-    });
-
-    this.ws.addListener("close", () => {
-      NeedleworkConsole.log("WebSocket closed! :<");
-      this.unsubscribe("/lol-store/v1/wallet", NeedleworkConsole.log);
-    });
+    this.setupWebSocketListeners();
   }
 
   setupWebSocket() {
-    const password = this.leagueClientAuth.token;
-    const port = this.leagueClientAuth.port;
-    const agent = this.leagueClientAuth.agent;
+    const password = this.leagueClientAuthentication.token;
+    const port = this.leagueClientAuthentication.port;
+    const agent = this.leagueClientAuthentication.agent;
     const wsURL = `wss://riot:${password}@127.0.0.1:${port}/`;
 
-    const ws = new WebSocket(wsURL, "wamp", {
+    const webSocket = new WebSocket(wsURL, "wamp", {
       agent: agent,
     });
 
-    return ws;
+    return webSocket;
   }
 
   subscribe(topic, func) {
     this.ws.addListener(topic, func);
-    this.ws.send(JSON.stringify[(this.OPCODES.SUBSCRIBE, topic)]);
+    this.ws.send(JSON.stringify([WS_OPCODES.SUBSCRIBE, topic]));
   }
 
   unsubscribe(topic, func) {
     this.ws.removeListener(topic, func);
-    this.ws.send(JSON.stringify[(this.OPCODES.UNSUBSCRIBE, topic)]);
+    this.ws.send(JSON.stringify([WS_OPCODES.UNSUBSCRIBE, topic]));
+  }
+
+  setupWebSocketListeners() {
+    const event = "OnJsonApiEvent";
+
+    this.ws.addListener("open", () => {
+      NeedleworkConsole.log("WebSocket opened! :3");
+      this.subscribe(event, NeedleworkConsole.log);
+
+      this.ws.on("message", this.messageHandler);
+    });
+
+    this.ws.addListener("close", () => {
+      NeedleworkConsole.log("WebSocket closed! :<");
+      this.unsubscribe(event, NeedleworkConsole.log);
+    });
+  }
+
+  messageHandler(message) {
+    const jsonArray = JSON.parse(message);
+    const opcode = jsonArray[0];
+    const event = jsonArray[1];
+    const dataObject = jsonArray[2];
+
+    switch (opcode) {
+      case WS_OPCODES.EVENT:
+    }
   }
 }

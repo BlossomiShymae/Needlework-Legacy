@@ -13,12 +13,16 @@ export default class LeagueClientAuth {
       return LeagueClientAuth._instance;
     }
 
-    const _data = this.parseForWindows();
-
-    this.auth = _data.auth;
-    this.port = _data.port;
-    this.token = _data.token;
+    this.auth = null;
+    this.port = null;
+    this.token = null;
     this.agent = null;
+
+    if (this.isClientActive()) {
+      NeedleworkConsole.log("Client is active!");
+      const _data = this.getAuthForWindows();
+      this.setAuthentication(_data);
+    }
 
     LeagueClientAuth._instance = this;
   }
@@ -27,27 +31,35 @@ export default class LeagueClientAuth {
     this.agent = await this.createAgent();
   }
 
+  setAuthentication({ auth, port, token }) {
+    this.auth = auth;
+    this.port = port;
+    this.token = token;
+  }
+
   isClientActive() {
     try {
       const cmd =
-        "wmic PROCESS WHERE name='LeagueClientUx.exe' GET commandline";
+        "wmic PROCESS WHERE name='LeagueClientUx.exe' GET commandline 2> nul";
+      const portRegExp = /(?<=--app-port=)([0-9]*)/g;
       const stdout = exec(cmd);
+      const isActive = portRegExp.exec(stdout);
 
-      return !!stdout;
+      return !!isActive;
     } catch (error) {
       console.error(error);
     }
   }
 
   refreshAuth() {
-    const _data = this.parseForWindows();
+    const _data = this.getAuthForWindows();
 
     this.auth = _data.auth;
     this.port = _data.port;
     this.token = _data.token;
   }
 
-  parseForWindows() {
+  getAuthForWindows() {
     try {
       const cmd =
         "wmic PROCESS WHERE name='LeagueClientUx.exe' GET commandline";
