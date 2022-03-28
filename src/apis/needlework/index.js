@@ -5,6 +5,8 @@ import { ActiveState, InactiveState } from "./src/state";
 import { WS_OPCODES } from "./src/data/WebSocketOpcodes";
 import routes from "./src/data/routes";
 
+import { isEqual } from "lodash";
+
 export default class Needlework {
   constructor(pollPeriod) {
     this.clientAuthentication = null;
@@ -14,6 +16,9 @@ export default class Needlework {
     this._pollPeriod = pollPeriod;
     this._state = null;
     this._updateEventCallback = null;
+    this._cache = {
+      lastData: null,
+    };
   }
 
   changeState(state) {
@@ -95,7 +100,10 @@ export default class Needlework {
       case WS_OPCODES.EVENT:
         for (const property in routes) {
           if (routes[property] === messageDTO.object.uri) {
-            this.sendEventUpdate(messageDTO);
+            if (isEqual(this._cache.lastData, messageDTO.object.data)) {
+              this.sendEventUpdate(messageDTO);
+            }
+            this._cache.lastData = messageDTO.object.data;
             break;
           }
         }
