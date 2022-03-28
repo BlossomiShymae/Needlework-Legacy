@@ -8,7 +8,7 @@ export default class DataDragon {
     this.baseURL = "https://ddragon.leagueoflegends.com";
     this.instance = axios.create({
       baseURL: this.baseURL,
-      timeout: 5000,
+      timeout: 10 * 1000,
     });
   }
 

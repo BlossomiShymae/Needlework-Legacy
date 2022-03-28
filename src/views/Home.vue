@@ -3,7 +3,11 @@
     <WindowButtonBar />
     <div id="left-grid-area">
       <Suspense>
-        <SummonerCard :current-summoner="currentSummoner" :wallet="wallet" />
+        <SummonerCard
+          :current-summoner="currentSummoner"
+          :wallet="wallet"
+          :key="componentKey"
+        />
       </Suspense>
       <div id="loot-button-grid">
         <w-button @click="$router.push('/home/all')">
@@ -83,12 +87,13 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import router from "@/router/index.js";
 import SummonerCard from "@/components/SummonerCard";
 import WindowButtonBar from "@/components/controls/WindowButtonBar";
 import store from "@/store/index";
 import useSettings from "@/composables/useSettings";
+import useComponentKey from "@/composables/useComponentKey";
 
 export default {
   name: "Home",
@@ -97,7 +102,20 @@ export default {
     WindowButtonBar,
   },
   async setup() {
+    // Listener for Needlework update event
+    onMounted(() => {
+      window.ipcRenderer.receive("needlework-update", async () => {
+        console.log("Received event update from NeedleworkService.");
+        currentSummoner.value = await window.ipcRenderer.invoke(
+          "current-summoner"
+        );
+        wallet.value = await window.ipcRenderer.invoke("wallet");
+        forceRerender(componentKey);
+      });
+    });
+
     // Init global app state
+    const { componentKey, forceRerender } = useComponentKey();
     const sourceState = ref(null);
     sourceState.value = await window.ipcRenderer.invoke("app-get-store");
     const { setStore } = useSettings(store);
@@ -133,6 +151,8 @@ export default {
       wallet,
       updatePlayerLootMap,
       theme,
+      componentKey,
+      forceRerender,
     };
   },
 };

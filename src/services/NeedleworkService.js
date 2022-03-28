@@ -6,16 +6,21 @@ const POLL_PERIOD = 2500;
 export default class NeedleworkService {
   constructor() {
     this.needlework = null;
+    this.win = null;
   }
 
-  async initialize() {
+  async initialize(window) {
     const needlework = new Needlework(POLL_PERIOD);
     await needlework.initialize();
     this.needlework = needlework;
+    this.win = window;
 
     this.currentSummonerHandler();
     this.walletHandler();
     this.playerLootMapHandler();
+    this.needlework.setUpdateEventCallback(
+      this.handleNeedleworkUpdate.bind(this)
+    );
   }
 
   currentSummonerHandler() {
@@ -34,5 +39,9 @@ export default class NeedleworkService {
     ipcMain.handle("player-loot-map", (event, args) => {
       return this.needlework.playerLootMap;
     });
+  }
+
+  handleNeedleworkUpdate(messageDTO) {
+    this.win.webContents.send("needlework-update");
   }
 }

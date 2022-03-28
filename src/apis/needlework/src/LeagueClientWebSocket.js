@@ -1,18 +1,7 @@
 import NeedleworkConsole from "./NeedleworkConsole";
+import { WS_OPCODES } from "./data/WebSocketOpcodes";
 
 import WebSocket from "ws";
-
-const WS_OPCODES = Object.freeze({
-  WELCOME: 0,
-  PREFIX: 1,
-  CALL: 2,
-  CALLRESULT: 3,
-  CALLERROR: 4,
-  SUBSCRIBE: 5,
-  UNSUBSCRIBE: 6,
-  PUBLISH: 7,
-  EVENT: 8,
-});
 
 export default class LeagueClientWebSocket {
   constructor() {
@@ -33,6 +22,7 @@ export default class LeagueClientWebSocket {
     if (this.ws != undefined) {
       this.ws.removeAllListeners("open");
       this.ws.removeAllListeners("close");
+      this.ws.removeAllListeners("message");
     }
 
     this.ws = this.setupWebSocket();
@@ -68,8 +58,6 @@ export default class LeagueClientWebSocket {
     this.ws.addListener("open", () => {
       NeedleworkConsole.log("WebSocket opened! :3");
       this.subscribe(event, NeedleworkConsole.log);
-
-      this.ws.on("message", this.messageHandler);
     });
 
     this.ws.addListener("close", () => {
@@ -78,14 +66,7 @@ export default class LeagueClientWebSocket {
     });
   }
 
-  messageHandler(message) {
-    const jsonArray = JSON.parse(message);
-    const opcode = jsonArray[0];
-    const event = jsonArray[1];
-    const dataObject = jsonArray[2];
-
-    switch (opcode) {
-      case WS_OPCODES.EVENT:
-    }
+  handleMessageEvent(callback) {
+    this.ws.on("message", callback);
   }
 }

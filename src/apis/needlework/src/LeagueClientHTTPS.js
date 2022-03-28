@@ -21,7 +21,7 @@ export default class LeagueClientHTTPS {
   createInstance() {
     const instance = axios.create({
       baseURL: "https://127.0.0.1:" + this.leagueClientAuthentication.port,
-      timeout: 1000,
+      timeout: 10*1000,
       headers: {
         authorization: "Basic " + this.leagueClientAuthentication.auth,
       },

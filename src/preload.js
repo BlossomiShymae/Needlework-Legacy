@@ -26,7 +26,7 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     }
   },
   receive: (channel, func) => {
-    let validChannels = [];
+    let validChannels = ["needlework-update"];
     if (validChannels.includes(channel)) {
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     }

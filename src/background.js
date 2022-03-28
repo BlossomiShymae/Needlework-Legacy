@@ -16,17 +16,18 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
-async function initializeServices() {
+async function initializeServices(window) {
   // Service modules
   const apiService = new NeedleworkService();
-  await apiService.initialize();
+  await apiService.initialize(window);
 
   const ddService = new DataDragonService();
   const cdService = new CommunityDragonService();
-  const electronService = new ElectronService();
-  const electronStoreService = ElectronStoreService.getInstance();
 
-  return electronService;
+  const electronService = new ElectronService();
+  electronService.setWindow(window);
+
+  const electronStoreService = ElectronStoreService.getInstance();
 }
 
 async function createWindow() {
@@ -45,6 +46,8 @@ async function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
   });
+
+  await initializeServices(win);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -108,9 +111,8 @@ app.on("ready", async () => {
       console.error("Vue Devtools failed to install:", e.toString());
     }
   }
-  const electronService = await initializeServices();
   registerLocalResourceProtocol();
-  electronService.setWindow(await createWindow());
+  createWindow();
 });
 
 // Exit cleanly on request from parent process in development mode.

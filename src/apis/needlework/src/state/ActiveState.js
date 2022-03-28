@@ -1,10 +1,15 @@
 import NeedleworkConsole from "../NeedleworkConsole";
 import { AbstractState, InactiveState } from "./index";
+import routes from "../data/routes";
 
 /** Represents a state of active connection with League Client */
 export class ActiveState extends AbstractState {
   constructor(api) {
     super(api);
+
+    this._api.clientWebSocket.handleMessageEvent(
+      this._api.handleWebSocketMessage.bind(this._api)
+    );
   }
 
   /**
@@ -51,7 +56,7 @@ export class ActiveState extends AbstractState {
    * @returns {Promise<currentSummonerDTO>}
    */
   get currentSummoner() {
-    return this._api.clientHTTPS.fetch("/lol-summoner/v1/current-summoner");
+    return this._api.clientHTTPS.fetch(routes.CURRENT_SUMMONER);
   }
 
   /**
@@ -65,7 +70,7 @@ export class ActiveState extends AbstractState {
    * @returns {Promise<walletDTO>}
    */
   get wallet() {
-    return this._api.clientHTTPS.fetch("/lol-store/v1/wallet");
+    return this._api.clientHTTPS.fetch(routes.WALLET);
   }
 
   /**
@@ -115,6 +120,6 @@ export class ActiveState extends AbstractState {
    * @returns {Promise<playerLootMapDTO>}
    */
   get playerLootMap() {
-    return this._api.clientHTTPS.fetch("/lol-loot/v1/player-loot-map");
+    return this._api.clientHTTPS.fetch(routes.PLAYER_LOOT_MAP);
   }
 }
