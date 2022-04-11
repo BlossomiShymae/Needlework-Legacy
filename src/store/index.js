@@ -58,6 +58,15 @@ export default createStore({
     lootTable(state) {
       return state.lootTable;
     },
+    orangeEssence(state) {
+      return state.playerLootMap.get("CURRENCY_cosmetic");
+    },
+    mythicEssence(state) {
+      return state.playerLootMap.get("CURRENCY_mythic");
+    },
+    keys(state) {
+      return state.playerLootMap.get("MATERIAL_key");
+    },
   },
   mutations: {
     update(state, jsonMap) {

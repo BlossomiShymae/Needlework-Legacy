@@ -1,71 +1,7 @@
 <template>
   <div class="home">
     <WindowButtonBar />
-    <div id="left-grid-area">
-      <Suspense>
-        <SummonerCard
-          :current-summoner="currentSummoner"
-          :wallet="wallet"
-          :key="componentKey"
-        />
-      </Suspense>
-      <div id="loot-button-grid">
-        <w-button @click="$router.push('/home/all')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/all.png"
-            alt="All loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/material')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest.png"
-            alt="Chest loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/champion')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/champion.png"
-            alt="Champion loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/skin')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/skin.png"
-            alt="Skin loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/tactician')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/companion.png"
-            alt="Companion loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/eternal')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/eternals.png"
-            alt="Eternals loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/emote')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/emote.png"
-            alt="Emote loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/wardskin')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/wardskin.png"
-            alt="Ward skin loot button"
-          />
-        </w-button>
-        <w-button @click="$router.push('/home/icon')">
-          <img
-            src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/summonericon.png"
-            alt="Summoner loot button"
-          />
-        </w-button>
-      </div>
-    </div>
+    <LootMetaPanel />
     <div id="right-grid-area">
       <div id="loot-view-router">
         <router-view v-slot="{ Component }">
@@ -89,6 +25,7 @@
 <script>
 import { ref, onMounted } from "vue";
 import router from "@/router/index.js";
+import LootMetaPanel from "@/components/panels/LootMetaPanel";
 import SummonerCard from "@/components/SummonerCard";
 import WindowButtonBar from "@/components/controls/WindowButtonBar";
 import store from "@/store/index";
@@ -100,16 +37,17 @@ export default {
   components: {
     SummonerCard,
     WindowButtonBar,
+    LootMetaPanel,
   },
   async setup() {
     // Listener for Needlework update event
     onMounted(() => {
       window.ipcRenderer.receive("needlework-update", async () => {
         console.log("Received event update from NeedleworkService.");
-        currentSummoner.value = await window.ipcRenderer.invoke(
-          "current-summoner"
+        playerLootMapObject.value = await window.ipcRenderer.invoke(
+          "player-loot-map"
         );
-        wallet.value = await window.ipcRenderer.invoke("wallet");
+        store.commit("update", playerLootMapObject.value);
         forceRerender(componentKey);
       });
     });
@@ -120,12 +58,6 @@ export default {
     sourceState.value = await window.ipcRenderer.invoke("app-get-store");
     const { setStore } = useSettings(store);
     setStore(sourceState);
-
-    const currentSummoner = ref(null);
-    const wallet = ref(null);
-
-    currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
-    wallet.value = await window.ipcRenderer.invoke("wallet");
 
     const playerLootMapObject = ref({});
     playerLootMapObject.value = await window.ipcRenderer.invoke(
@@ -147,8 +79,6 @@ export default {
     router.push("/home/all");
 
     return {
-      currentSummoner,
-      wallet,
       updatePlayerLootMap,
       theme,
       componentKey,
@@ -244,22 +174,6 @@ export default {
     row-gap: 16px;
 
     margin-top: 32px;
-
-    button {
-      background-color: v-bind("theme.paletteColor[0]");
-      padding: 16px;
-      border-radius: 0.5rem;
-      height: 32px;
-      width: 32px;
-
-      box-shadow: 4px 4px 12px grey;
-      img {
-        image-rendering: -webkit-optimize-contrast;
-
-        height: 16px;
-        width: auto;
-      }
-    }
   }
 
   div {
