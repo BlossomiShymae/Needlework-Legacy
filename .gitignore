@@ -27,3 +27,6 @@ pnpm-debug.log*
 
 # Data test assets
 4409.png
+
+# jsdoc documentation
+/docs
