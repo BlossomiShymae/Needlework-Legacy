@@ -7,6 +7,7 @@
         :loot-name="emote.lootName"
         :type="emote.type"
         :count="emote.count"
+        :can-open="true"
       />
     </Suspense>
   </div>

@@ -7,6 +7,7 @@
         :loot-name="rawName"
         :type="chest.type"
         :count="chest.count"
+        :can-open="canOpen"
       />
     </Suspense>
   </div>
@@ -29,6 +30,24 @@ export default {
       type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      canOpen: true,
+    };
+  },
+  mounted() {
+    const materialBlacklist = ["token", "essence"];
+
+    materialBlacklist.forEach((name) => {
+      if (
+        this.chest?.lootName.toLowerCase().includes(name) ||
+        this.chest?.localizedName.toLowerCase().includes(name)
+      ) {
+        this.canOpen = false;
+        return true;
+      }
+    });
   },
   computed: {
     lootName() {

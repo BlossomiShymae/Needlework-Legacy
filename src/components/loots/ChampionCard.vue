@@ -7,6 +7,7 @@
         :loot-name="champion.lootName"
         :type="champion.type"
         :count="champion.count"
+        :can-open="true"
       />
     </Suspense>
   </div>

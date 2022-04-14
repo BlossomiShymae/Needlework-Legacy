@@ -7,6 +7,7 @@
         :loot-name="eternal.lootName"
         :type="eternal.type"
         :count="eternal.count"
+        :can-open="true"
       />
     </Suspense>
   </div>

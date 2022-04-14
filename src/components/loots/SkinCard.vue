@@ -7,6 +7,7 @@
         :loot-name="skin.lootName"
         :type="skin.type"
         :count="skin.count"
+        :can-open="true"
       />
     </Suspense>
   </div>

@@ -15,11 +15,14 @@
       <w-divider class="full-width my2"></w-divider>
 
       <div id="menu-actions">
-        <div class="action"><p>Open</p></div>
+        <div v-if="canOpen">
+          <div class="action"><p>Open</p></div>
         <div class="action"><p>Open by amount</p></div>
         <div class="action">
           <p>Open all <span class="caption">"Snip snip!"</span></p>
         </div>
+        </div>
+        
       </div>
     </div>
   </w-menu>
@@ -54,6 +57,10 @@ export default {
       type: String,
       required: true,
     },
+    canOpen: {
+      type: Boolean,
+      required: true
+    }
   },
   async setup(props) {
     const { tileIconPath } = toRefs(props);
