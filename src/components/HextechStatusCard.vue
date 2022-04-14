@@ -161,7 +161,9 @@ wallet.value = await window.ipcRenderer.invoke("wallet");
 
   #hextech-capsules {
     grid-area: capsules;
-    filter: brightness(0.75);
+    .grayscale-icon {
+      filter: grayscale(1) brightness(0.75);
+    }
   }
 }
 
