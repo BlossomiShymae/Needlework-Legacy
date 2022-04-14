@@ -33,12 +33,14 @@
         class="hextech-icon grayscale-icon"
         src="local-resource://./src/assets/riot_static/chest_generic.png"
       />
+      <p class="body text-bold">{{ chestCount }}</p>
     </div>
     <div id="hextech-capsules">
       <img
         class="hextech-icon grayscale-icon"
         src="local-resource://./src/assets/riot_static/portal_chest.png"
       />
+      <p class="body text-bold">{{ capsuleCount + orbCount }}</p>
     </div>
   </div>
 </template>
@@ -56,6 +58,7 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 
 import useComponentKey from "@/composables/useComponentKey";
 import useSettings from "@/composables/useSettings";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 onMounted(() => {
   window.ipcRenderer.receive("needlework-update", async () => {
@@ -72,7 +75,32 @@ const store = useStore();
 /**
  * Currencies
  */
-const { orangeEssence, mythicEssence, keys } = usePlayerLoot(store);
+const { orangeEssence, mythicEssence, keys, chests } = usePlayerLoot(store);
+
+/**
+ * Chests count (Hextech chests, Masterwork chests)
+ * Capsules and orbs count
+ */
+const translatedChests = useTranslatedLoot(store, chests);
+const chestCount = ref(0);
+const capsuleCount = ref(0);
+const orbCount = ref(0);
+translatedChests.value?.forEach((chest) => {
+  if (Object.prototype.hasOwnProperty.call(chest.value, "localizedName")) {
+    if (chest.localizedName.toLowerCase().includes("chest")) chestCount.value++;
+    if (chest.localizedName.toLowerCase().includes("capsule"))
+      capsuleCount.value++;
+    if (chest.localizedName.toLowerCase().includes("orb")) orbCount.value++;
+    return;
+  }
+
+  if (Object.prototype.hasOwnProperty.call(chest.value, "lootName")) {
+    if (chest.lootName.toLowerCase().includes("chest")) chestCount.value++;
+    if (chest.localizedName.toLowerCase().includes("capsule"))
+      capsuleCount.value++;
+    if (chest.localizedName.toLowerCase().includes("orb")) orbCount.value++;
+  }
+});
 
 /**
  * Component rerendering
