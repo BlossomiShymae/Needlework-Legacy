@@ -6,7 +6,7 @@
       <div id="loot-view-router">
         <router-view v-slot="{ Component }">
           <transition name="swap">
-            <component :is="Component" />
+            <component :is="Component" :key="componentKey" />
           </transition>
         </router-view>
       </div>
