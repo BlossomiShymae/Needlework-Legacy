@@ -2,7 +2,7 @@ import { ref } from "vue";
 import Serialize from "../utils/Serialize";
 
 export default async function useProfileIcon(currentSummoner) {
-  const profileIcon = ref(null);
+  let profileIcon = ref(null);
 
   const arg = Serialize.prepareForIPC(currentSummoner.value.profileIconId);
   const data = await window.ipcRenderer.invoke("dd-profile-icon", arg);

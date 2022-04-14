@@ -42,19 +42,12 @@ export default {
 </script>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 
 import useComponentKey from "@/composables/useComponentKey";
 import useProfileIcon from "@/composables/useProfileIcon";
 import useSettings from "@/composables/useSettings";
-
-onMounted(() => {
-  window.ipcRenderer.receive("needlework-update", async () => {
-    currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
-  });
-  forceRerender(componentKey);
-});
 
 const store = useStore();
 const { theme } = useSettings(store);
@@ -65,9 +58,16 @@ const currentSummoner = ref(null);
 
 currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
 
-console.log(currentSummoner.value);
+let rawProfileIcon = await (await useProfileIcon(currentSummoner)).profileIcon;
 
-const { profileIcon } = await useProfileIcon(currentSummoner);
+const profileIcon = computed({
+  get() {
+    return rawProfileIcon.value;
+  },
+  set(newValue) {
+    rawProfileIcon.value = newValue;
+  },
+});
 
 const experienceProgress = computed(() => {
   return (
@@ -77,7 +77,14 @@ const experienceProgress = computed(() => {
   );
 });
 
-console.log(experienceProgress);
+window.ipcRenderer.receive("needlework-update", async () => {
+  console.log("Updating SummonerHorizontalCard...");
+  currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
+  profileIcon.value = await (
+    await useProfileIcon(currentSummoner)
+  ).profileIcon.value;
+  forceRerender(componentKey);
+});
 </script>
 
 <style lang="scss" scoped>
