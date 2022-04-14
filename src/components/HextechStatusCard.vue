@@ -86,19 +86,28 @@ const chestCount = ref(0);
 const capsuleCount = ref(0);
 const orbCount = ref(0);
 translatedChests.value?.forEach((chest) => {
-  if (Object.prototype.hasOwnProperty.call(chest.value, "localizedName")) {
-    if (chest.localizedName.toLowerCase().includes("chest")) chestCount.value++;
+  if (chest.localizedName !== "") {
+    if (chest.localizedName.toLowerCase().includes("chest"))
+      chestCount.value += chest.count;
     if (chest.localizedName.toLowerCase().includes("capsule"))
-      capsuleCount.value++;
-    if (chest.localizedName.toLowerCase().includes("orb")) orbCount.value++;
+      capsuleCount.value += chest.count;
+    if (chest.localizedName.toLowerCase().includes("orb"))
+      orbCount.value += chest.count;
     return;
   }
 
-  if (Object.prototype.hasOwnProperty.call(chest.value, "lootName")) {
-    if (chest.lootName.toLowerCase().includes("chest")) chestCount.value++;
-    if (chest.localizedName.toLowerCase().includes("capsule"))
-      capsuleCount.value++;
-    if (chest.localizedName.toLowerCase().includes("orb")) orbCount.value++;
+  if (chest.lootName !== "") {
+    console.log(chest.lootName);
+    if (
+      chest.lootName.toLowerCase().includes("chest") &&
+      chest.lootName !== "CHEST_212"
+    ) {
+      chestCount.value += chest.count;
+    }
+    if (chest.lootName.toLowerCase().includes("capsule"))
+      capsuleCount.value += chest.count;
+    if (chest.lootName.toLowerCase().includes("orb"))
+      orbCount.value += chest.count;
   }
 });
 
