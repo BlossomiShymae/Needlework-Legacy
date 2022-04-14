@@ -86,6 +86,7 @@ const { theme } = useSettings(store);
 
     img {
       image-rendering: -webkit-optimize-contrast;
+      filter: grayscale(1);
 
       height: 16px;
       width: auto;
