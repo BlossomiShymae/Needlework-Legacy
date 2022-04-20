@@ -37,7 +37,7 @@ const props = defineProps({
     required: true,
   },
 });
-console.log(props.champion);
+props;
 </script>
 
 <style lang="scss">
