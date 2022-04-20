@@ -48,6 +48,7 @@ import { useStore } from "vuex";
 import useComponentKey from "@/composables/useComponentKey";
 import useProfileIcon from "@/composables/useProfileIcon";
 import useSettings from "@/composables/useSettings";
+import routes from "@/apis/needlework/src/data/routes";
 
 const store = useStore();
 const { theme } = useSettings(store);
@@ -77,12 +78,14 @@ const experienceProgress = computed(() => {
   );
 });
 
-window.ipcRenderer.receive("needlework-update", async () => {
-  currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
-  profileIcon.value = await (
-    await useProfileIcon(currentSummoner)
-  ).profileIcon.value;
-  forceRerender(componentKey);
+window.ipcRenderer.receive("needlework-update", async (uri) => {
+  if (uri === routes.CURRENT_SUMMONER) {
+    currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
+    profileIcon.value = await (
+      await useProfileIcon(currentSummoner)
+    ).profileIcon.value;
+    forceRerender(componentKey);
+  }
 });
 </script>
 

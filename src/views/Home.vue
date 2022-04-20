@@ -32,6 +32,7 @@ import store from "@/store/index";
 import useSettings from "@/composables/useSettings";
 import useComponentKey from "@/composables/useComponentKey";
 import Time from "@/utils/Time";
+import routes from "@/apis/needlework/src/data/routes";
 
 export default {
   name: "Home",
@@ -43,18 +44,20 @@ export default {
   async setup() {
     // Listener for Needlework update event
     onMounted(() => {
-      window.ipcRenderer.receive("needlework-update", async (message) => {
-        console.log(
-          "Received event update from NeedleworkService - " +
-            message +
-            " " +
-            Time.toString()
-        );
-        playerLootMapObject.value = await window.ipcRenderer.invoke(
-          "player-loot-map"
-        );
-        store.commit("update", playerLootMapObject.value);
-        forceRerender(componentKey);
+      window.ipcRenderer.receive("needlework-update", async (uri) => {
+        if (uri === routes.PLAYER_LOOT_MAP) {
+          console.log(
+            "Received event update from NeedleworkService - " +
+              uri +
+              " " +
+              Time.toString()
+          );
+          playerLootMapObject.value = await window.ipcRenderer.invoke(
+            "player-loot-map"
+          );
+          store.commit("update", playerLootMapObject.value);
+          forceRerender(componentKey);
+        }
       });
     });
 

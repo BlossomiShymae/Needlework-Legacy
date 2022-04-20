@@ -59,11 +59,14 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useComponentKey from "@/composables/useComponentKey";
 import useSettings from "@/composables/useSettings";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
+import routes from "@/apis/needlework/src/data/routes";
 
 onMounted(() => {
-  window.ipcRenderer.receive("needlework-update", async () => {
-    wallet.value = await window.ipcRenderer.invoke("wallet");
-    forceRerender(componentKey);
+  window.ipcRenderer.receive("needlework-update", async (uri) => {
+    if (uri === routes.WALLET) {
+      wallet.value = await window.ipcRenderer.invoke("wallet");
+      forceRerender(componentKey);
+    }
   });
 });
 
