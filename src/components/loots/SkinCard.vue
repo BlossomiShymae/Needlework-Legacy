@@ -22,6 +22,7 @@
           ></div>
           <div class="skin-rarity-mythic skin-rarity" v-if="isMythic"></div>
           <div class="skin-rarity-ultimate skin-rarity" v-if="isUltimate"></div>
+          <div class="skin-legacy" v-if="isLegacy"></div>
         </div>
       </template>
       <template #fallback> Loading... </template>
@@ -50,6 +51,7 @@ export default {
       isLegendary: false,
       isMythic: false,
       isUltimate: false,
+      isLegacy: false,
     };
   },
   setup(props) {
@@ -62,6 +64,7 @@ export default {
     if (this.skin?.rarity?.includes("LEGENDARY")) this.isLegendary = true;
     if (this.skin?.rarity?.includes("MYTHIC")) this.isMythic = true;
     if (this.skin?.rarity?.includes("ULTIMATE")) this.isUltimate = true;
+    if (this.skin?.tags?.includes("legacy")) this.isLegacy = true;
   },
 };
 </script>
@@ -84,6 +87,18 @@ $badge-height: 12px;
   height: $badge-height;
   z-index: 99;
   background-color: black;
+  margin-bottom: 8px;
+}
+
+.skin-legacy {
+  position: relative;
+  top: -$base-loot-card-height;
+  right: calc(-#{$base-loot-card-width} - 4px);
+  width: $badge-width;
+  height: $badge-height;
+  z-index: 99;
+  background-color: #779;
+  border-radius: 100%;
 }
 
 .skin-rarity-epic {
