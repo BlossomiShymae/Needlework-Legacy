@@ -64,7 +64,7 @@ const { theme } = useSettings(store);
 </script>
 
 <style lang="scss" scoped>
-$badge-width: 16px;
+$badge-width: 14px;
 $badge-height: 16px;
 
 .eternals-badge {
