@@ -78,7 +78,6 @@ const experienceProgress = computed(() => {
 });
 
 window.ipcRenderer.receive("needlework-update", async () => {
-  console.log("Updating SummonerHorizontalCard...");
   currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
   profileIcon.value = await (
     await useProfileIcon(currentSummoner)

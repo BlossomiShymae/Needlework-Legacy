@@ -97,7 +97,6 @@ translatedChests.value?.forEach((chest) => {
   }
 
   if (chest.lootName !== "") {
-    console.log(chest.lootName);
     if (
       chest.lootName.toLowerCase().includes("chest") &&
       chest.lootName !== "CHEST_212"

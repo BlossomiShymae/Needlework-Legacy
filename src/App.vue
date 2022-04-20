@@ -19,7 +19,6 @@ import useSettings from "@/composables/useSettings";
 
 const store = useStore();
 const { theme } = useSettings(store);
-console.log(theme);
 </script>
 
 <style lang="scss">

@@ -32,8 +32,6 @@ export default {
 
     const translatedChests = useTranslatedLoot(store, chests);
 
-    console.log(translatedChests.value);
-
     return {
       translatedChests,
       chests,

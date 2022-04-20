@@ -31,6 +31,7 @@ import WindowButtonBar from "@/components/controls/WindowButtonBar";
 import store from "@/store/index";
 import useSettings from "@/composables/useSettings";
 import useComponentKey from "@/composables/useComponentKey";
+import Time from "@/utils/Time";
 
 export default {
   name: "Home",
@@ -42,8 +43,13 @@ export default {
   async setup() {
     // Listener for Needlework update event
     onMounted(() => {
-      window.ipcRenderer.receive("needlework-update", async () => {
-        console.log("Received event update from NeedleworkService.");
+      window.ipcRenderer.receive("needlework-update", async (message) => {
+        console.log(
+          "Received event update from NeedleworkService - " +
+            message +
+            " " +
+            Time.toString()
+        );
         playerLootMapObject.value = await window.ipcRenderer.invoke(
           "player-loot-map"
         );

@@ -42,6 +42,6 @@ export default class NeedleworkService {
   }
 
   handleNeedleworkUpdate(messageDTO) {
-    this.win.webContents.send("needlework-update");
+    this.win.webContents.send("needlework-update", messageDTO.object.uri);
   }
 }

@@ -30,8 +30,6 @@ export default {
 
     const { champions } = usePlayerLoot(store);
 
-    console.log(champions.value);
-
     if (champions.value.length > 0) {
       const sum = champions.value.reduce((a, b) => {
         return (a.disenchantValue ?? a) + b.disenchantValue;
