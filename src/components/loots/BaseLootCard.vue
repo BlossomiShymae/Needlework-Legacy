@@ -17,12 +17,11 @@
       <div id="menu-actions">
         <div v-if="canOpen">
           <div class="action"><p>Open</p></div>
-        <div class="action"><p>Open by amount</p></div>
-        <div class="action">
-          <p>Open all <span class="caption">"Snip snip!"</span></p>
+          <div class="action"><p>Open by amount</p></div>
+          <div class="action">
+            <p>Open all <span class="caption">"Snip snip!"</span></p>
+          </div>
         </div>
-        </div>
-        
       </div>
     </div>
   </w-menu>
@@ -59,8 +58,8 @@ export default {
     },
     canOpen: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   async setup(props) {
     const { tileIconPath } = toRefs(props);
@@ -83,17 +82,15 @@ export default {
 }
 .loot-item {
   --card-border-radius: 0.5rem;
-  --card-width: 100px;
-  --card-height: 100px;
 
   position: relative;
-  width: var(--card-width);
-  height: var(--card-height);
+  width: $base-loot-card-width;
+  height: $base-loot-card-height;
 
   .tile-icon {
     position: absolute;
-    height: var(--card-height);
-    width: var(--card-width);
+    height: $base-loot-card-height;
+    width: $base-loot-card-width;
     top: 0;
     left: 0;
 
@@ -104,8 +101,8 @@ export default {
 
   .icon-overlay {
     position: absolute;
-    height: var(--card-height);
-    width: var(--card-width);
+    height: $base-loot-card-height;
+    width: $base-loot-card-width;
     top: 0;
     left: 0;
 
