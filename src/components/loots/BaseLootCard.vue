@@ -1,7 +1,7 @@
 <template>
   <w-menu arrow left shadow id="base-loot-card">
     <template #activator="{ on }">
-      <div class="loot-item" v-on="on">
+      <div class="loot-item" v-bind="$attrs" :class="$attrs.class" v-on="on">
         <img :src="tileIcon" class="tile-icon shimmer" />
         <div class="icon-overlay"></div>
         <p class="loot-count">x{{ count }}</p>

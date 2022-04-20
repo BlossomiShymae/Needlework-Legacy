@@ -8,6 +8,10 @@
         :type="champion.type"
         :count="champion.count"
         :can-open="true"
+        :class="{
+          'champion-shard': champion.type === 'Champion Shard',
+          'champion-permanent': champion.type === 'Champion Permanent',
+        }"
       />
     </Suspense>
   </div>
@@ -21,14 +25,23 @@ export default {
   components: {
     BaseLootCard,
   },
-  props: {
-    champion: {
-      type: Object,
-      required: true,
-    },
-  },
 };
 </script>
 
-<style>
+<script setup>
+import { defineProps } from "vue";
+
+const props = defineProps({
+  champion: {
+    type: Object,
+    required: true,
+  },
+});
+console.log(props.champion);
+</script>
+
+<style lang="scss">
+.champion-shard {
+  filter: grayscale(0.875);
+}
 </style>
