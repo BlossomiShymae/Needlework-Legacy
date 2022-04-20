@@ -63,8 +63,12 @@ import routes from "@/apis/needlework/src/data/routes";
 
 onMounted(() => {
   window.ipcRenderer.receive("needlework-update", async (uri) => {
-    if (uri === routes.WALLET) {
+    if (uri === routes.WALLET || uri === routes.LOL_LOOT_READY) {
       wallet.value = await window.ipcRenderer.invoke("wallet");
+      forceRerender(componentKey);
+    }
+    if (uri == routes.PLAYER_LOOT_MAP) {
+      updateLootCounters();
       forceRerender(componentKey);
     }
   });
@@ -84,34 +88,44 @@ const { orangeEssence, mythicEssence, keys, chests } = usePlayerLoot(store);
  * Chests count (Hextech chests, Masterwork chests)
  * Capsules and orbs count
  */
-const translatedChests = useTranslatedLoot(store, chests);
 const chestCount = ref(0);
 const capsuleCount = ref(0);
 const orbCount = ref(0);
-translatedChests.value?.forEach((chest) => {
-  if (chest.localizedName !== "") {
-    if (chest.localizedName.toLowerCase().includes("chest"))
-      chestCount.value += chest.count;
-    if (chest.localizedName.toLowerCase().includes("capsule"))
-      capsuleCount.value += chest.count;
-    if (chest.localizedName.toLowerCase().includes("orb"))
-      orbCount.value += chest.count;
-    return;
-  }
 
-  if (chest.lootName !== "") {
-    if (
-      chest.lootName.toLowerCase().includes("chest") &&
-      chest.lootName !== "CHEST_212"
-    ) {
-      chestCount.value += chest.count;
+const updateLootCounters = () => {
+  const translatedChests = useTranslatedLoot(store, chests);
+
+  chestCount.value = 0;
+  capsuleCount.value = 0;
+  orbCount.value = 0;
+
+  translatedChests.value?.forEach((chest) => {
+    console.log(chest);
+    if (chest.localizedName !== "") {
+      if (chest.localizedName.toLowerCase().includes("chest"))
+        chestCount.value += chest.count;
+      if (chest.localizedName.toLowerCase().includes("capsule"))
+        capsuleCount.value += chest.count;
+      if (chest.localizedName.toLowerCase().includes("orb"))
+        orbCount.value += chest.count;
+      return;
     }
-    if (chest.lootName.toLowerCase().includes("capsule"))
-      capsuleCount.value += chest.count;
-    if (chest.lootName.toLowerCase().includes("orb"))
-      orbCount.value += chest.count;
-  }
-});
+
+    if (chest.lootName !== "") {
+      if (
+        chest.lootName.toLowerCase().includes("chest") &&
+        chest.lootName !== "CHEST_212"
+      ) {
+        chestCount.value += chest.count;
+      }
+      if (chest.lootName.toLowerCase().includes("capsule"))
+        capsuleCount.value += chest.count;
+      if (chest.lootName.toLowerCase().includes("orb"))
+        orbCount.value += chest.count;
+    }
+  });
+};
+updateLootCounters();
 
 /**
  * Component rerendering

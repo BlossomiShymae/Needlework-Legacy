@@ -79,7 +79,7 @@ const experienceProgress = computed(() => {
 });
 
 window.ipcRenderer.receive("needlework-update", async (uri) => {
-  if (uri === routes.CURRENT_SUMMONER) {
+  if (uri === routes.CURRENT_SUMMONER || uri === routes.LOL_LOOT_READY) {
     currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
     profileIcon.value = await (
       await useProfileIcon(currentSummoner)
