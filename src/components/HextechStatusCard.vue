@@ -194,7 +194,7 @@ wallet.value = await window.ipcRenderer.invoke("wallet");
 .hextech-icon {
   image-rendering: -webkit-optimize-contrast;
   margin-right: 2px;
-  height: 100%;
+  height: 26px;
   max-width: 100%;
   aspect-ratio: 1/1;
 }
