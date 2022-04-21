@@ -20,6 +20,17 @@ export class ActiveState extends AbstractState {
   pollingEventLoop() {
     if (!this._api.clientAuthentication.isClientActive()) {
       NeedleworkConsole.log("Lost connection with League Client!");
+      this._api.handleWebSocketMessage(
+        JSON.stringify([
+          8,
+          "",
+          {
+            data: "active",
+            eventType: "",
+            uri: routes.CLIENT_INACTIVE,
+          },
+        ])
+      );
       this._api.changeState(new InactiveState(this._api));
     }
   }

@@ -4,6 +4,8 @@ const routes = Object.freeze({
   WALLET: "/lol-store/v1/wallet",
   PLAYER_LOOT_MAP: "/lol-loot/v1/player-loot-map",
   LOL_LOOT_READY: "/lol-loot/v1/ready",
+  CLIENT_INACTIVE: "CLIENT-INACTIVE",
+  CLIENT_ACTIVE: "CLIENT-ACTIVE",
 });
 
 export default routes;

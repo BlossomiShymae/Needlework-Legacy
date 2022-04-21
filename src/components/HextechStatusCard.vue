@@ -100,7 +100,6 @@ const updateLootCounters = () => {
   orbCount.value = 0;
 
   translatedChests.value?.forEach((chest) => {
-    console.log(chest);
     if (chest.localizedName !== "") {
       if (chest.localizedName.toLowerCase().includes("chest"))
         chestCount.value += chest.count;

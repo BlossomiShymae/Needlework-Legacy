@@ -98,8 +98,8 @@ export default class Needlework {
 
     switch (messageDTO.opcode) {
       case WS_OPCODES.EVENT:
+        console.log(messageDTO.object.uri);
         for (const property in routes) {
-          console.log(messageDTO.object.uri);
           if (routes[property] === messageDTO.object.uri) {
             if (!isEqual(this._cache.lastData, messageDTO.object.data)) {
               this.sendEventUpdate(messageDTO);

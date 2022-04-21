@@ -32,7 +32,6 @@
 
 <script>
 import BaseLootCard from "@/components/loots/BaseLootCard";
-import { onMounted } from "@vue/runtime-core";
 
 export default {
   name: "SkinCard",
@@ -53,11 +52,6 @@ export default {
       isUltimate: false,
       isLegacy: false,
     };
-  },
-  setup(props) {
-    onMounted(() => {
-      console.log(props.skin);
-    });
   },
   mounted() {
     if (this.skin?.rarity?.includes("EPIC")) this.isEpic = true;

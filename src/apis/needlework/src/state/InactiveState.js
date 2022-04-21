@@ -1,3 +1,4 @@
+import routes from "../data/routes";
 import NeedleworkConsole from "../NeedleworkConsole";
 import { AbstractState, ActiveState } from "./index";
 
@@ -5,6 +6,10 @@ import { AbstractState, ActiveState } from "./index";
 export class InactiveState extends AbstractState {
   constructor(api) {
     super(api);
+
+    this._api.clientWebSocket.handleMessageEvent(
+      this._api.handleWebSocketMessage.bind(this._api)
+    );
   }
 
   /**
@@ -35,6 +40,17 @@ export class InactiveState extends AbstractState {
         this._api.clientHTTPS.reinit();
         this._api.clientWebSocket.reinit();
 
+        this._api.handleWebSocketMessage(
+          JSON.stringify([
+            8,
+            "",
+            {
+              data: "inactive",
+              eventType: "",
+              uri: routes.CLIENT_ACTIVE,
+            },
+          ])
+        );
         this._api.changeState(new ActiveState(this._api));
         this._api.setPollInterval();
       };

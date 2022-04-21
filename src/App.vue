@@ -15,10 +15,18 @@
 
 <script setup>
 import { useStore } from "vuex";
+import router from "@/router";
 import useSettings from "@/composables/useSettings";
+import routes from "./apis/needlework/src/data/routes";
 
 const store = useStore();
 const { theme } = useSettings(store);
+
+window.ipcRenderer.receive("needlework-update", (uri) => {
+  if (uri == routes.CLIENT_INACTIVE) {
+    router.push("/inactive");
+  }
+});
 </script>
 
 <style lang="scss">

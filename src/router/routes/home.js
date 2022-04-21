@@ -1,8 +1,9 @@
+import Home from "@/views/Home.vue";
+
 const homeRoute = {
   path: "/home",
   name: "Home",
-  component: () =>
-    import(/* webpackChunkName: "home" */ "../../views/Home.vue"),
+  component: Home,
   children: [
     {
       path: "all",

@@ -12,6 +12,12 @@ const routes = [
     path: "/",
     redirect: "/home",
   },
+  {
+    path: "/inactive",
+    name: "Inactive",
+    component: () =>
+      import(/* webpackChunkName: "inactive" */ "../views/Inactive.vue"),
+  },
 ];
 
 routes.push(homeRoute);
