@@ -23,11 +23,13 @@
     <w-progress
       id="summoner-progress"
       v-model="experienceProgress"
-      size="0.8rem"
+      size="1rem"
       outlined
       round
       label
-      label-color="indigo-light4"
+      label-color="indigo-light5"
+      bg-color="indigo-dark4"
+      color="indigo"
     >
       {{ currentSummoner.xpSinceLastLevel }} /
       {{ currentSummoner.xpUntilNextLevel }} XP
