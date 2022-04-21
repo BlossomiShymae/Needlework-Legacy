@@ -82,7 +82,6 @@ const experienceProgress = computed(() => {
 
 const milestoneAwards = ref("");
 const setMilestoneAwards = (currentSummoner) => {
-  currentSummoner.value.summonerLevel = 549;
   milestoneAwards.value = "";
   const levelRewardMap = {
     2: "450 BE\nPick one: Lux, Master Yi, Miss Fortune, Brand, Darius",
