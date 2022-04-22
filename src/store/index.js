@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 import settings from "./modules/settings";
+import hextechStatus from "./modules/hextechStatus";
 import createIpcRendererPlugin from "./plugins/createIpcRendererPlugin";
+import loot from "@/enums/loot";
 
 const filterMapByCategory = (playerLootMap, category) => {
   const array = Array.from(playerLootMap.values());
@@ -26,31 +28,58 @@ export default createStore({
       return state.playerLootMap.get("CHEST_129");
     },
     lootChampions(state) {
-      return filterMapByCategory(state.playerLootMap, "CHAMPION");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.CHAMPION
+      );
     },
     lootEternals(state) {
-      return filterMapByCategory(state.playerLootMap, "ETERNALS");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.ETERNALS
+      );
     },
     lootChests(state) {
-      return filterMapByCategory(state.playerLootMap, "CHEST");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.CHEST
+      );
     },
     lootEmotes(state) {
-      return filterMapByCategory(state.playerLootMap, "EMOTE");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.EMOTE
+      );
     },
     lootSkins(state) {
-      return filterMapByCategory(state.playerLootMap, "SKIN");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.SKIN
+      );
     },
     lootIcons(state) {
-      return filterMapByCategory(state.playerLootMap, "SUMMONERICON");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.SUMMONER_ICON
+      );
     },
     lootWardSkins(state) {
-      return filterMapByCategory(state.playerLootMap, "WARDSKIN");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.WARD_SKIN
+      );
     },
     lootTacticians(state) {
-      return filterMapByCategory(state.playerLootMap, "COMPANION");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.COMPANION
+      );
     },
     lootOthers(state) {
-      return filterMapByCategory(state.playerLootMap, "OTHER");
+      return filterMapByCategory(
+        state.playerLootMap,
+        loot.displayCategories.OTHER
+      );
     },
     beSum(state) {
       return state.beSum;
@@ -82,7 +111,8 @@ export default createStore({
   },
   actions: {},
   modules: {
-    settings: settings,
+    settings,
+    hextechStatus,
   },
   plugins: [createIpcRendererPlugin],
 });

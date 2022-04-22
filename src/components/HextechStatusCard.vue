@@ -1,46 +1,86 @@
 <template>
   <div id="hextech-status-card" :key="componentKey">
-    <div id="hextech-blue-essence">
+    <div id="hextech-blue-essence" class="hextech-status-item">
       <img
         class="hextech-icon"
         src="local-resource://./src/assets/riot_static/currency_champion.png"
       />
-      <p class="body text-bold">{{ wallet.ip }}</p>
+      <p class="body text-bold">{{ wallet?.ip ?? 0 }}</p>
     </div>
-    <div id="hextech-orange-essence">
+    <div id="hextech-orange-essence" class="hextech-status-item">
       <img
         class="hextech-icon"
         src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
       />
       <p class="body text-bold">{{ orangeEssence?.count ?? 0 }}</p>
     </div>
-    <div id="hextech-mythic-essence">
+    <div id="hextech-mythic-essence" class="hextech-status-item">
       <img
         class="hextech-icon"
         src="local-resource://./src/assets/riot_static/currency_mythic.png"
       />
       <p class="body text-bold">{{ mythicEssence?.count ?? 0 }}</p>
     </div>
-    <div id="hextech-keys">
+    <div id="hextech-keys" class="hextech-status-item">
       <img
         class="hextech-icon grayscale-icon"
         src="local-resource://./src/assets/riot_static/material_key.png"
       />
       <p class="body text-bold">{{ keys?.count ?? 0 }}</p>
     </div>
-    <div id="hextech-chests">
+    <div id="hextech-chests" class="hextech-status-item">
       <img
         class="hextech-icon grayscale-icon"
         src="local-resource://./src/assets/riot_static/chest_generic.png"
       />
       <p class="body text-bold">{{ chestCount }}</p>
     </div>
-    <div id="hextech-capsules">
+    <div id="hextech-capsules" class="hextech-status-item">
       <img
         class="hextech-icon grayscale-icon"
         src="local-resource://./src/assets/riot_static/portal_chest.png"
       />
       <p class="body text-bold">{{ capsuleCount + orbCount }}</p>
+    </div>
+    <div id="hextech-status">
+      <div id="hextech-disenchant-title">
+        <p class="title5">Disenchant value</p>
+      </div>
+      <div id="hextech-total-title">
+        <p class="title5">Total value</p>
+      </div>
+      <div id="hextech-disenchant-blue-essence" class="hextech-status-item">
+        <img
+          class="hextech-icon"
+          src="local-resource://./src/assets/riot_static/currency_champion.png"
+        />
+        <p class="body text-bold blue">{{ disenchantBlueEssenceTotal }}</p>
+      </div>
+      <div id="hextech-disenchant-orange-essence" class="hextech-status-item">
+        <img
+          class="hextech-icon"
+          src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
+        />
+        <p class="body text-bold blue">{{ disenchantOrangeEssenceTotal }}</p>
+      </div>
+      <div id="hextech-total-blue-essence" class="hextech-status-item">
+        <img
+          class="hextech-icon"
+          src="local-resource://./src/assets/riot_static/currency_champion.png"
+        />
+        <p class="body text-bold green">
+          {{ (wallet?.ip ?? 0) + disenchantBlueEssenceTotal }}
+        </p>
+      </div>
+      <div id="hextech-total-orange-essence" class="hextech-status-item">
+        <img
+          class="hextech-icon"
+          src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
+        />
+        <p class="body text-bold green">
+          {{ (orangeEssence?.count ?? 0) + disenchantOrangeEssenceTotal }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -59,6 +99,7 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useComponentKey from "@/composables/useComponentKey";
 import useSettings from "@/composables/useSettings";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
+import useHextechStatus from "@/composables/useHextechStatus";
 import routes from "@/apis/needlework/src/data/routes";
 
 onMounted(() => {
@@ -140,6 +181,12 @@ const { theme } = useSettings(store);
  */
 const wallet = ref(null);
 wallet.value = await window.ipcRenderer.invoke("wallet");
+
+/**
+ * HextechStatus
+ */
+const { disenchantBlueEssenceTotal, disenchantOrangeEssenceTotal } =
+  useHextechStatus(store);
 </script>
 
 <style lang="scss" scoped>
@@ -157,7 +204,7 @@ wallet.value = await window.ipcRenderer.invoke("wallet");
   gap: 8px;
   overflow: hidden;
 
-  & > * {
+  .hextech-status-item {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -188,6 +235,42 @@ wallet.value = await window.ipcRenderer.invoke("wallet");
     .grayscale-icon {
       filter: grayscale(1) brightness(0.75);
     }
+  }
+
+  #hextech-status {
+    grid-area: status;
+    display: grid;
+    grid-template-areas:
+      "dtitle dtitle ttitle ttitle"
+      "dblue dorange tblue torange";
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 16px) minmax(0, 1fr);
+    gap: 2px;
+    margin-top: 16px;
+  }
+
+  #hextech-disenchant-title {
+    grid-area: dtitle;
+  }
+
+  #hextech-total-title {
+    grid-area: ttitle;
+  }
+
+  #hextech-disenchant-blue-essence {
+    grid-area: dblue;
+  }
+
+  #hextech-disenchant-orange-essence {
+    grid-area: dorange;
+  }
+
+  #hextech-total-blue-essence {
+    grid-area: tblue;
+  }
+
+  #hextech-total-orange-essence {
+    grid-area: torange;
   }
 }
 

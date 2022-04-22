@@ -17,6 +17,8 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import EmoteCard from "@/components/loots/EmoteCard";
 import ContentCard from "@/components/ContentCard";
+import useHextechStatus from "@/composables/useHextechStatus";
+import { onBeforeUnmount } from "@vue/runtime-core";
 
 export default {
   name: "Emote",
@@ -35,6 +37,12 @@ export default {
     const { emotes } = usePlayerLoot(store);
 
     const translatedEmotes = useTranslatedLoot(store, emotes);
+
+    const { resetHextechStatus } = useHextechStatus(store, translatedEmotes);
+
+    onBeforeUnmount(() => {
+      resetHextechStatus();
+    });
 
     return {
       translatedEmotes,

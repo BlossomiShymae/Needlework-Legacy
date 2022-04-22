@@ -23,6 +23,8 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import BaseLootCard from "@/components/loots/BaseLootCard";
 import ContentCard from "@/components/ContentCard";
+import useHextechStatus from '@/composables/useHextechStatus';
+import { onBeforeUnmount } from '@vue/runtime-core';
 
 export default {
   name: "Tactician",
@@ -36,6 +38,12 @@ export default {
     const { tacticians } = usePlayerLoot(store);
 
     const translatedTacticians = useTranslatedLoot(store, tacticians);
+
+    const { resetHextechStatus } = useHextechStatus(store, translatedTacticians);
+
+    onBeforeUnmount(() => {
+      resetHextechStatus();
+    });
 
     return {
       translatedTacticians,

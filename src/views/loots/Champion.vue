@@ -16,8 +16,9 @@ import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import ChampionCard from "@/components/loots/ChampionCard";
-import { onUnmounted } from "@vue/runtime-core";
+import { onBeforeUnmount } from "@vue/runtime-core";
 import ContentCard from "@/components/ContentCard";
+import useHextechStatus from "@/composables/useHextechStatus";
 
 export default {
   name: "Champion",
@@ -30,19 +31,13 @@ export default {
 
     const { champions } = usePlayerLoot(store);
 
-    if (champions.value.length > 0) {
-      const sum = champions.value.reduce((a, b) => {
-        return (a.disenchantValue ?? a) + b.disenchantValue;
-      });
-
-      store.commit("setBalance", { disenchant: sum, upgrade: null });
-
-      onUnmounted(() => {
-        store.commit("setBalance", { disenchant: null, upgrade: null });
-      });
-    }
-
     const translatedChampions = useTranslatedLoot(store, champions);
+
+    const { resetHextechStatus } = useHextechStatus(store, translatedChampions);
+
+    onBeforeUnmount(() => {
+      resetHextechStatus();
+    });
 
     return {
       translatedChampions,

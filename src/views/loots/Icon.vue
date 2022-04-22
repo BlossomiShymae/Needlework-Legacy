@@ -23,6 +23,8 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import BaseLootCard from "@/components/loots/BaseLootCard";
 import ContentCard from "@/components/ContentCard";
+import useHextechStatus from '@/composables/useHextechStatus';
+import { onBeforeUnmount } from '@vue/runtime-core';
 
 export default {
   name: "Icon",
@@ -36,6 +38,12 @@ export default {
     const { icons } = usePlayerLoot(store);
 
     const translatedIcons = useTranslatedLoot(store, icons);
+
+    const { resetHextechStatus } = useHextechStatus(store, translatedIcons);
+
+    onBeforeUnmount(() => {
+      resetHextechStatus();
+    });
 
     return {
       translatedIcons,

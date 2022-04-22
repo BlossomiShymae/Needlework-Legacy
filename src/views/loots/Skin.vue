@@ -8,11 +8,13 @@
 </template>
 
 <script>
+import { onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import SkinCard from "@/components/loots/SkinCard";
 import ContentCard from "@/components/ContentCard";
+import useHextechStatus from "@/composables/useHextechStatus";
 
 export default {
   name: "Skin",
@@ -31,6 +33,12 @@ export default {
     const { skins } = usePlayerLoot(store);
 
     const translatedSkins = useTranslatedLoot(store, skins);
+
+    const { resetHextechStatus } = useHextechStatus(store, translatedSkins);
+
+    onBeforeUnmount(() => {
+      resetHextechStatus();
+    });
 
     return {
       translatedSkins,

@@ -17,6 +17,8 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import EternalCard from "@/components/loots/EternalCard";
 import ContentCard from '@/components/ContentCard';
+import useHextechStatus from '@/composables/useHextechStatus';
+import { onBeforeUnmount } from '@vue/runtime-core';
 
 export default {
   name: "Eternal",
@@ -36,6 +38,12 @@ export default {
 
     const translatedEternals = useTranslatedLoot(store, eternals);
 
+    const { resetHextechStatus } = useHextechStatus(store, translatedEternals);
+
+    onBeforeUnmount(() => {
+      resetHextechStatus();
+    });
+    
     return {
       translatedEternals,
       eternals,
