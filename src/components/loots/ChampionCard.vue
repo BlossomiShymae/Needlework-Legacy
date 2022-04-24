@@ -17,27 +17,25 @@
   </div>
 </template>
 
-<script>
-import BaseLootCard from "@/components/loots/BaseLootCard";
+<script lang="ts">
+import { defineComponent } from "vue";
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
 
-export default {
+export default defineComponent({
   name: "ChampionCard",
   components: {
     BaseLootCard,
   },
-};
+});
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { defineProps } from "vue";
+import type { PlayerLoot } from '@/types/PlayerLoot';
 
-const props = defineProps({
-  champion: {
-    type: Object,
-    required: true,
-  },
-});
-props;
+const props = defineProps<{
+  champion: PlayerLoot,
+}>();
 </script>
 
 <style lang="scss">

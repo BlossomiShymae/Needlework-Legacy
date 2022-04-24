@@ -30,37 +30,41 @@
   </div>
 </template>
 
-<script>
-import BaseLootCard from "@/components/loots/BaseLootCard";
+<script lang="ts">
+import { defineComponent } from "vue";
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
 
-export default {
+export default defineComponent({
   name: "SkinCard",
   components: {
     BaseLootCard,
   },
-  props: {
-    skin: {
-      type: Object,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      isEpic: false,
-      isLegendary: false,
-      isMythic: false,
-      isUltimate: false,
-      isLegacy: false,
-    };
-  },
-  mounted() {
-    if (this.skin?.rarity?.includes("EPIC")) this.isEpic = true;
-    if (this.skin?.rarity?.includes("LEGENDARY")) this.isLegendary = true;
-    if (this.skin?.rarity?.includes("MYTHIC")) this.isMythic = true;
-    if (this.skin?.rarity?.includes("ULTIMATE")) this.isUltimate = true;
-    if (this.skin?.tags?.includes("legacy")) this.isLegacy = true;
-  },
-};
+});
+</script>
+
+<script setup lang="ts">
+import { defineProps, onMounted, ref } from "vue";
+
+import type { PlayerLoot } from '@/types/PlayerLoot';
+import { Loot } from "@/enums/loot";
+
+const props = defineProps<{
+  skin: PlayerLoot,
+}>();
+
+const isEpic = ref(false);
+const isLegendary = ref(false);
+const isMythic = ref(false);
+const isUltimate = ref(false);
+const isLegacy = ref(false);
+
+onMounted(() => {
+  if (props.skin.rarity.includes(Loot.Rarity.EPIC)) isEpic.value = true;
+  if (props.skin.rarity.includes(Loot.Rarity.LEGENDARY)) isLegendary.value = true;
+  if (props.skin.rarity.includes(Loot.Rarity.MYTHIC)) isMythic.value = true;
+  if (props.skin.rarity.includes(Loot.Rarity.ULTIMATE)) isUltimate.value = true;
+  if (props.skin.tags?.includes("legacy")) isLegacy.value = true;
+})
 </script>
 
 <style lang="scss">

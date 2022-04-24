@@ -4,18 +4,18 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "ContentCard",
-};
+});
 </script>
 
-<script setup>
+<script setup lang="ts">
 import useSettings from "@/composables/useSettings";
-import { useStore } from "vuex";
 
-const store = useStore();
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 </script>
 
 <style lang="scss" scoped>

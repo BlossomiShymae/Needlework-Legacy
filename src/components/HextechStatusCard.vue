@@ -12,7 +12,7 @@
         class="hextech-icon"
         src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
       />
-      <p class="body text-bold">{{ orangeEssence?.count ?? 0 }}</p>
+      <p class="body text-bold">{{ orangeEssence.count ?? 0 }}</p>
     </div>
     <div id="hextech-mythic-essence" class="hextech-status-item">
       <img
@@ -85,25 +85,27 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "HextechStatusCard",
-};
+});
 </script>
 
-<script setup>
-import { ref, onMounted } from "vue";
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
+<script setup lang="ts">
+import { Ref, ref, onMounted } from "vue";
 
 import useComponentKey from "@/composables/useComponentKey";
+import useHextechStatus from "@/composables/useHextechStatus";
+import usePlayerLoot from "@/composables/usePlayerLoot";
 import useSettings from "@/composables/useSettings";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import useHextechStatus from "@/composables/useHextechStatus";
 import routes from "@/apis/needlework/src/data/routes";
+import type { WalletDTO } from '@/types/WalletDTO';
 
 onMounted(() => {
-  window.ipcRenderer.receive("needlework-update", async (uri) => {
+  window.ipcRenderer.receive("needlework-update", async (uri: any) => {
     if (uri === routes.WALLET || uri === routes.LOL_LOOT_READY) {
       wallet.value = await window.ipcRenderer.invoke("wallet");
       forceRerender(componentKey);
@@ -116,14 +118,9 @@ onMounted(() => {
 });
 
 /**
- * Vuex global store
- */
-const store = useStore();
-
-/**
  * Currencies
  */
-const { orangeEssence, mythicEssence, keys, chests } = usePlayerLoot(store);
+const { orangeEssence, mythicEssence, keys, chests } = usePlayerLoot();
 
 /**
  * Chests count (Hextech chests, Masterwork chests)
@@ -134,7 +131,7 @@ const capsuleCount = ref(0);
 const orbCount = ref(0);
 
 const updateLootCounters = () => {
-  const translatedChests = useTranslatedLoot(store, chests);
+  const translatedChests = useTranslatedLoot(chests);
 
   chestCount.value = 0;
   capsuleCount.value = 0;
@@ -174,19 +171,19 @@ const { componentKey, forceRerender } = useComponentKey();
 /**
  * User settings
  */
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 
 /**
  * WalletDTO
  */
-const wallet = ref(null);
+const wallet: Ref<WalletDTO | null> = ref(null);
 wallet.value = await window.ipcRenderer.invoke("wallet");
 
 /**
  * HextechStatus
  */
 const { disenchantBlueEssenceTotal, disenchantOrangeEssenceTotal } =
-  useHextechStatus(store);
+  useHextechStatus();
 </script>
 
 <style lang="scss" scoped>

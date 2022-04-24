@@ -4,52 +4,42 @@
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedEmotes">
       <EmoteCard
         v-for="emote in translatedEmotes"
-        :key="emote"
+        :key="(emote as any)"
         :emote="emote"
       />
     </div>
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import EmoteCard from "@/components/loots/EmoteCard";
-import ContentCard from "@/components/ContentCard";
-import useHextechStatus from "@/composables/useHextechStatus";
-import { onBeforeUnmount } from "@vue/runtime-core";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import EmoteCard from "@/components/loots/EmoteCard.vue";
+import ContentCard from "@/components/ContentCard.vue";
+
+export default defineComponent({
   name: "Emote",
   components: {
     EmoteCard,
     ContentCard,
   },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
-  },
-  setup() {
-    const store = useStore();
+});
+</script>
 
-    const { emotes } = usePlayerLoot(store);
+<script setup lang="ts">
+import { onBeforeUnmount } from "@vue/runtime-core";
 
-    const translatedEmotes = useTranslatedLoot(store, emotes);
+import useHextechStatus from "@/composables/useHextechStatus";
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
-    const { resetHextechStatus } = useHextechStatus(store, translatedEmotes);
+const { emotes } = usePlayerLoot();
+const translatedEmotes = useTranslatedLoot(emotes);
+const { resetHextechStatus } = useHextechStatus(translatedEmotes);
 
-    onBeforeUnmount(() => {
-      resetHextechStatus();
-    });
-
-    return {
-      translatedEmotes,
-      emotes,
-    };
-  },
-};
+onBeforeUnmount(() => {
+  resetHextechStatus();
+});
 </script>
 
 <style lang="scss" scoped>

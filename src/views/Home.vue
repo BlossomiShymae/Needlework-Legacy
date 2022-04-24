@@ -22,81 +22,66 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from "vue";
-import router from "@/router/index.js";
-import LootMetaPanel from "@/components/panels/LootMetaPanel";
-import SummonerCard from "@/components/SummonerCard";
-import WindowButtonBar from "@/components/controls/WindowButtonBar";
-import store from "@/store/index";
-import useSettings from "@/composables/useSettings";
-import useComponentKey from "@/composables/useComponentKey";
-import Time from "@/utils/Time";
-import routes from "@/apis/needlework/src/data/routes";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import LootMetaPanel from "@/components/panels/LootMetaPanel.vue";
+import SummonerCard from "@/components/SummonerCard.vue";
+import WindowButtonBar from "@/components/controls/WindowButtonBar.vue";
+
+export default defineComponent({
   name: "Home",
   components: {
     SummonerCard,
     WindowButtonBar,
     LootMetaPanel,
   },
-  async setup() {
-    // Listener for Needlework update event
-    onMounted(() => {
-      window.ipcRenderer.receive("needlework-update", async (uri) => {
-        if (uri === routes.PLAYER_LOOT_MAP) {
-          console.log(
-            "Received event update from NeedleworkService - " +
-              uri +
-              " " +
-              Time.toString()
-          );
-          playerLootMapObject.value = await window.ipcRenderer.invoke(
-            "player-loot-map"
-          );
-          store.commit("update", playerLootMapObject.value);
-          forceRerender(componentKey);
-        }
-      });
-    });
-
-    // Init global app state
-    const { componentKey, forceRerender } = useComponentKey();
-    const sourceState = ref(null);
-    sourceState.value = await window.ipcRenderer.invoke("app-get-store");
-    const { setStore } = useSettings(store);
-    setStore(sourceState);
-
-    const playerLootMapObject = ref({});
-    playerLootMapObject.value = await window.ipcRenderer.invoke(
-      "player-loot-map"
-    );
-
-    const updatePlayerLootMap = store.commit(
-      "update",
-      playerLootMapObject.value
-    );
-
-    const lootTable = ref(null);
-    lootTable.value = await window.ipcRenderer.invoke("cd-loot-translation");
-    store.commit("setLootTable", lootTable.value);
-
-    // Theme
-    const { theme } = useSettings(store);
-
-    router.push("/home/all");
-
-    return {
-      updatePlayerLootMap,
-      theme,
-      componentKey,
-      forceRerender,
-    };
-  },
-};
+});
 </script>
 
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+import router from "@/router";
+import Time from "@/utils/Time";
+import routes from "@/apis/needlework/src/data/routes";
+
+import useComponentKey from "@/composables/useComponentKey";
+import { useLootStore } from '@/stores/loot';
+import useSettings from "@/composables/useSettings";
+
+// Initialize global application state for settings
+const settingsState: any = await window.ipcRenderer.invoke("app-get-store");
+const { setStore } = useSettings();
+setStore(settingsState);
+
+// Initalize PlayerLoot and it's store
+const playerLootMap = ref({});
+playerLootMap.value = await window.ipcRenderer.invoke("player-loot-map");
+const lootStore = useLootStore();
+lootStore.updatePlayerLootMap(playerLootMap.value);
+
+// Initialize loot table for loot translations
+const lootTable = ref({});
+lootTable.value = await window.ipcRenderer.invoke("cd-loot-translation");
+lootStore.setLootTable(lootTable.value);
+
+const { theme } = useSettings();
+
+router.push("/home/all");
+const { componentKey, forceRerender } = useComponentKey();
+
+onMounted(() => {
+  window.ipcRenderer.receive("needlework-update", async (uri: any) => {
+    if (uri === routes.PLAYER_LOOT_MAP) {
+      console.log("Received event update from NeedleworkService - " + 
+      uri + " " + Time.toString());
+      playerLootMap.value = await window.ipcRenderer.invoke("player-loot-map");
+      lootStore.updatePlayerLootMap(playerLootMap.value);
+      forceRerender(componentKey);
+    }
+  })
+})
+</script>
 
 <style lang="scss" scoped>
 .home {

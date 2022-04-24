@@ -1,5 +1,5 @@
 <template>
-  <div id="loot-button-card" :key="componentKey">
+  <div id="loot-button-card">
     <w-button @click="$router.push('/home/all')">
       <img
         src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/all.png"
@@ -57,18 +57,18 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "LootButtonCard",
-};
+});
 </script>
 
-<script setup>
-import { useStore } from "vuex";
+<script setup lang="ts">
 import useSettings from "@/composables/useSettings";
 
-const store = useStore();
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 </script>
 
 <style lang="scss" scoped>

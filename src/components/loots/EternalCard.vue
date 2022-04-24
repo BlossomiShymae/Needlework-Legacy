@@ -20,29 +20,30 @@
   </div>
 </template>
 
-<script>
-import BaseLootCard from "@/components/loots/BaseLootCard";
+<script lang="ts">
+import { defineComponent } from "vue";
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
 
-export default {
+export default defineComponent({
   name: "EternalCard",
   components: {
     BaseLootCard,
   },
-  props: {
-    eternal: {
-      type: Object,
-      required: true,
-    },
-  },
-};
+});
 </script>
 
-<script setup>
-import store from "@/store/index";
-import useSettings from "@/composables/useSettings";
+<script setup lang="ts">
+import { defineProps } from "vue";
 
-function toRoman(num) {
-  const roman = {
+import useSettings from "@/composables/useSettings";
+import type { PlayerLoot } from '@/types/PlayerLoot';
+
+const props = defineProps<{
+  eternal: PlayerLoot,
+}>();
+
+function toRoman(num: any) {
+  const roman: any = {
     X: 10,
     IX: 9,
     V: 5,
@@ -60,7 +61,7 @@ function toRoman(num) {
   return str;
 }
 
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 </script>
 
 <style lang="scss" scoped>

@@ -5,53 +5,46 @@
       <Suspense>
         <BaseLootCard
           v-for="(icon, index) in translatedIcons"
-          :key="icon"
+          :key="(icon as any)"
           :tileIconPath="icon.tilePath"
           :name="icon.lootName"
           :loot-name="icons[index].lootName"
           :type="icon.type"
           :count="icon.count"
+          :can-open="true"
         />
       </Suspense>
     </div>
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import BaseLootCard from "@/components/loots/BaseLootCard";
-import ContentCard from "@/components/ContentCard";
-import useHextechStatus from '@/composables/useHextechStatus';
-import { onBeforeUnmount } from '@vue/runtime-core';
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import ContentCard from "@/components/ContentCard.vue";
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
+
+export default defineComponent({
   name: "Icon",
   components: {
     BaseLootCard,
     ContentCard,
   },
-  setup() {
-    const store = useStore();
-
-    const { icons } = usePlayerLoot(store);
-
-    const translatedIcons = useTranslatedLoot(store, icons);
-
-    const { resetHextechStatus } = useHextechStatus(store, translatedIcons);
-
-    onBeforeUnmount(() => {
-      resetHextechStatus();
-    });
-
-    return {
-      translatedIcons,
-      icons,
-    };
-  },
-};
+});
 </script>
 
-<style>
-</style>
+<script setup lang="ts">
+import { onBeforeUnmount } from '@vue/runtime-core';
+
+import useHextechStatus from '@/composables/useHextechStatus';
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
+
+const { icons } = usePlayerLoot();
+const translatedIcons = useTranslatedLoot(icons);
+const { resetHextechStatus } = useHextechStatus(translatedIcons);
+
+onBeforeUnmount(() => {
+  resetHextechStatus();
+});
+</script>

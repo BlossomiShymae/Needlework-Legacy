@@ -11,22 +11,20 @@
   </div>
 </template>
 
-<script>
-import SummonerHorizontalCard from "@/components/SummonerHorizontalCard";
-import HextechStatusCard from "@/components/HextechStatusCard";
-import LootButtonCard from "@/components/LootButtonCard";
+<script lang="ts">
+import { defineComponent } from "vue";
+import SummonerHorizontalCard from "@/components/SummonerHorizontalCard.vue";
+import HextechStatusCard from "@/components/HextechStatusCard.vue";
+import LootButtonCard from "@/components/LootButtonCard.vue";
 
-export default {
+export default defineComponent({
   name: "LootMetaPanel",
   components: {
     SummonerHorizontalCard,
     HextechStatusCard,
     LootButtonCard,
   },
-};
-</script>
-
-<script setup>
+});
 </script>
 
 <style>

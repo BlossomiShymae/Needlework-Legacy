@@ -37,27 +37,28 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "SummonerHorizontalCard",
-};
+});
 </script>
 
-<script setup>
-import { ref, computed } from "vue";
-import { useStore } from "vuex";
+<script setup lang="ts">
+import { Ref, ref, computed } from "vue";
 
 import useComponentKey from "@/composables/useComponentKey";
 import useProfileIcon from "@/composables/useProfileIcon";
 import useSettings from "@/composables/useSettings";
 import routes from "@/apis/needlework/src/data/routes";
+import type { CurrentSummonerDTO } from '@/types/CurrentSummonerDTO';
 
-const store = useStore();
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 
 const { componentKey, forceRerender } = useComponentKey();
 
-const currentSummoner = ref(null);
+const currentSummoner: Ref<CurrentSummonerDTO | null> = ref(null);
 
 currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
 
@@ -67,23 +68,23 @@ const profileIcon = computed({
   get() {
     return rawProfileIcon.value;
   },
-  set(newValue) {
-    rawProfileIcon.value = newValue;
+  set(value: string) {
+    rawProfileIcon.value = value;
   },
 });
 
 const experienceProgress = computed(() => {
   return (
-    (currentSummoner.value.xpSinceLastLevel /
-      currentSummoner.value.xpUntilNextLevel) *
+    (currentSummoner.value!.xpSinceLastLevel /
+      currentSummoner.value!.xpUntilNextLevel) *
     100
   );
 });
 
 const milestoneAwards = ref("");
-const setMilestoneAwards = (currentSummoner) => {
+const setMilestoneAwards = (currentSummoner: Ref<CurrentSummonerDTO | null>) => {
   milestoneAwards.value = "";
-  const levelRewardMap = {
+  const levelRewardMap: any = {
     2: "450 BE\nPick one: Lux, Master Yi, Miss Fortune, Brand, Darius",
     3: "450 BE",
     4: "450 BE",
@@ -136,25 +137,25 @@ const setMilestoneAwards = (currentSummoner) => {
   };
 
   milestoneAwards.value +=
-    levelRewardMap[currentSummoner.value.summonerLevel + 1] ?? "";
+    levelRewardMap[currentSummoner.value!.summonerLevel + 1] ?? "";
 
-  if (currentSummoner.value.summonerLevel + 1 > 30) {
+  if (currentSummoner.value!.summonerLevel + 1 > 30) {
     // Milestone awards always have a Glorious Capsule
     if (milestoneAwards.value !== "") {
       milestoneAwards.value += "\nGlorious Champion Capsule";
     } else {
       // Non-milestone awards
-      if ((currentSummoner.value.summonerLevel + 1) % 10 == 0) {
+      if ((currentSummoner.value!.summonerLevel + 1) % 10 == 0) {
         milestoneAwards.value += "Glorious Champion Capsule";
-      } else if ((currentSummoner.value.summonerLevel + 1) % 1 == 0) {
+      } else if ((currentSummoner.value!.summonerLevel + 1) % 1 == 0) {
         milestoneAwards.value += "Champion Capsule";
       }
     }
 
     // Mythic Essence
     if (
-      currentSummoner.value.summonerLevel + 1 >= 150 &&
-      (currentSummoner.value.summonerLevel + 1) % 50 == 0
+      currentSummoner.value!.summonerLevel + 1 >= 150 &&
+      (currentSummoner.value!.summonerLevel + 1) % 50 == 0
     ) {
       milestoneAwards.value += "\n10 Mythic Essence";
     }
@@ -162,7 +163,7 @@ const setMilestoneAwards = (currentSummoner) => {
 };
 setMilestoneAwards(currentSummoner);
 
-window.ipcRenderer.receive("needlework-update", async (uri) => {
+window.ipcRenderer.receive("needlework-update", async (uri: any) => {
   if (uri === routes.CURRENT_SUMMONER || uri === routes.LOL_LOOT_READY) {
     currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
     profileIcon.value = await (

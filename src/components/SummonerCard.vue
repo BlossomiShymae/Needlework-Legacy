@@ -23,41 +23,35 @@
   </div>
 </template>
 
-<script>
-import { toRefs } from "vue";
-import useProfileIcon from "@/composables/useProfileIcon";
-import WalletStatus from "@/components/WalletStatus";
-import useSettings from "@/composables/useSettings";
-import store from "@/store/index";
+<script lang="ts">
+import { defineComponent } from "vue";
+import WalletStatus from "@/components/WalletStatus.vue";
 
-export default {
+export default defineComponent({
   name: "SummonerCard",
   components: {
     WalletStatus,
   },
-  props: {
-    currentSummoner: {
-      type: Object,
-      required: true,
-    },
-    wallet: {
-      type: Object,
-      required: true,
-    },
-  },
-  async setup(props) {
-    const { currentSummoner } = toRefs(props);
+});
+</script>
 
-    const { profileIcon } = await useProfileIcon(currentSummoner);
+<script setup lang="ts">
+import { toRefs, defineProps } from "vue";
 
-    const { theme } = useSettings(store);
+import type { CurrentSummonerDTO } from '@/types/CurrentSummonerDTO';
+import type { WalletDTO } from '@/types/WalletDTO';
+import useProfileIcon from "@/composables/useProfileIcon";
+import useSettings from "@/composables/useSettings";
 
-    return {
-      profileIcon,
-      theme,
-    };
-  },
-};
+
+const props = defineProps<{
+  currentSummoner: CurrentSummonerDTO,
+  wallet: WalletDTO,
+}>();
+
+const { currentSummoner } = toRefs(props);
+const { profileIcon } = await useProfileIcon(currentSummoner);
+const { theme } = useSettings();
 </script>
 
 <style lang="scss" scoped>

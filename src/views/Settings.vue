@@ -19,19 +19,19 @@
   </div>
 </template>
 
-<script>
-import WindowButtonBar from "@/components/controls/WindowButtonBar";
+<script lang="ts">
+import { defineComponent } from "vue";
+import WindowButtonBar from "@/components/controls/WindowButtonBar.vue";
 
-export default {
+export default defineComponent({
   name: "Settings",
   components: {
     WindowButtonBar,
   },
-};
+});
 </script>
 
-<script setup>
-import { useStore } from "vuex";
+<script setup lang="ts">
 import useSettings from "@/composables/useSettings";
 
 const settingLinks = [
@@ -43,8 +43,7 @@ const settingLinks = [
   },
 ];
 
-const store = useStore();
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 </script>
 
 <style lang="scss" scoped>

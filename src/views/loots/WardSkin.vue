@@ -5,53 +5,46 @@
       <Suspense>
         <BaseLootCard
           v-for="(wardSkin, index) in translatedWardSkins"
-          :key="wardSkin"
+          :key="(wardSkin as any)"
           :tileIconPath="wardSkin.tilePath"
           :name="wardSkin.lootName"
           :loot-name="wardSkins[index].lootName"
           :type="wardSkin.type"
           :count="wardSkin.count"
+          :can-open="true"
         />
       </Suspense>
     </div>
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import BaseLootCard from "@/components/loots/BaseLootCard";
-import ContentCard from "@/components/ContentCard";
-import useHextechStatus from "@/composables/useHextechStatus";
-import { onBeforeUnmount } from "@vue/runtime-core";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import ContentCard from "@/components/ContentCard.vue";
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
+
+export default defineComponent({
   name: "WardSkin",
   components: {
     BaseLootCard,
     ContentCard,
   },
-  setup() {
-    const store = useStore();
-
-    const { wardSkins } = usePlayerLoot(store);
-
-    const translatedWardSkins = useTranslatedLoot(store, wardSkins);
-
-    const { resetHextechStatus } = useHextechStatus(store, translatedWardSkins);
-
-    onBeforeUnmount(() => {
-      resetHextechStatus();
-    });
-
-    return {
-      translatedWardSkins,
-      wardSkins,
-    };
-  },
-};
+});
 </script>
 
-<style>
-</style>
+<script setup lang="ts">
+import { onBeforeUnmount } from "@vue/runtime-core";
+
+import useHextechStatus from "@/composables/useHextechStatus";
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
+
+const { wardSkins } = usePlayerLoot();
+const translatedWardSkins = useTranslatedLoot(wardSkins);
+const { resetHextechStatus } = useHextechStatus(translatedWardSkins);
+
+onBeforeUnmount(() => {
+  resetHextechStatus();
+});
+</script>

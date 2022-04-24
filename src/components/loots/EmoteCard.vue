@@ -13,21 +13,25 @@
   </div>
 </template>
 
-<script>
-import BaseLootCard from "@/components/loots/BaseLootCard";
+<script lang="ts">
+import { defineComponent } from "vue";
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
 
-export default {
+export default defineComponent({
   name: "EmoteCard",
   components: {
     BaseLootCard,
   },
-  props: {
-    emote: {
-      type: Object,
-      required: true,
-    },
-  },
-};
+});
+</script>
+
+<script setup lang="ts">
+import { defineProps } from "vue";
+import type { PlayerLoot } from '@/types/PlayerLoot';
+
+const props = defineProps<{
+  emote: PlayerLoot
+}>();
 </script>
 
 <style>

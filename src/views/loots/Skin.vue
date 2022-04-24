@@ -2,51 +2,38 @@
   <div class="loot-view-component">
     <ContentCard> <h2 class="title2">Skins</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedSkins">
-      <SkinCard v-for="skin in translatedSkins" :key="skin" :skin="skin" />
+      <SkinCard v-for="skin in translatedSkins" :key="(skin as any)" :skin="skin" />
     </div>
   </div>
 </template>
 
-<script>
-import { onBeforeUnmount } from "vue";
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import SkinCard from "@/components/loots/SkinCard";
-import ContentCard from "@/components/ContentCard";
-import useHextechStatus from "@/composables/useHextechStatus";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import ContentCard from "@/components/ContentCard.vue";
+import SkinCard from "@/components/loots/SkinCard.vue";
+
+export default defineComponent({
   name: "Skin",
   components: {
     SkinCard,
     ContentCard,
   },
-  data() {
-    return {
-      src: "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png",
-    };
-  },
-  setup() {
-    const store = useStore();
-
-    const { skins } = usePlayerLoot(store);
-
-    const translatedSkins = useTranslatedLoot(store, skins);
-
-    const { resetHextechStatus } = useHextechStatus(store, translatedSkins);
-
-    onBeforeUnmount(() => {
-      resetHextechStatus();
-    });
-
-    return {
-      translatedSkins,
-      skins,
-    };
-  },
-};
+});
 </script>
 
-<style>
-</style>
+<script setup lang="ts">
+import { onBeforeUnmount } from "vue";
+
+import useHextechStatus from "@/composables/useHextechStatus";
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
+
+const { skins } = usePlayerLoot();
+const translatedSkins = useTranslatedLoot(skins);
+const { resetHextechStatus } = useHextechStatus(translatedSkins);
+
+onBeforeUnmount(() => {
+  resetHextechStatus();
+});
+</script>>

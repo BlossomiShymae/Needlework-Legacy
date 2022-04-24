@@ -13,16 +13,14 @@
   </w-app>
 </template>
 
-<script setup>
-import { useStore } from "vuex";
+<script setup lang="ts">
 import router from "@/router";
-import useSettings from "@/composables/useSettings";
 import routes from "./apis/needlework/src/data/routes";
+import useSettings from "@/composables/useSettings";
 
-const store = useStore();
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 
-window.ipcRenderer.receive("needlework-update", (uri) => {
+window.ipcRenderer.receive("needlework-update", (uri: any) => {
   if (uri == routes.CLIENT_INACTIVE) {
     router.push("/inactive");
   }

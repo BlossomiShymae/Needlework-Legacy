@@ -4,7 +4,7 @@
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedChests">
       <ChestCard
         v-for="(chest, index) in translatedChests"
-        :key="chest"
+        :key="(chest as any)"
         :chest="chest"
         :raw-name="chests[index].lootName"
       />
@@ -12,33 +12,25 @@
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import ChestCard from "@/components/loots/ChestCard";
-import ContentCard from "@/components/ContentCard";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import ChestCard from "@/components/loots/ChestCard.vue";
+import ContentCard from "@/components/ContentCard.vue";
+
+export default defineComponent({
   name: "Material",
   components: {
     ChestCard,
     ContentCard,
   },
-  setup() {
-    const store = useStore();
-
-    const { chests } = usePlayerLoot(store);
-
-    const translatedChests = useTranslatedLoot(store, chests);
-
-    return {
-      translatedChests,
-      chests,
-    };
-  },
-};
+});
 </script>
 
-<style lang="scss" scoped>
-</style>
+<script setup lang="ts">
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
+
+const { chests } = usePlayerLoot();
+const translatedChests = useTranslatedLoot(chests);
+</script>

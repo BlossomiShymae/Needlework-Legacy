@@ -4,46 +4,42 @@
     <div class="loot-dynamic-grid-subcomponent" v-if="translatedChampions">
       <ChampionCard
         v-for="champion in translatedChampions"
-        :key="champion"
+        :key="(champion as any)"
         :champion="champion"
       />
     </div>
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import ChampionCard from "@/components/loots/ChampionCard";
-import { onBeforeUnmount } from "@vue/runtime-core";
-import ContentCard from "@/components/ContentCard";
-import useHextechStatus from "@/composables/useHextechStatus";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import ChampionCard from "@/components/loots/ChampionCard.vue";
+import ContentCard from "@/components/ContentCard.vue";
+
+export default defineComponent({
   name: "Champion",
   components: {
     ChampionCard,
     ContentCard,
   },
-  setup() {
-    const store = useStore();
+});
+</script>
 
-    const { champions } = usePlayerLoot(store);
+<script setup lang="ts">
+import { onBeforeUnmount } from "@vue/runtime-core";
 
-    const translatedChampions = useTranslatedLoot(store, champions);
+import useHextechStatus from "@/composables/useHextechStatus";
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
-    const { resetHextechStatus } = useHextechStatus(store, translatedChampions);
+const { champions } = usePlayerLoot();
+const translatedChampions = useTranslatedLoot(champions);
+const { resetHextechStatus } = useHextechStatus(translatedChampions);
 
-    onBeforeUnmount(() => {
-      resetHextechStatus();
-    });
-
-    return {
-      translatedChampions,
-    };
-  },
-};
+onBeforeUnmount(() => {
+  resetHextechStatus();
+})
 </script>
 
 <style lang="scss" scoped>

@@ -5,32 +5,24 @@
       alt="Blue essence icon"
     />
     <p class="body">{{ wallet.ip }}</p>
-    <p class="body ml1" style="color: green" v-if="beSum.disenchant">
-      + {{ beSum.disenchant }} = {{ wallet.ip + beSum.disenchant }}
-    </p>
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-import { computed } from "vue";
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "WalletStatus",
-  props: {
-    wallet: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup() {
-    const store = useStore();
+});
+</script>
 
-    return {
-      beSum: computed(() => store.getters.beSum),
-    };
-  },
-};
+<script setup lang="ts">
+import { defineProps } from "vue";
+import type { WalletDTO } from '@/types/WalletDTO';
+
+const props = defineProps<{
+  wallet: WalletDTO,
+}>();
 </script>
 
 <style lang="scss" scoped>

@@ -11,19 +11,18 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "General",
-};
+});
 </script>
 
-<script setup>
-import { useStore } from "vuex";
+<script setup lang="ts">
 import useSettings from "@/composables/useSettings";
 
-const store = useStore();
-
-const { darkMode, selectedTheme, themeItems } = useSettings(store);
+const { darkMode, selectedTheme, themeItems } = useSettings();
 </script>
 
 <style lang="scss" scoped>

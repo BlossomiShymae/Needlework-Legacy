@@ -12,15 +12,17 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "WindowButtonBar",
-};
+});
 </script>
 
-<script setup>
+<script setup lang="ts">
 import router from "@/router";
-import { useStore } from "vuex";
+
 import useSettings from "@/composables/useSettings";
 
 function minimizeWindow() {
@@ -35,8 +37,7 @@ function exitApplication() {
   window.ipcRenderer.invoke("app-exit-application");
 }
 
-const store = useStore();
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 </script>
 
 <style lang="scss" scoped>

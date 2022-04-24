@@ -27,53 +27,32 @@
   </w-menu>
 </template>
 
-<script>
-import { toRefs } from "vue";
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  name: "BaseLootCard",
+}) ;
+</script>
+
+<script setup lang="ts">
+import { defineProps, toRefs } from "vue";
+
 import useTileIcon from "@/composables/useTileIcon";
-import store from "@/store/index";
 import useSettings from "@/composables/useSettings";
 
-export default {
-  name: "BaseLootCard",
-  props: {
-    tileIconPath: {
-      type: String,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    count: {
-      type: Number,
-      required: true,
-    },
-    lootName: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-    canOpen: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  async setup(props) {
-    const { tileIconPath } = toRefs(props);
+const props = defineProps<{
+  tileIconPath: string,
+  name: string,
+  count: number,
+  lootName: string,
+  type: string,
+  canOpen: boolean,
+}>();
 
-    const { tileIcon } = await useTileIcon(tileIconPath);
-
-    const { theme } = useSettings(store);
-
-    return {
-      tileIcon,
-      theme,
-    };
-  },
-};
+const { tileIconPath } = toRefs(props);
+const { tileIcon } = await useTileIcon(tileIconPath);
+const { theme } = useSettings();
 </script>
 
 <style lang="scss" scoped>

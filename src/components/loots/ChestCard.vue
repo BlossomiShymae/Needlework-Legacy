@@ -26,68 +26,63 @@
   </div>
 </template>
 
-<script>
-import BaseLootCard from "@/components/loots/BaseLootCard";
+<script lang="ts">
+import { defineComponent } from "vue";
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
 
-export default {
+export default defineComponent({
   name: "ChestCard",
   components: {
     BaseLootCard,
   },
-  props: {
-    chest: {
-      type: Object,
-      required: true,
-    },
-    rawName: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      canOpen: true,
-      isMasteryToken6: false,
-      isMasteryToken7: false,
-    };
-  },
-  mounted() {
-    if (this.chest?.lootName?.includes("Mastery 6"))
-      this.isMasteryToken6 = true;
-    if (this.chest?.lootname?.includes("Mastery 7"))
-      this.isMasteryToken7 = true;
+});
+</script>
 
-    const materialBlacklist = ["token", "essence"];
+<script setup lang="ts">
+import { defineProps, computed, onMounted, ref } from "vue";
+import type { PlayerLoot } from '@/types/PlayerLoot';
 
-    materialBlacklist.forEach((name) => {
-      if (
-        this.chest?.lootName.toLowerCase().includes(name) ||
-        this.chest?.localizedName.toLowerCase().includes(name)
-      ) {
-        this.canOpen = false;
-        return true;
-      }
-    });
-  },
-  computed: {
-    lootName() {
-      if (this.chest?.lootName.includes("Mastery")) {
-        return `${this.chest?.lootName} ${this.chest?.itemDesc}`;
-      }
-      if (this.chest?.localizedName) {
-        return this.chest.localizedName;
-      }
-      if (this.chest?.lootId === "MATERIAL_key_fragment") {
-        if (this.chest?.count > 1) return "Key Fragments";
-        return "Key Fragment";
-      }
-      if (this.chest?.lootName === "CHEST_212") {
-        return "Glorious Champion Capsule - Gemstone";
-      }
-      return this.chest?.lootName ?? "Unknown Material, Contact Dev";
-    },
-  },
-};
+const props = defineProps<{
+  chest: PlayerLoot,
+  rawName: string,
+}>();
+
+const canOpen = ref(true);
+const isMasteryToken6 = ref(false);
+const isMasteryToken7 = ref(false);
+
+const lootName = computed(() => {
+  if (props.chest.lootName.includes("Mastery")) {
+     return `${props.chest.lootName} ${props.chest.itemDesc}`
+  }
+  if (props.chest.localizedName) {
+    return props.chest.localizedName
+  }
+  if (props.chest.lootId === "MATERIAL_key_fragment") {
+    if (props.chest.count > 1) return "Key Fragments";
+    return "Key Fragment";
+  }
+  if (props.chest.lootName === "CHEST_212") {
+    return "Glorious Champion Capsule - 10 ME";
+  }
+  if (props.chest.lootName !== "") return props.chest.lootName;
+  return "Unknown Material, Contact Dev";
+})
+
+onMounted(() => {
+  if (props.chest.lootName.includes("Mastery 6")) isMasteryToken6.value = true;
+  if (props.chest.lootName.includes("Mastery 7")) isMasteryToken7.value = true;
+
+  const masterialBlacklist = ["token", "essence"];
+
+  masterialBlacklist.forEach((name) => {
+    if (props.chest.lootName.toLowerCase().includes(name) ||
+     props.chest.localizedName.toLowerCase().includes(name)) {
+      canOpen.value = true;
+      return true;
+    }
+  })
+})
 </script>
 
 <style lang="scss" scoped>

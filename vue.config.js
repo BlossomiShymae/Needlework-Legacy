@@ -10,7 +10,9 @@ module.exports = {
   },
   pluginOptions: {
     electronBuilder: {
-      preload: "src/preload.js",
+      preload: "src/preload.ts",
+      disableMainProcessTypescript: false,
+      mainProcessTypeChecking: true,
       chainWebpackMainProcess: (config) => {
         config.module
           .rule("babel-background")

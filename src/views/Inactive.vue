@@ -10,23 +10,25 @@
   </div>
 </template>
 
-<script>
-import routes from "@/apis/needlework/src/data/routes";
-import router from "@/router";
-import { useStore } from "vuex";
-import useSettings from "@/composables/useSettings";
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "Inactive",
-};
+});
 </script>
 
-<script setup>
+<script setup lang="ts">
+import routes from "@/apis/needlework/src/data/routes";
+import router from "@/router";
+
+import useSettings from "@/composables/useSettings";
+
 let isClientActive = false;
 
-const store = useStore();
-const { theme } = useSettings(store);
+const { theme } = useSettings();
 
-window.ipcRenderer.receive("needlework-update", (uri) => {
+window.ipcRenderer.receive("needlework-update", (uri: any) => {
   if (uri === routes.CLIENT_ACTIVE) {
     isClientActive = true;
   }

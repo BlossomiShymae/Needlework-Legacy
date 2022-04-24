@@ -11,17 +11,18 @@
   </div>
 </template>
 
-<script>
-import Material from "@/views/loots/Material";
-import Champion from "@/views/loots/Champion";
-import Skin from "@/views/loots/Skin";
-import Tactician from "@/views/loots/Tactician";
-import Eternal from "@/views/loots/Eternal";
-import Emote from "@/views/loots/Emote";
-import WardSkin from "@/views/loots/WardSkin";
-import Icon from "@/views/loots/Icon";
+<script lang="ts">
+import { defineComponent } from "vue";
+import Material from "@/views/loots/Material.vue";
+import Champion from "@/views/loots/Champion.vue";
+import Skin from "@/views/loots/Skin.vue";
+import Tactician from "@/views/loots/Tactician.vue";
+import Eternal from "@/views/loots/Eternal.vue";
+import Emote from "@/views/loots/Emote.vue";
+import WardSkin from "@/views/loots/WardSkin.vue";
+import Icon from "@/views/loots/Icon.vue";
 
-export default {
+export default defineComponent({
   name: "All",
   components: {
     Material,
@@ -33,8 +34,5 @@ export default {
     WardSkin,
     Icon,
   },
-};
+});
 </script>
-
-<style lang="scss" scoped>
-</style>

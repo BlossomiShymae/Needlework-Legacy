@@ -5,53 +5,46 @@
       <Suspense>
         <BaseLootCard
           v-for="(tactician, index) in translatedTacticians"
-          :key="tactician"
+          :key="(tactician as any)"
           :tileIconPath="tactician.tilePath"
           :name="tactician.lootName"
           :loot-name="tacticians[index].lootName"
           :type="tactician.type"
           :count="tactician.count"
+          :can-open="true"
         />
       </Suspense>
     </div>
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import BaseLootCard from "@/components/loots/BaseLootCard";
-import ContentCard from "@/components/ContentCard";
-import useHextechStatus from '@/composables/useHextechStatus';
-import { onBeforeUnmount } from '@vue/runtime-core';
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+import BaseLootCard from "@/components/loots/BaseLootCard.vue";
+import ContentCard from "@/components/ContentCard.vue";
+
+export default defineComponent({
   name: "Tactician",
   components: {
     BaseLootCard,
     ContentCard,
   },
-  setup() {
-    const store = useStore();
-
-    const { tacticians } = usePlayerLoot(store);
-
-    const translatedTacticians = useTranslatedLoot(store, tacticians);
-
-    const { resetHextechStatus } = useHextechStatus(store, translatedTacticians);
-
-    onBeforeUnmount(() => {
-      resetHextechStatus();
-    });
-
-    return {
-      translatedTacticians,
-      tacticians,
-    };
-  },
-};
+});
 </script>
 
-<style>
-</style>
+<script setup lang="ts">
+import { onBeforeUnmount } from '@vue/runtime-core';
+
+import useHextechStatus from '@/composables/useHextechStatus';
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
+
+const { tacticians } = usePlayerLoot();
+const translatedTacticians = useTranslatedLoot(tacticians);
+const { resetHextechStatus } = useHextechStatus(translatedTacticians);
+
+onBeforeUnmount(() => {
+  resetHextechStatus();
+})
+</script>
