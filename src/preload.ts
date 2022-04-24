@@ -38,5 +38,3 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     }
   },
 });
-
-// window.ipcRenderer = ipcRenderer;

@@ -16,7 +16,6 @@ export class InactiveState extends AbstractState {
   /**
    * Poll event loop that checks the League Client process. If active,
    * setup web protocols before setting state to ActiveState.
-   * @function
    */
   pollingEventLoop() {
     NeedleworkConsole.log("Attempting to connect with League Client...");
@@ -61,7 +60,6 @@ export class InactiveState extends AbstractState {
 
   /**
    * Returns null type since League Client process is dead.
-   * @returns null
    */
   currentSummoner() {
     return null;
@@ -69,7 +67,6 @@ export class InactiveState extends AbstractState {
 
   /**
    * Returns null type since League Client process is dead.
-   * @returns null
    */
   wallet() {
     return null;
@@ -77,7 +74,6 @@ export class InactiveState extends AbstractState {
 
   /**
    * Returns null type since League Client process is dead.
-   * @returns null
    */
   playerLootMap() {
     return null;
