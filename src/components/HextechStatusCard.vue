@@ -12,7 +12,7 @@
         class="hextech-icon"
         src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
       />
-      <p class="body text-bold">{{ orangeEssence.count ?? 0 }}</p>
+      <p class="body text-bold">{{ orangeEssence?.count ?? 0 }}</p>
     </div>
     <div id="hextech-mythic-essence" class="hextech-status-item">
       <img
@@ -243,7 +243,9 @@ const { disenchantBlueEssenceTotal, disenchantOrangeEssenceTotal } =
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-rows: minmax(0, 16px) minmax(0, 1fr);
     gap: 2px;
-    margin-top: 16px;
+    margin-top: 4px;
+    padding-top: 12px;
+    border-top: 1px solid grey;
   }
 
   #hextech-disenchant-title {
