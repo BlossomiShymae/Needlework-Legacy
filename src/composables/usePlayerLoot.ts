@@ -12,6 +12,8 @@ export default function usePlayerLoot() {
     icons: computed(() => store.lootIcons),
     wardSkins: computed(() => store.lootWardSkins),
     tacticians: computed(() => store.lootTacticians),
+    others: computed(() => store.lootOthers),
+    uncategorized: computed(() => store.lootUncategorized),
     orangeEssence: computed(() => store.orangeEssence),
     mythicEssence: computed(() => store.mythicEssence),
     keys: computed(() => store.keys),

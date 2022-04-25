@@ -53,6 +53,9 @@ export const useLootStore = defineStore('loot', {
     lootOthers: (state) => filterMapByCategory(
       state.playerLootMap, Loot.DisplayCategories.OTHER
     ),
+    lootUncategorized: (state) => filterMapByCategory(
+      state.playerLootMap, Loot.DisplayCategories.NONE
+    ),
     orangeEssence: (state) => state.playerLootMap.get("CURRENCY_cosmetic"),
     mythicEssence: (state) => state.playerLootMap.get("CURRENCY_mythic"),
     keys: (state) => state.playerLootMap.get("MATERIAL_key"),
