@@ -111,10 +111,21 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
     return sortedLoots;
   };
 
+  const sortedByName = (anyLoots: Ref<PlayerLoot[]>) => {
+    const sortedLoots: Ref<PlayerLoot[]> = ref([]);
+    sortedLoots.value = _.sortBy(anyLoots.value, ["itemDesc", "lootName"]);
+
+    return sortedLoots;
+  };
+
   return {
     sortedChests: sortedChests(loots),
     sortedChampions: sortedChampions(loots),
     sortedSkins: sortedSkins(loots),
     sortedEternals: sortedEternals(loots),
+    sortedEmotes: sortedByName(loots),
+    sortedIcons: sortedByName(loots),
+    sortedTacticians: sortedByName(loots),
+    sortedWardSkins: sortedByName(loots),
   };
 }

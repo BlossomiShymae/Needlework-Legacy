@@ -1,14 +1,14 @@
 <template>
   <div class="loot-view-component">
     <ContentCard> <h2 class="title2">Ward Skins</h2> </ContentCard>
-    <div class="loot-dynamic-grid-subcomponent" v-if="translatedWardSkins">
+    <div class="loot-dynamic-grid-subcomponent" v-if="sortedWardSkins">
       <Suspense>
         <BaseLootCard
-          v-for="(wardSkin, index) in translatedWardSkins"
+          v-for="wardSkin in sortedWardSkins"
           :key="(wardSkin as any)"
           :tileIconPath="wardSkin.tilePath"
           :name="wardSkin.lootName"
-          :loot-name="wardSkins[index].lootName"
+          :loot-name="wardSkin.lootNameRaw ?? ''"
           :type="wardSkin.type"
           :count="wardSkin.count"
           :can-open="true"
@@ -38,11 +38,13 @@ import { onBeforeUnmount } from "@vue/runtime-core";
 
 import useHextechStatus from "@/composables/useHextechStatus";
 import usePlayerLoot from "@/composables/usePlayerLoot";
+import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { wardSkins } = usePlayerLoot();
 const translatedWardSkins = useTranslatedLoot(wardSkins);
-const { resetHextechStatus } = useHextechStatus(translatedWardSkins);
+const { sortedWardSkins } = useSortedLoot(translatedWardSkins);
+const { resetHextechStatus } = useHextechStatus(sortedWardSkins);
 
 onBeforeUnmount(() => {
   resetHextechStatus();
