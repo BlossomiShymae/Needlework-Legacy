@@ -94,8 +94,16 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
     return sortedLoots;
   };
 
+  const sortedSkins = (skinLoots: Ref<PlayerLoot[]>) => {
+    const sortedLoots: Ref<PlayerLoot[]> = ref([]);
+    sortedLoots.value = _.sortBy(skinLoots.value, ["type", "itemDesc"]);
+
+    return sortedLoots;
+  };
+
   return {
     sortedChests: sortedChests(loots),
     sortedChampions: sortedChampions(loots),
+    sortedSkins: sortedSkins(loots),
   };
 }

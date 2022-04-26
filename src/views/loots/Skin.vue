@@ -1,8 +1,8 @@
 <template>
   <div class="loot-view-component">
     <ContentCard> <h2 class="title2">Skins</h2> </ContentCard>
-    <div class="loot-dynamic-grid-subcomponent" v-if="translatedSkins">
-      <SkinCard v-for="skin in translatedSkins" :key="(skin as any)" :skin="skin" />
+    <div class="loot-dynamic-grid-subcomponent" v-if="sortedSkins">
+      <SkinCard v-for="skin in sortedSkins" :key="(skin as any)" :skin="skin" />
     </div>
   </div>
 </template>
@@ -27,13 +27,16 @@ import { onBeforeUnmount } from "vue";
 
 import useHextechStatus from "@/composables/useHextechStatus";
 import usePlayerLoot from "@/composables/usePlayerLoot";
+import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { skins } = usePlayerLoot();
 const translatedSkins = useTranslatedLoot(skins);
-const { resetHextechStatus } = useHextechStatus(translatedSkins);
+const { sortedSkins } = useSortedLoot(translatedSkins);
+const { resetHextechStatus } = useHextechStatus(sortedSkins);
 
 onBeforeUnmount(() => {
   resetHextechStatus();
 });
-</script>>
+</script>
+>
