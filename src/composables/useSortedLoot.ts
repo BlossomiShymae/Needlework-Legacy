@@ -101,9 +101,20 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
     return sortedLoots;
   };
 
+  const sortedEternals = (eternalLoots: Ref<PlayerLoot[]>) => {
+    const sortedLoots: Ref<PlayerLoot[]> = ref([]);
+    sortedLoots.value = _.sortBy(eternalLoots.value, [
+      "localizedDescription",
+      "localizedName",
+    ]);
+
+    return sortedLoots;
+  };
+
   return {
     sortedChests: sortedChests(loots),
     sortedChampions: sortedChampions(loots),
     sortedSkins: sortedSkins(loots),
+    sortedEternals: sortedEternals(loots),
   };
 }
