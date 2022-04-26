@@ -87,9 +87,9 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
 
     return sortedLoots;
   };
-  const sortedChampions = (chestLoots: Ref<PlayerLoot[]>) => {
+  const sortedChampions = (championLoots: Ref<PlayerLoot[]>) => {
     const sortedLoots: Ref<PlayerLoot[]> = ref([]);
-    sortedLoots.value = _.sortBy(chestLoots.value, ["type", "itemDesc"]);
+    sortedLoots.value = _.sortBy(championLoots.value, ["type", "itemDesc"]);
 
     return sortedLoots;
   };
