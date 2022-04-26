@@ -38,7 +38,6 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
     );
 
     let remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
-    console.log(remainingUnsortedLoots);
     const lootHas = (word: string) => (playerLoot: PlayerLoot) => {
       if (playerLoot.localizedName.toLowerCase().includes(word)) {
         return true;
@@ -88,8 +87,15 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
 
     return sortedLoots;
   };
+  const sortedChampions = (chestLoots: Ref<PlayerLoot[]>) => {
+    const sortedLoots: Ref<PlayerLoot[]> = ref([]);
+    sortedLoots.value = _.sortBy(chestLoots.value, ["type", "itemDesc"]);
+
+    return sortedLoots;
+  };
 
   return {
     sortedChests: sortedChests(loots),
+    sortedChampions: sortedChampions(loots),
   };
 }

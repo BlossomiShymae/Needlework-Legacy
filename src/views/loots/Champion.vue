@@ -1,9 +1,9 @@
 <template>
   <div class="loot-view-component">
     <ContentCard><h2 class="title2">Champions</h2></ContentCard>
-    <div class="loot-dynamic-grid-subcomponent" v-if="translatedChampions">
+    <div class="loot-dynamic-grid-subcomponent" v-if="sortedChampions">
       <ChampionCard
-        v-for="champion in translatedChampions"
+        v-for="champion in sortedChampions"
         :key="(champion as any)"
         :champion="champion"
       />
@@ -31,15 +31,17 @@ import { onBeforeUnmount } from "@vue/runtime-core";
 
 import useHextechStatus from "@/composables/useHextechStatus";
 import usePlayerLoot from "@/composables/usePlayerLoot";
+import useSortedLoot from "../../composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { champions } = usePlayerLoot();
 const translatedChampions = useTranslatedLoot(champions);
-const { resetHextechStatus } = useHextechStatus(translatedChampions);
+const { sortedChampions } = useSortedLoot(translatedChampions);
+const { resetHextechStatus } = useHextechStatus(sortedChampions);
 
 onBeforeUnmount(() => {
   resetHextechStatus();
-})
+});
 </script>
 
 <style lang="scss" scoped>
