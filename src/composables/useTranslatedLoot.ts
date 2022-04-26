@@ -25,6 +25,7 @@ export default function useTranslatedLoot(loots: Ref<PlayerLoot[]>) {
 
   translatedLoots.value = loots.value.map((loot: any) => {
     const transLoot: any = {};
+    transLoot.lootNameRaw = loot?.lootName;
     for (const property in loot) {
       transLoot[property] = loot[property];
 

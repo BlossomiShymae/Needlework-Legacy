@@ -1,12 +1,12 @@
 <template>
   <div class="loot-view-component">
     <ContentCard> <h2 class="title2">Materials</h2> </ContentCard>
-    <div class="loot-dynamic-grid-subcomponent" v-if="translatedChests">
+    <div class="loot-dynamic-grid-subcomponent" v-if="sortedChests">
       <ChestCard
-        v-for="(chest, index) in translatedChests"
+        v-for="chest in sortedChests"
         :key="(chest as any)"
         :chest="chest"
-        :raw-name="chests[index].lootName"
+        :raw-name="chest.lootNameRaw ?? ''"
       />
     </div>
   </div>
@@ -29,8 +29,10 @@ export default defineComponent({
 
 <script setup lang="ts">
 import usePlayerLoot from "@/composables/usePlayerLoot";
+import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { chests } = usePlayerLoot();
 const translatedChests = useTranslatedLoot(chests);
+const { sortedChests } = useSortedLoot(translatedChests);
 </script>
