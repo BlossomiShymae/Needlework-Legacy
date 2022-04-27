@@ -6,13 +6,13 @@ import { WS_OPCODES } from "./src/data/WebSocketOpcodes";
 import routes from "./src/data/routes";
 
 import { isEqual } from "lodash";
-import { MessageDTO } from '../../types/MessageDTO';
+import { MessageDTO } from "../../types/MessageDTO";
 
 export default class Needlework {
   clientAuthentication: LeagueClientAuth | null;
-  clientHTTPS: LeagueClientHTTPS | null
+  clientHTTPS: LeagueClientHTTPS | null;
   clientWebSocket: LeagueClientWebSocket | null;
-  _pollInterval:  any | null;
+  _pollInterval: any | null;
   _pollPeriod: number;
   _state: AbstractState | null;
   _updateEventCallback: Function | null;
@@ -110,7 +110,9 @@ export default class Needlework {
       case WS_OPCODES.EVENT:
         console.log(messageDTO.object.uri);
         for (const property in routes) {
-          if (routes[property as keyof typeof routes] === messageDTO.object.uri) {
+          if (
+            routes[property as keyof typeof routes] === messageDTO.object.uri
+          ) {
             if (!isEqual(this._cache.lastData, messageDTO.object.data)) {
               this.sendEventUpdate(messageDTO);
             }
@@ -161,5 +163,21 @@ export default class Needlework {
    */
   playerLootMap() {
     return this._state?.playerLootMap();
+  }
+
+  /**
+   * Getter for `contextMenu` that is delegated to `_state`. See `ActiveState`
+   * and `InactiveState` for implementation.
+   */
+  contextMenu(lootId: string) {
+    return this._state?.contextMenu(lootId);
+  }
+
+  /**
+   * Getter for `craft` that is delegated to `_state`. See `ActiveState` and
+   * `InactiveState` for implementation.
+   */
+  craft(recipeName: string) {
+    return this._state?.craft(recipeName);
   }
 }

@@ -7,7 +7,7 @@ const POLL_PERIOD = 2500;
 export default class NeedleworkService {
   needlework: null | Needlework;
   win: null | BrowserWindow;
-  
+
   constructor() {
     this.needlework = null;
     this.win = null;
@@ -25,6 +25,10 @@ export default class NeedleworkService {
     this.needlework.setUpdateEventCallback(
       this.handleNeedleworkUpdate.bind(this)
     );
+  }
+
+  handleNeedleworkUpdate(messageDTO: MessageDTO) {
+    this.win?.webContents.send("needlework-update", messageDTO.object.uri);
   }
 
   currentSummonerHandler() {
@@ -45,7 +49,15 @@ export default class NeedleworkService {
     });
   }
 
-  handleNeedleworkUpdate(messageDTO: MessageDTO) {
-    this.win?.webContents.send("needlework-update", messageDTO.object.uri);
+  handleContextMenu() {
+    ipcMain.handle("context-menu", (event, data) => {
+      return this.needlework?.contextMenu(data);
+    });
+  }
+
+  handleCraft() {
+    ipcMain.handle("craft", (event, data) => {
+      return this.needlework?.craft(data);
+    });
   }
 }

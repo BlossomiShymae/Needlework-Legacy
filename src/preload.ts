@@ -13,6 +13,8 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
       "current-summoner",
       "wallet",
       "player-loot-map",
+      "context-menu",
+      "craft",
       "dd-profile-icon",
       "cd-loot-translation",
       "cd-tile-icon",

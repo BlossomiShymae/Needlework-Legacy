@@ -16,4 +16,6 @@ export abstract class AbstractState {
   abstract currentSummoner(): any;
   abstract wallet(): any;
   abstract playerLootMap(): any;
+  abstract contextMenu(lootId: string): any;
+  abstract craft(recipeName: string): any;
 }

@@ -5,6 +5,8 @@ import Needlework from "../..";
 import { CurrentSummonerDTO } from "@/types/CurrentSummonerDTO";
 import { WalletDTO } from "@/types/WalletDTO";
 import { PlayerLootMap } from "@/types/PlayerLootMap";
+import { ContextMenu } from "@/types/ContextMenu";
+import { CraftResponse } from "@/types/CraftResponse";
 
 /** Represents a state of active connection with League Client */
 export class ActiveState extends AbstractState {
@@ -57,5 +59,23 @@ export class ActiveState extends AbstractState {
    */
   playerLootMap(): undefined | Promise<PlayerLootMap> {
     return this._api.clientHTTPS?.fetch(routes.PLAYER_LOOT_MAP);
+  }
+
+  /**
+   * Returns ContextMenu[] promise from League Client by HTTPS.
+   */
+  contextMenu(lootId: string): undefined | Promise<ContextMenu[]> {
+    return this._api.clientHTTPS?.fetch(
+      `${routes.CONTEXT_MENU_PREPEND}${lootId}${routes.CONTEXT_MENU_APPEND}`
+    );
+  }
+
+  /**
+   * Returns CraftResponse promise from League Client by HTTPS.
+   */
+  craft(recipeName: string): undefined | Promise<CraftResponse> {
+    return this._api.clientHTTPS?.fetch(
+      `${routes.CRAFT_PREPEND}${recipeName}${routes.CRAFT_APPEND}`
+    );
   }
 }

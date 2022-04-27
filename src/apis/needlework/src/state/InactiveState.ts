@@ -78,4 +78,18 @@ export class InactiveState extends AbstractState {
   playerLootMap() {
     return null;
   }
+
+  /**
+   * Returns null type since League Client process is dead.
+   */
+  contextMenu(lootId: string) {
+    return null;
+  }
+
+  /**
+   * Returns null type since League Client process is dead.
+   */
+  craft(recipeName: string) {
+    return null;
+  }
 }
