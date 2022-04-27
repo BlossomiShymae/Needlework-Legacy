@@ -22,6 +22,8 @@ export default class NeedleworkService {
     this.currentSummonerHandler();
     this.walletHandler();
     this.playerLootMapHandler();
+    this.handleContextMenu();
+    this.handleCraft();
     this.needlework.setUpdateEventCallback(
       this.handleNeedleworkUpdate.bind(this)
     );
