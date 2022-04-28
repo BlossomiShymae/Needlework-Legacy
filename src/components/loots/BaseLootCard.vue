@@ -1,30 +1,66 @@
 <template>
-  <w-menu arrow left shadow id="base-loot-card">
-    <template #activator="{ on }">
-      <div class="loot-item" v-bind="$attrs" :class="$attrs.class" v-on="on">
-        <img :src="tileIcon" class="tile-icon shimmer" />
-        <div class="icon-overlay"></div>
-        <p class="loot-count">x{{ count }}</p>
-      </div>
-    </template>
-    <div class="text-left lh2" id="menu">
-      <p class="title4 text-bold text-upper">{{ name }}</p>
-      <p class="title5">{{ lootName }}</p>
-      <p class="body capitalize">{{ type }}</p>
+  <div class="base-loot-card">
+    <w-menu left shadow @open="setupContextMenu(loot)">
+      <template #activator="{ on }">
+        <div class="loot-item" v-bind="$attrs" :class="$attrs.class" v-on="on">
+          <img :src="tileIcon" class="tile-icon shimmer" />
+          <div class="icon-overlay"></div>
+          <p class="loot-count">x{{ count }}</p>
+        </div>
+      </template>
+      <div class="text-left lh2" id="menu">
+        <p class="title4 text-bold text-upper">{{ name }}</p>
+        <p class="title5">{{ lootName }}</p>
+        <p class="body capitalize">{{ type }}</p>
 
-      <w-divider class="full-width my2"></w-divider>
+        <w-divider class="full-width my2"></w-divider>
 
-      <div id="menu-actions">
-        <div v-if="canOpen">
-          <div class="action"><p>Open</p></div>
-          <div class="action"><p>Open by amount</p></div>
-          <div class="action">
-            <p>Open all <span class="caption">"Snip snip!"</span></p>
+        <div id="menu-actions">
+          <div v-if="canOpen && contextMenuList">
+            <div
+              class="action"
+              v-for="contextMenu in contextMenuList"
+              :key="(contextMenu as any)"
+              :style="{
+                color: theme.textColor,
+                backgroundColor: theme.cardColor,
+              }"
+              @click="doActionOnce(loot, contextMenu)"
+            >
+              <p>{{ capitalize(contextMenu.actionType) }}</p>
+            </div>
+            <div
+              class="action"
+              v-for="contextMenu in contextMenuList"
+              :key="(contextMenu as any)"
+              :style="{
+                color: theme.textColor,
+                backgroundColor: theme.cardColor,
+              }"
+            >
+              <p>{{ capitalize(contextMenu.actionType) }} by amount</p>
+            </div>
+            <div
+              class="action"
+              v-for="contextMenu in contextMenuList"
+              :key="(contextMenu as any)"
+              :style="{
+                color: theme.textColor,
+                backgroundColor: theme.cardColor,
+              }"
+            >
+              <p>
+                {{ capitalize(contextMenu.actionType) }} all
+                <span class="caption" :style="{ color: theme.textColor }"
+                  >"Snip snip!"</span
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </w-menu>
+    </w-menu>
+  </div>
 </template>
 
 <script lang="ts">
@@ -32,32 +68,56 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "BaseLootCard",
-}) ;
+});
 </script>
 
 <script setup lang="ts">
 import { defineProps, toRefs } from "vue";
 
+import type { PlayerLoot } from "@/types/PlayerLoot";
+import useContextMenu from "@/composables/useContextMenu";
 import useTileIcon from "@/composables/useTileIcon";
 import useSettings from "@/composables/useSettings";
 
 const props = defineProps<{
-  tileIconPath: string,
-  name: string,
-  count: number,
-  lootName: string,
-  type: string,
-  canOpen: boolean,
+  tileIconPath: string;
+  name: string;
+  count: number;
+  lootName: string;
+  type: string;
+  canOpen: boolean;
+  loot: PlayerLoot;
 }>();
 
 const { tileIconPath } = toRefs(props);
 const { tileIcon } = await useTileIcon(tileIconPath);
 const { theme } = useSettings();
+
+/**
+ * Loot context menu functions
+ */
+const { contextMenuList, setupContextMenu, doActionOnce, capitalize } =
+  useContextMenu();
 </script>
 
 <style lang="scss" scoped>
 .caption {
   color: v-bind("theme.textColor");
+}
+
+#menu-actions {
+  .action {
+    padding: 2px;
+    text-align: left;
+    width: 100%;
+    height: min-content;
+    filter: brightness(100%);
+    transition: filter 0.25s ease-in-out;
+
+    &:hover {
+      filter: brightness(100%) invert(95%);
+    }
+  }
 }
 .loot-item {
   --card-border-radius: 0.5rem;
@@ -104,23 +164,6 @@ const { theme } = useSettings();
     bottom: 0;
     border-radius: 50% 0 var(--card-border-radius) 0;
     z-index: 99;
-  }
-
-  #menu-actions {
-    .action {
-      background-color: v-bind("theme.backgroundColor");
-      color: v-bind("theme.textColor");
-      padding: 4px;
-      text-align: left;
-      width: 100%;
-
-      filter: brightness(100%);
-      transition: filter 0.25s ease-in-out;
-
-      &:hover {
-        filter: brightness(87.5%);
-      }
-    }
   }
 
   .shimmer {

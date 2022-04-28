@@ -10,6 +10,7 @@
             :type="eternal.type"
             :count="eternal.count"
             :can-open="true"
+            :loot="eternal"
           />
           <div class="eternals-badge">
             {{ toRoman(eternal.tags.split("seriesNumber=")[1]) }}

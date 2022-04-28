@@ -89,7 +89,7 @@ export class InactiveState extends AbstractState {
   /**
    * Returns null type since League Client process is dead.
    */
-  craft(recipeName: string) {
+  craft(recipeName: string, lootId: string) {
     return null;
   }
 }

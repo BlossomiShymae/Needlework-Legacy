@@ -58,8 +58,14 @@ export default class NeedleworkService {
   }
 
   handleCraft() {
-    ipcMain.handle("craft", (event, data) => {
-      return this.needlework?.craft(data);
-    });
+    ipcMain.handle(
+      "craft",
+      (
+        event,
+        { recipeName, lootId }: { recipeName: string; lootId: string }
+      ) => {
+        return this.needlework?.craft(recipeName, lootId);
+      }
+    );
   }
 }

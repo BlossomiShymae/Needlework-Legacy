@@ -12,6 +12,7 @@
           :type="icon.type"
           :count="icon.count"
           :can-open="true"
+          :loot="icon"
         />
       </Suspense>
     </div>

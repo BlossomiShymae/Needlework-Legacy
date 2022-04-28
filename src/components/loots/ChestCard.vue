@@ -10,6 +10,7 @@
             :type="chest.type"
             :count="chest.count"
             :can-open="canOpen"
+            :loot="chest"
           />
           <div
             class="mastery-token-6-badge mastery-badge"

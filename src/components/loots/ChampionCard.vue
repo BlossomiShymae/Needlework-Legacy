@@ -8,6 +8,7 @@
         :type="champion.type"
         :count="champion.count"
         :can-open="true"
+        :loot="champion"
         :class="{
           'champion-shard': champion.type === 'Champion Shard',
           'champion-permanent': champion.type === 'Champion Permanent',

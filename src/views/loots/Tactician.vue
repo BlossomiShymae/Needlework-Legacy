@@ -12,6 +12,7 @@
           :type="tactician.type"
           :count="tactician.count"
           :can-open="true"
+          :loot="tactician"
         />
       </Suspense>
     </div>

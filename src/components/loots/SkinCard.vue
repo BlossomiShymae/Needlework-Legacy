@@ -10,6 +10,7 @@
             :type="skin.type"
             :count="skin.count"
             :can-open="true"
+            :loot="skin"
             :class="{
               'skin-shard': skin.type === 'Skin Shard',
               'skin-permanent': skin.type === 'Skin Permanent',
@@ -45,11 +46,11 @@ export default defineComponent({
 <script setup lang="ts">
 import { defineProps, onMounted, ref } from "vue";
 
-import type { PlayerLoot } from '@/types/PlayerLoot';
+import type { PlayerLoot } from "@/types/PlayerLoot";
 import { Loot } from "@/enums/loot";
 
 const props = defineProps<{
-  skin: PlayerLoot,
+  skin: PlayerLoot;
 }>();
 
 const isEpic = ref(false);
@@ -60,11 +61,12 @@ const isLegacy = ref(false);
 
 onMounted(() => {
   if (props.skin.rarity.includes(Loot.Rarity.EPIC)) isEpic.value = true;
-  if (props.skin.rarity.includes(Loot.Rarity.LEGENDARY)) isLegendary.value = true;
+  if (props.skin.rarity.includes(Loot.Rarity.LEGENDARY))
+    isLegendary.value = true;
   if (props.skin.rarity.includes(Loot.Rarity.MYTHIC)) isMythic.value = true;
   if (props.skin.rarity.includes(Loot.Rarity.ULTIMATE)) isUltimate.value = true;
   if (props.skin.tags?.includes("legacy")) isLegacy.value = true;
-})
+});
 </script>
 
 <style lang="scss">

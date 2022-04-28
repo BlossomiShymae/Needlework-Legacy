@@ -46,7 +46,7 @@ import Time from "@/utils/Time";
 import routes from "@/apis/needlework/src/data/routes";
 
 import useComponentKey from "@/composables/useComponentKey";
-import { useLootStore } from '@/stores/loot';
+import { useLootStore } from "@/stores/loot";
 import useSettings from "@/composables/useSettings";
 
 // Initialize global application state for settings
@@ -73,15 +73,34 @@ const { componentKey, forceRerender } = useComponentKey();
 onMounted(() => {
   window.ipcRenderer.receive("needlework-update", async (uri: any) => {
     if (uri === routes.PLAYER_LOOT_MAP) {
-      console.log("Received event update from NeedleworkService - " + 
-      uri + " " + Time.toString());
+      console.log(
+        "Received event update from NeedleworkService - " +
+          uri +
+          " " +
+          Time.toString()
+      );
       playerLootMap.value = await window.ipcRenderer.invoke("player-loot-map");
       lootStore.updatePlayerLootMap(playerLootMap.value);
       forceRerender(componentKey);
     }
-  })
-})
+  });
+});
 </script>
+
+<style lang="scss">
+.theme-bg-color {
+  background-color: v-bind("theme.backgroundColor");
+}
+.theme-frame-color {
+  background-color: v-bind("theme.frameColor");
+}
+.theme-card-color {
+  background-color: v-bind("theme.cardColor");
+}
+.theme-text-color {
+  color: v-bind("theme.textColor");
+}
+</style>
 
 <style lang="scss" scoped>
 .home {

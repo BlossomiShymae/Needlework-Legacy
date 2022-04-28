@@ -12,6 +12,7 @@
           :type="wardSkin.type"
           :count="wardSkin.count"
           :can-open="true"
+          :loot="wardSkin"
         />
       </Suspense>
     </div>

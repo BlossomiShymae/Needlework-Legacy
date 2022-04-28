@@ -7,6 +7,7 @@ import { WalletDTO } from "@/types/WalletDTO";
 import { PlayerLootMap } from "@/types/PlayerLootMap";
 import { ContextMenu } from "@/types/ContextMenu";
 import { CraftResponse } from "@/types/CraftResponse";
+import { HTTPMethods } from '@/enums/httpMethods';
 
 /** Represents a state of active connection with League Client */
 export class ActiveState extends AbstractState {
@@ -44,21 +45,21 @@ export class ActiveState extends AbstractState {
    * Returns CurrentSummonerDTO promise from League Client by HTTPS.
    */
   currentSummoner(): undefined | Promise<CurrentSummonerDTO> {
-    return this._api.clientHTTPS?.fetch(routes.CURRENT_SUMMONER);
+    return this._api.clientHTTPS?.fetch(routes.CURRENT_SUMMONER, HTTPMethods.GET);
   }
 
   /**
    * Returns WalletDTO promise from League Client by HTTPS.
    */
   wallet(): undefined | Promise<WalletDTO> {
-    return this._api.clientHTTPS?.fetch(routes.WALLET);
+    return this._api.clientHTTPS?.fetch(routes.WALLET, HTTPMethods.GET);
   }
 
   /**
    * Returns PlayerLootMapDTO promise from League Client by HTTPS.
    */
   playerLootMap(): undefined | Promise<PlayerLootMap> {
-    return this._api.clientHTTPS?.fetch(routes.PLAYER_LOOT_MAP);
+    return this._api.clientHTTPS?.fetch(routes.PLAYER_LOOT_MAP, HTTPMethods.GET);
   }
 
   /**
@@ -66,16 +67,17 @@ export class ActiveState extends AbstractState {
    */
   contextMenu(lootId: string): undefined | Promise<ContextMenu[]> {
     return this._api.clientHTTPS?.fetch(
-      `${routes.CONTEXT_MENU_PREPEND}${lootId}${routes.CONTEXT_MENU_APPEND}`
+      `${routes.CONTEXT_MENU_PREPEND}${lootId}${routes.CONTEXT_MENU_APPEND}`, HTTPMethods.GET
     );
   }
 
   /**
    * Returns CraftResponse promise from League Client by HTTPS.
    */
-  craft(recipeName: string): undefined | Promise<CraftResponse> {
+  craft(recipeName: string, lootId: string): undefined | Promise<CraftResponse> {
     return this._api.clientHTTPS?.fetch(
-      `${routes.CRAFT_PREPEND}${recipeName}${routes.CRAFT_APPEND}`
+      `${routes.CRAFT_PREPEND}${recipeName}${routes.CRAFT_APPEND}`, HTTPMethods.POST,
+      [lootId]
     );
   }
 }
