@@ -43,7 +43,7 @@ import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { wardSkins } = usePlayerLoot();
-const translatedWardSkins = useTranslatedLoot(wardSkins);
+const translatedWardSkins = useTranslatedLoot(wardSkins).translatedLoots;
 const { sortedWardSkins } = useSortedLoot(translatedWardSkins);
 const { resetHextechStatus } = useHextechStatus(sortedWardSkins);
 

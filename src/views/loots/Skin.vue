@@ -31,7 +31,7 @@ import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { skins } = usePlayerLoot();
-const translatedSkins = useTranslatedLoot(skins);
+const translatedSkins = useTranslatedLoot(skins).translatedLoots;
 const { sortedSkins } = useSortedLoot(translatedSkins);
 const { resetHextechStatus } = useHextechStatus(sortedSkins);
 

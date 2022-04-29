@@ -43,7 +43,7 @@ import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { tacticians } = usePlayerLoot();
-const translatedTacticians = useTranslatedLoot(tacticians);
+const translatedTacticians = useTranslatedLoot(tacticians).translatedLoots;
 const { sortedTacticians } = useSortedLoot(translatedTacticians);
 const { resetHextechStatus } = useHextechStatus(sortedTacticians);
 

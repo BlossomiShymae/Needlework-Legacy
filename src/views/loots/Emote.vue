@@ -35,7 +35,7 @@ import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { emotes } = usePlayerLoot();
-const translatedEmotes = useTranslatedLoot(emotes);
+const translatedEmotes = useTranslatedLoot(emotes).translatedLoots;
 const { sortedEmotes } = useSortedLoot(translatedEmotes);
 const { resetHextechStatus } = useHextechStatus(sortedEmotes);
 

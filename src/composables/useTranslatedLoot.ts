@@ -2,7 +2,7 @@ import { PlayerLoot } from "@/types/PlayerLoot";
 import { ref, computed, Ref } from "vue";
 import { useLootStore } from "@/stores/loot";
 
-export default function useTranslatedLoot(loots: Ref<PlayerLoot[]>) {
+export default function useTranslatedLoot(loots?: Ref<PlayerLoot[]>) {
   const translatedLoots: Ref<PlayerLoot[]> = ref([]);
 
   const keyAdapter = (key: string, value: string) => {
@@ -23,7 +23,7 @@ export default function useTranslatedLoot(loots: Ref<PlayerLoot[]>) {
   const store = useLootStore();
   const data = computed(() => store.lootTable as any);
 
-  translatedLoots.value = loots.value.map((loot: any) => {
+  const translateLoot = (loot: any) => {
     const transLoot: any = {};
     transLoot.lootNameRaw = loot?.lootName;
     for (const property in loot) {
@@ -38,7 +38,13 @@ export default function useTranslatedLoot(loots: Ref<PlayerLoot[]>) {
       }
     }
     return transLoot;
-  });
+  };
+  translatedLoots.value = loots?.value.map((loot: any) => {
+    return translateLoot(loot);
+  }) as any;
 
-  return translatedLoots;
+  return {
+    translatedLoots,
+    translateLoot,
+  };
 }

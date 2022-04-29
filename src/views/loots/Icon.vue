@@ -43,7 +43,7 @@ import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { icons } = usePlayerLoot();
-const translatedIcons = useTranslatedLoot(icons);
+const translatedIcons = useTranslatedLoot(icons).translatedLoots;
 const { sortedIcons } = useSortedLoot(translatedIcons);
 const { resetHextechStatus } = useHextechStatus(sortedIcons);
 

@@ -33,6 +33,6 @@ import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { chests } = usePlayerLoot();
-const translatedChests = useTranslatedLoot(chests);
+const translatedChests = useTranslatedLoot(chests).translatedLoots;
 const { sortedChests } = useSortedLoot(translatedChests);
 </script>

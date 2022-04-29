@@ -131,7 +131,7 @@ const capsuleCount = ref(0);
 const orbCount = ref(0);
 
 const updateLootCounters = () => {
-  const translatedChests = useTranslatedLoot(chests);
+  const translatedChests = useTranslatedLoot(chests).translatedLoots;
 
   chestCount.value = 0;
   capsuleCount.value = 0;

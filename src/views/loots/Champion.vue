@@ -35,7 +35,7 @@ import useSortedLoot from "../../composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { champions } = usePlayerLoot();
-const translatedChampions = useTranslatedLoot(champions);
+const translatedChampions = useTranslatedLoot(champions).translatedLoots;
 const { sortedChampions } = useSortedLoot(translatedChampions);
 const { resetHextechStatus } = useHextechStatus(sortedChampions);
 

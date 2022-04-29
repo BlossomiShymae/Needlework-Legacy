@@ -35,7 +35,7 @@ import useSortedLoot from "@/composables/useSortedLoot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 const { eternals } = usePlayerLoot();
-const translatedEternals = useTranslatedLoot(eternals);
+const translatedEternals = useTranslatedLoot(eternals).translatedLoots;
 const { sortedEternals } = useSortedLoot(translatedEternals);
 const { resetHextechStatus } = useHextechStatus(sortedEternals);
 
