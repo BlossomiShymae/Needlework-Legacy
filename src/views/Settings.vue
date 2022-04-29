@@ -74,6 +74,8 @@ const { theme } = useSettings();
 #exit-settings-button {
   background-color: v-bind("theme.paletteColor[0]");
   margin: auto;
+  padding: 16px;
+  border: 1px solid grey;
 }
 
 #settings-exit-area {
