@@ -9,12 +9,14 @@
           <w-icon md>{{ item.icon }}</w-icon>
         </template>
       </w-list>
-      <router-view />
-    </div>
-    <div id="settings-exit-area">
-      <w-button id="exit-settings-button" @click="$router.push('/home')"
-        >Exit</w-button
-      >
+      <div id="settings-view">
+        <router-view />
+      </div>
+      <div id="settings-exit-area">
+        <w-button id="exit-settings-button" @click="$router.push('/home')"
+          >Exit</w-button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -48,7 +50,7 @@ const { theme } = useSettings();
 
 <style lang="scss" scoped>
 #settings {
-  background-color: v-bind("theme.backgroundColor");
+  background-color: v-bind("theme.frameColor");
   color: v-bind("theme.textColor");
   z-index: 10;
   height: 100%;
@@ -59,13 +61,14 @@ const { theme } = useSettings();
   position: relative;
   display: grid;
   grid-template-columns: 1fr 5fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 9fr 1fr;
   overflow: hidden;
-  height: 90vh;
+  height: 100vh;
 }
 
 #settings-routes {
   overflow-y: auto;
+  grid-row: span 2;
 }
 
 #exit-settings-button {
@@ -74,8 +77,9 @@ const { theme } = useSettings();
 }
 
 #settings-exit-area {
+  grid-column: 2;
+  background-color: v-bind("theme.cardColor");
   display: flex;
-  height: 10vh;
   justify-content: center;
   align-items: center;
 }

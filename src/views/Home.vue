@@ -87,21 +87,6 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
-.theme-bg-color {
-  background-color: v-bind("theme.backgroundColor");
-}
-.theme-frame-color {
-  background-color: v-bind("theme.frameColor");
-}
-.theme-card-color {
-  background-color: v-bind("theme.cardColor");
-}
-.theme-text-color {
-  color: v-bind("theme.textColor");
-}
-</style>
-
 <style lang="scss" scoped>
 .home {
   // Where is the magic number of 7px coming from? ?.?

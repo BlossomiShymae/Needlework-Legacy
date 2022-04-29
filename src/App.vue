@@ -28,6 +28,19 @@ window.ipcRenderer.receive("needlework-update", (uri: any) => {
 </script>
 
 <style lang="scss">
+.theme-bg-color {
+  background-color: v-bind("theme.backgroundColor");
+}
+.theme-frame-color {
+  background-color: v-bind("theme.frameColor");
+}
+.theme-card-color {
+  background-color: v-bind("theme.cardColor");
+}
+.theme-text-color {
+  color: v-bind("theme.textColor");
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 html {
   box-sizing: border-box;
