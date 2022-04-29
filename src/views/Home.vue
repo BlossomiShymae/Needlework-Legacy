@@ -3,7 +3,7 @@
     <WindowButtonBar />
     <LootMetaPanel />
     <div id="right-grid-area">
-      <div id="loot-view-router">
+      <div id="loot-view-router" class="styled-scrollbar">
         <router-view v-slot="{ Component }">
           <transition name="swap">
             <component :is="Component" :key="componentKey" />
@@ -96,6 +96,8 @@ onMounted(() => {
 }
 .swap-enter-active,
 .swap-leave-active {
+  @extend .styled-scrollbar;
+
   position: absolute;
   width: 99%;
   height: calc(var(--swap-height) - $window-button-bar-height);

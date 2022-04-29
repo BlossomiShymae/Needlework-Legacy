@@ -39,3 +39,21 @@
 .emote-img {
   max-width: 128px;
 }
+
+.styled-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: lightgray;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: grey;
+  }
+  
+  &::-webkit-scrollbar-thumb:hover {
+    background: #444;
+  }
+}
