@@ -5,6 +5,7 @@ import { Context } from "@/enums/context";
 import type { ContextMenu } from "@/types/ContextMenu";
 import type { PlayerLoot } from "@/types/PlayerLoot";
 import type { CraftResponse } from "@/types/CraftResponse";
+import { useCraftStatusStore } from "../stores/craftStatus";
 
 export default function useContextMenu() {
   const contextMenuList: Ref<ContextMenu[]> = ref([]);
@@ -23,6 +24,7 @@ export default function useContextMenu() {
       }
     });
   };
+  const store = useCraftStatusStore();
   const doActionOnce = async (loot: PlayerLoot, contextMenu: ContextMenu) => {
     let response: null | CraftResponse = null;
     switch (contextMenu.actionType) {
@@ -39,7 +41,7 @@ export default function useContextMenu() {
       default:
         break;
     }
-    console.log(response);
+    if (response !== null) store.addToCraftedHistory(response);
   };
 
   return {

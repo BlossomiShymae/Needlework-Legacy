@@ -1,6 +1,6 @@
 import type { PlayerLoot } from "@/types/PlayerLoot";
 
-type Crafted = {
+export type Crafted = {
   deltaCount?: number;
   playerLoot?: PlayerLoot;
 };
