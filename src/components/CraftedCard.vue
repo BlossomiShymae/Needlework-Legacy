@@ -176,6 +176,8 @@ console.log(craftHistory.value);
   height: 80%;
   align-self: center;
   justify-self: center;
+  border: 1px solid grey;
+  font-size: 0.75rem;
 
   transition: filter 0.25s ease-in-out;
   filter: brightness(100%);
