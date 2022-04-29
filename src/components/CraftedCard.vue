@@ -1,6 +1,6 @@
 <template>
   <div class="crafted-card">
-    <div v-if="craftHistory.length === 0"></div>
+    <div class="crafted-grid" v-if="craftHistory.length === 0"></div>
     <div class="crafted-grid">
       <div
         class="crafted-item"
@@ -130,11 +130,11 @@ console.log(craftHistory.value);
   overflow-y: auto;
 
   display: grid;
+  background-color: v-bind("theme.frameColor");
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-auto-rows: minmax(min-content, max-content);
   gap: 12px;
 
-  margin-right: -8px;
   padding-right: 8px;
 
   &::-webkit-scrollbar {
