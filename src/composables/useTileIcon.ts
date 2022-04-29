@@ -1,10 +1,21 @@
 import { Ref, ref } from "vue";
 import Serialize from "../utils/Serialize";
 
-export default async function useTileIcon(tilePath: Ref<string>) {
-  const tileIcon = ref("");
+function isRefString(
+  refString: Ref<string> | string
+): refString is Ref<string> {
+  return (refString as Ref<string>).value !== undefined;
+}
 
-  const arg = Serialize.prepareForIPC(tilePath.value);
+export default async function useTileIcon(tilePath: Ref<string> | string) {
+  const tileIcon = ref("");
+  let arg: any;
+  if (typeof tilePath === "string") {
+    arg = Serialize.prepareForIPC(tilePath);
+  }
+  if (isRefString(tilePath)) {
+    arg = Serialize.prepareForIPC(tilePath.value);
+  }
   const data = await window.ipcRenderer.invoke("cd-tile-icon", arg);
 
   if (data == null) {
