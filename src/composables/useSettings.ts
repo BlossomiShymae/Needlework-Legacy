@@ -4,7 +4,7 @@ import themes from "../themes";
 import Serialize from "@/utils/Serialize";
 
 /**
- * A function that returns user persisted settings.
+ * A Vue composable function that returns user persisted settings.
  * @see {@link ElectronStore} singleton in `Electron` mainland
  * @see {@link useSettingsStore} `pinia` store
  */
