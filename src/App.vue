@@ -85,11 +85,13 @@ span {
 
 .w-card {
   background-color: v-bind("theme.cardColor") !important;
+  color: v-bind("theme.textColor") !important;
 }
 
 .w-input__input,
 .w-input__input-wrap,
-.w-input {
+.w-input,
+.w-checkbox__label {
   color: v-bind("theme.textColor") !important;
 }
 </style>

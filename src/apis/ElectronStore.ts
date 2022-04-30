@@ -28,6 +28,10 @@ export default class ElectronStore {
         type: "string",
         default: "hallowed_seamstress",
       },
+      multipleLootWarningMode: {
+        type: "boolean",
+        default: true,
+      },
     });
     return ElectronStore.instance;
   }

@@ -5,6 +5,7 @@ interface State {
   darkMode: boolean;
   debugMode: boolean;
   selectedTheme: string;
+  multipleLootWarningMode: boolean;
 }
 
 /**
@@ -17,6 +18,7 @@ export const useSettingsStore = defineStore("settings", {
     darkMode: false,
     debugMode: false,
     selectedTheme: "hallowed_seamstress",
+    multipleLootWarningMode: true,
   }),
   actions: {
     getStore(): State {
@@ -24,6 +26,7 @@ export const useSettingsStore = defineStore("settings", {
         darkMode: this.darkMode,
         debugMode: this.debugMode,
         selectedTheme: this.selectedTheme,
+        multipleLootWarningMode: this.multipleLootWarningMode,
       };
     },
     // Only use this mutation for initialization of store from persisted storage
@@ -40,11 +43,13 @@ export const useSettingsStore = defineStore("settings", {
     },
     async updateConfig() {
       console.log("Pinia: Updating config...");
-      console.log(Serialize.prepareForIPC(this));
       return await window.ipcRenderer.invoke(
         "app-set-store",
-        Serialize.prepareForIPC(this)
+        Serialize.prepareForIPC(this.getStore())
       );
+    },
+    setMultipleLootWarningMode(value: boolean) {
+      this.multipleLootWarningMode = value;
     },
   },
 });

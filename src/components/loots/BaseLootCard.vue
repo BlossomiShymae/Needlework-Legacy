@@ -16,11 +16,11 @@
         <w-divider class="full-width my2"></w-divider>
 
         <div id="menu-actions">
-          <div v-if="canOpen && contextMenuList">
+          <div v-if="canOpen && contextMenuList" :key="loot.lootId">
             <div
               class="action"
               v-for="contextMenu in contextMenuList"
-              :key="(contextMenu as any)"
+              :key="contextMenu.actionType + '_once'"
               :style="{
                 color: theme.textColor,
                 backgroundColor: theme.cardColor,
@@ -32,9 +32,23 @@
             <div
               class="action-form"
               v-for="contextMenu in contextMenuList"
-              :key="(contextMenu as any)"
+              :key="contextMenu.actionType + '_multiple'"
             >
+              <w-confirm
+                class="action"
+                :style="{
+                  color: theme.textColor,
+                  backgroundColor: theme.cardColor,
+                }"
+                no-arrow
+                v-if="multipleLootWarningMode"
+                @confirm="doAction(loot, contextMenu, repeatNumber)"
+              >
+                <p>{{ capitalize(contextMenu.actionType) }} by amount</p>
+              </w-confirm>
+
               <div
+                v-if="multipleLootWarningMode === false"
                 class="action"
                 :style="{
                   color: theme.textColor,
@@ -44,25 +58,50 @@
               >
                 <p>{{ capitalize(contextMenu.actionType) }} by amount</p>
               </div>
-              <w-input type="number" v-model="repeatNumber"></w-input>
+
+              <w-input
+                class="repeat-input"
+                type="number"
+                v-model="repeatNumber"
+              ></w-input>
             </div>
 
             <div
-              class="action"
               v-for="contextMenu in contextMenuList"
-              :key="(contextMenu as any)"
-              :style="{
-                color: theme.textColor,
-                backgroundColor: theme.cardColor,
-              }"
-              @click="doAction(loot, contextMenu, loot.count)"
+              :key="contextMenu.actionType + '_all'"
             >
-              <p>
-                {{ capitalize(contextMenu.actionType) }} all
-                <span class="caption" :style="{ color: theme.textColor }"
-                  >"Snip snip!"</span
-                >
-              </p>
+              <w-confirm
+                v-if="multipleLootWarningMode"
+                class="action"
+                :style="{
+                  color: theme.textColor,
+                  backgroundColor: theme.cardColor,
+                }"
+                @confirm="doAction(loot, contextMenu, loot.count)"
+              >
+                <p>
+                  {{ capitalize(contextMenu.actionType) }} all
+                  <span class="caption" :style="{ color: theme.textColor }"
+                    >"Snip snip!"</span
+                  >
+                </p>
+              </w-confirm>
+              <div
+                v-if="multipleLootWarningMode === false"
+                class="action"
+                :style="{
+                  color: theme.textColor,
+                  backgroundColor: theme.cardColor,
+                }"
+                @click="doAction(loot, contextMenu, loot.count)"
+              >
+                <p>
+                  {{ capitalize(contextMenu.actionType) }} all
+                  <span class="caption" :style="{ color: theme.textColor }"
+                    >"Snip snip!"</span
+                  >
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -99,7 +138,7 @@ const props = defineProps<{
 
 const { tileIconPath } = toRefs(props);
 const { tileIcon } = await useTileIcon(tileIconPath);
-const { theme } = useSettings();
+const { theme, multipleLootWarningMode } = useSettings();
 
 /**
  * Loot context menu functions
@@ -124,14 +163,10 @@ function setupRepeatNumber() {
 const repeatNumber = setupRepeatNumber();
 </script>
 
-<style lang="scss">
-#menu-actions {
-  .w-input {
-  }
-}
-</style>
-
 <style lang="scss" scoped>
+.repeat-input {
+  margin-top: 2px;
+}
 .caption {
   color: v-bind("theme.textColor");
 }
@@ -146,6 +181,14 @@ const repeatNumber = setupRepeatNumber();
 
     &:hover {
       filter: brightness(100%) invert(95%);
+    }
+
+    &:deep(.w-button) {
+      padding: 0;
+      font-size: 1rem;
+      width: 100%;
+      justify-content: flex-start;
+      border: 0;
     }
   }
 

@@ -12,6 +12,7 @@ export default function useSettings() {
   const store = useSettingsStore();
   // Initialize store
   const setStore = (sourceState: any) => store.setStore(sourceState);
+  const getStore = () => store.getStore();
 
   // Themes and colors
   const darkMode = computed({
@@ -53,11 +54,23 @@ export default function useSettings() {
     return theme!.light;
   });
 
+  const multipleLootWarningMode = computed({
+    get() {
+      return store.multipleLootWarningMode;
+    },
+    async set(value: boolean) {
+      store.setMultipleLootWarningMode(value);
+      await store.updateConfig();
+    },
+  });
+
   return {
     setStore,
+    getStore,
     darkMode,
     selectedTheme,
     themeItems,
     theme,
+    multipleLootWarningMode,
   };
 }
