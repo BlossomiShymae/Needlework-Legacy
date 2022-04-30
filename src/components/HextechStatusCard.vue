@@ -104,6 +104,7 @@ import useSettings from "@/composables/useSettings";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import routes from "@/apis/needlework/src/data/routes";
 import type { WalletDTO } from "@/types/WalletDTO";
+import { useHextechStatusStore } from "@/stores/hextechStatus";
 
 onMounted(() => {
   window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
@@ -185,6 +186,8 @@ wallet.value = await window.ipcRenderer.invoke(IChannel.wallet);
  */
 const { disenchantBlueEssenceTotal, disenchantOrangeEssenceTotal } =
   useHextechStatus();
+const store = useHextechStatusStore();
+store.setUpdateLootCountersFn(updateLootCounters);
 </script>
 
 <style lang="scss" scoped>

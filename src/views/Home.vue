@@ -49,6 +49,7 @@ import { IChannel, RChannel } from "@/channels";
 import useComponentKey from "@/composables/useComponentKey";
 import { useLootStore } from "@/stores/loot";
 import useSettings from "@/composables/useSettings";
+import { useHextechStatusStore } from "@/stores/hextechStatus";
 
 // Initialize global application state for settings
 async function setupSettingsState() {
@@ -86,7 +87,7 @@ const { theme } = useSettings();
 
 router.push("/home/all");
 const { componentKey, forceRerender } = useComponentKey();
-
+const hextechStore = useHextechStatusStore();
 onMounted(() => {
   window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
     if (uri === routes.PLAYER_LOOT_MAP) {
@@ -100,6 +101,7 @@ onMounted(() => {
         IChannel.playerLootMap
       );
       lootStore.updatePlayerLootMap(playerLootMap.value);
+      hextechStore.updateLootCounters();
       forceRerender(componentKey);
     }
   });

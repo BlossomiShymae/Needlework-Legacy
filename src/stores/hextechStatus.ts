@@ -1,27 +1,35 @@
 import { defineStore } from "pinia";
 
 interface State {
-  disenchantBlueEssenceTotal: number,
-  disenchantOrangeEssenceTotal: number,
+  disenchantBlueEssenceTotal: number;
+  disenchantOrangeEssenceTotal: number;
+  updateLootCountersFn: () => void;
 }
 
 export const useHextechStatusStore = defineStore("hextechStatus", {
   state: (): State => ({
     disenchantBlueEssenceTotal: 0,
     disenchantOrangeEssenceTotal: 0,
+    updateLootCountersFn: () => {},
   }),
   actions: {
-    addDisenchantBlueEssenceTotal (value: number) {
+    addDisenchantBlueEssenceTotal(value: number) {
       this.disenchantBlueEssenceTotal += value;
     },
-    resetDisenchantBlueEssenceTotal () {
+    resetDisenchantBlueEssenceTotal() {
       this.disenchantBlueEssenceTotal = 0;
     },
-    addDisenchantOrangeEssenceTotal (value: number) {
+    addDisenchantOrangeEssenceTotal(value: number) {
       this.disenchantOrangeEssenceTotal += value;
     },
-    resetDisenchantOrangeEssenceTotal () {
+    resetDisenchantOrangeEssenceTotal() {
       this.disenchantOrangeEssenceTotal = 0;
-    }
-  }
-})
+    },
+    setUpdateLootCountersFn(fn: () => void) {
+      this.updateLootCountersFn = fn;
+    },
+    updateLootCounters() {
+      this.updateLootCountersFn();
+    },
+  },
+});
