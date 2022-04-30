@@ -14,13 +14,14 @@
 </template>
 
 <script setup lang="ts">
+import { RChannel } from "@/channels";
 import router from "@/router";
 import routes from "./apis/needlework/src/data/routes";
 import useSettings from "@/composables/useSettings";
 
 const { theme } = useSettings();
 
-window.ipcRenderer.receive("needlework-update", (uri: any) => {
+window.ipcRenderer.receive(RChannel.needleworkUpdate, (uri: any) => {
   if (uri == routes.CLIENT_INACTIVE) {
     router.push("/inactive");
   }

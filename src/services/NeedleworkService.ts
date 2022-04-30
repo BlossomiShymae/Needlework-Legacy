@@ -1,6 +1,7 @@
 import Needlework from "../apis/needlework";
 import { BrowserWindow, ipcMain } from "electron";
 import { MessageDTO } from "@/types/MessageDTO";
+import { IChannel, RChannel } from "@/channels";
 
 const POLL_PERIOD = 2500;
 
@@ -30,23 +31,26 @@ export default class NeedleworkService {
   }
 
   handleNeedleworkUpdate(messageDTO: MessageDTO) {
-    this.win?.webContents.send("needlework-update", messageDTO.object.uri);
+    this.win?.webContents.send(
+      RChannel.needleworkUpdate,
+      messageDTO.object.uri
+    );
   }
 
   currentSummonerHandler() {
-    ipcMain.handle("current-summoner", (event, args) => {
+    ipcMain.handle(IChannel.currentSummoner, (event, args) => {
       return this.needlework?.currentSummoner();
     });
   }
 
   walletHandler() {
-    ipcMain.handle("wallet", (event, args) => {
+    ipcMain.handle(IChannel.wallet, (event, args) => {
       return this.needlework?.wallet();
     });
   }
 
   playerLootMapHandler() {
-    ipcMain.handle("player-loot-map", (event, args) => {
+    ipcMain.handle(IChannel.playerLootMap, (event, args) => {
       return this.needlework?.playerLootMap();
     });
   }

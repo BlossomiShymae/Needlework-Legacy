@@ -21,14 +21,14 @@ export default defineComponent({
 <script setup lang="ts">
 import routes from "@/apis/needlework/src/data/routes";
 import router from "@/router";
-
+import { RChannel } from "@/channels";
 import useSettings from "@/composables/useSettings";
 
 let isClientActive = false;
 
 const { theme } = useSettings();
 
-window.ipcRenderer.receive("needlework-update", (uri: any) => {
+window.ipcRenderer.receive(RChannel.needleworkUpdate, (uri: any) => {
   if (uri === routes.CLIENT_ACTIVE) {
     isClientActive = true;
   }

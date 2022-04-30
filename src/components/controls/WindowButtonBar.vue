@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "WindowButtonBar",
@@ -22,11 +22,11 @@ export default defineComponent({
 
 <script setup lang="ts">
 import router from "@/router";
-
+import { IChannel } from "@/channels";
 import useSettings from "@/composables/useSettings";
 
 function minimizeWindow() {
-  window.ipcRenderer.invoke("app-minimize-window");
+  window.ipcRenderer.invoke(IChannel.minimizeWindow);
 }
 
 function openSettings() {
@@ -34,7 +34,7 @@ function openSettings() {
 }
 
 function exitApplication() {
-  window.ipcRenderer.invoke("app-exit-application");
+  window.ipcRenderer.invoke(IChannel.exitApplication);
 }
 
 const { theme } = useSettings();

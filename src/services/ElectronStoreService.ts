@@ -1,10 +1,11 @@
 import { ipcMain } from "electron";
 import ElectronStore from "../apis/ElectronStore";
+import { IChannel } from "@/channels";
 
 export default class ElectronStoreService {
   static instance: null | ElectronStoreService = null;
   electronStore?: null | ElectronStore;
-  
+
   private constructor() {}
 
   static getInstance() {
@@ -20,13 +21,13 @@ export default class ElectronStoreService {
   }
 
   getStoreHandler() {
-    ipcMain.handle("app-get-store", (event, args) => {
+    ipcMain.handle(IChannel.getStore, (event, args) => {
       return this.electronStore?.getStore();
     });
   }
 
   setStoreHandler() {
-    ipcMain.handle("app-set-store", (event, store) => {
+    ipcMain.handle(IChannel.setStore, (event, store) => {
       if (store !== null && store !== undefined) {
         this.electronStore?.setStore(store);
       }

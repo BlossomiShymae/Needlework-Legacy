@@ -96,18 +96,19 @@ export default defineComponent({
 <script setup lang="ts">
 import { Ref, ref, onMounted } from "vue";
 
+import { RChannel, IChannel } from "@/channels";
 import useComponentKey from "@/composables/useComponentKey";
 import useHextechStatus from "@/composables/useHextechStatus";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useSettings from "@/composables/useSettings";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import routes from "@/apis/needlework/src/data/routes";
-import type { WalletDTO } from '@/types/WalletDTO';
+import type { WalletDTO } from "@/types/WalletDTO";
 
 onMounted(() => {
-  window.ipcRenderer.receive("needlework-update", async (uri: any) => {
+  window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
     if (uri === routes.WALLET || uri === routes.LOL_LOOT_READY) {
-      wallet.value = await window.ipcRenderer.invoke("wallet");
+      wallet.value = await window.ipcRenderer.invoke(IChannel.wallet);
       forceRerender(componentKey);
     }
     if (uri == routes.PLAYER_LOOT_MAP) {
@@ -177,7 +178,7 @@ const { theme } = useSettings();
  * WalletDTO
  */
 const wallet: Ref<WalletDTO | null> = ref(null);
-wallet.value = await window.ipcRenderer.invoke("wallet");
+wallet.value = await window.ipcRenderer.invoke(IChannel.wallet);
 
 /**
  * HextechStatus

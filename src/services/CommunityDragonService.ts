@@ -1,5 +1,6 @@
 import CommunityDragon from "../apis/CommunityDragon";
 import { ipcMain } from "electron";
+import { IChannel } from "@/channels";
 
 export default class CommunityDragonService {
   communityDragonAPI: CommunityDragon;
@@ -12,13 +13,13 @@ export default class CommunityDragonService {
   }
 
   lootTranslationHandler() {
-    ipcMain.handle("cd-loot-translation", (event) => {
+    ipcMain.handle(IChannel.lootTranslation, (event) => {
       return this.communityDragonAPI.getLootTranslation();
     });
   }
 
   tileIconHandler() {
-    ipcMain.handle("cd-tile-icon", (event, tilePath) => {
+    ipcMain.handle(IChannel.tileIcon, (event, tilePath) => {
       return this.communityDragonAPI.getTileIcon(tilePath);
     });
   }

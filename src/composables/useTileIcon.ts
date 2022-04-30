@@ -1,5 +1,6 @@
 import { Ref, ref } from "vue";
 import Serialize from "../utils/Serialize";
+import { IChannel } from "@/channels";
 
 function isRefString(
   refString: Ref<string> | string
@@ -16,7 +17,7 @@ export default async function useTileIcon(tilePath: Ref<string> | string) {
   if (isRefString(tilePath)) {
     arg = Serialize.prepareForIPC(tilePath.value);
   }
-  const data = await window.ipcRenderer.invoke("cd-tile-icon", arg);
+  const data = await window.ipcRenderer.invoke(IChannel.tileIcon, arg);
 
   if (data == null) {
     tileIcon.value =

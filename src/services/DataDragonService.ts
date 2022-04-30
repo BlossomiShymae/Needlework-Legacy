@@ -1,5 +1,6 @@
 import DataDragon from "../apis/DataDragon";
 import { ipcMain } from "electron";
+import { IChannel } from "@/channels";
 
 export default class DataDragonService {
   dataDragonAPI: DataDragon;
@@ -11,7 +12,7 @@ export default class DataDragonService {
   }
 
   profileIconHandler() {
-    ipcMain.handle("dd-profile-icon", (event, id) => {
+    ipcMain.handle(IChannel.profileIcon, (event, id) => {
       return this.dataDragonAPI.getProfileIcon(id);
     });
   }

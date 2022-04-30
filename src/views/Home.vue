@@ -44,6 +44,7 @@ import { ref, onMounted } from "vue";
 import router from "@/router";
 import Time from "@/utils/Time";
 import routes from "@/apis/needlework/src/data/routes";
+import { IChannel, RChannel } from "@/channels";
 
 import useComponentKey from "@/composables/useComponentKey";
 import { useLootStore } from "@/stores/loot";
@@ -51,7 +52,7 @@ import useSettings from "@/composables/useSettings";
 
 // Initialize global application state for settings
 async function setupSettingsState() {
-  const settingsState: any = await window.ipcRenderer.invoke("app-get-store");
+  const settingsState: any = await window.ipcRenderer.invoke(IChannel.getStore);
   const { setStore, getStore } = useSettings();
   if (typeof settingsState !== "undefined") {
     const state = getStore() as any;
@@ -72,13 +73,13 @@ await setupSettingsState();
 
 // Initalize PlayerLoot and it's store
 const playerLootMap = ref({});
-playerLootMap.value = await window.ipcRenderer.invoke("player-loot-map");
+playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
 const lootStore = useLootStore();
 lootStore.updatePlayerLootMap(playerLootMap.value);
 
 // Initialize loot table for loot translations
 const lootTable = ref({});
-lootTable.value = await window.ipcRenderer.invoke("cd-loot-translation");
+lootTable.value = await window.ipcRenderer.invoke(IChannel.lootTranslation);
 lootStore.setLootTable(lootTable.value);
 
 const { theme } = useSettings();
@@ -87,7 +88,7 @@ router.push("/home/all");
 const { componentKey, forceRerender } = useComponentKey();
 
 onMounted(() => {
-  window.ipcRenderer.receive("needlework-update", async (uri: any) => {
+  window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
     if (uri === routes.PLAYER_LOOT_MAP) {
       console.log(
         "Received event update from NeedleworkService - " +
@@ -95,7 +96,9 @@ onMounted(() => {
           " " +
           Time.toString()
       );
-      playerLootMap.value = await window.ipcRenderer.invoke("player-loot-map");
+      playerLootMap.value = await window.ipcRenderer.invoke(
+        IChannel.playerLootMap
+      );
       lootStore.updatePlayerLootMap(playerLootMap.value);
       forceRerender(componentKey);
     }

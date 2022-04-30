@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from "electron";
+import { IChannel } from "@/channels";
 
 export default class ElectronService {
   constructor() {
@@ -10,13 +11,13 @@ export default class ElectronService {
   }
 
   handleWindowMinimize(win: BrowserWindow) {
-    ipcMain.handle("app-minimize-window", (event, args) => {
+    ipcMain.handle(IChannel.minimizeWindow, (event, args) => {
       win.minimize();
     });
   }
 
   handleApplicationExit() {
-    ipcMain.handle("app-exit-application", (event, args) => {
+    ipcMain.handle(IChannel.exitApplication, (event, args) => {
       app.exit(0);
     });
   }

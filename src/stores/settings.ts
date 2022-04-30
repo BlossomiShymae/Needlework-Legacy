@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import Serialize from "../utils/Serialize";
+import Serialize from "@/utils/Serialize";
+import { IChannel } from "@/channels";
 
 interface State {
   darkMode: boolean;
@@ -44,7 +45,7 @@ export const useSettingsStore = defineStore("settings", {
     async updateConfig() {
       console.log("Pinia: Updating config...");
       return await window.ipcRenderer.invoke(
-        "app-set-store",
+        IChannel.setStore,
         Serialize.prepareForIPC(this.getStore())
       );
     },

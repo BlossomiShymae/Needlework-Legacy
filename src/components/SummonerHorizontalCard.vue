@@ -10,10 +10,10 @@
     </div>
     <div id="summoner-content">
       <h3 class="title3 text-bold" id="summoner-display-name">
-        {{ currentSummoner.displayName }}
+        {{ currentSummoner?.displayName ?? "SUMMONER" }}
       </h3>
       <w-tag id="summoner-level" class="body" outline>{{
-        currentSummoner.summonerLevel
+        currentSummoner?.summonerLevel ?? 30
       }}</w-tag>
     </div>
     <div id="summoner-next-level-info">
@@ -31,8 +31,8 @@
       bg-color="indigo-dark4"
       color="indigo"
     >
-      {{ currentSummoner.xpSinceLastLevel }} /
-      {{ currentSummoner.xpUntilNextLevel }} XP
+      {{ currentSummoner?.xpSinceLastLevel ?? 0 }} /
+      {{ currentSummoner?.xpUntilNextLevel ?? 1 }} XP
     </w-progress>
   </div>
 </template>
@@ -48,11 +48,12 @@ export default defineComponent({
 <script setup lang="ts">
 import { Ref, ref, computed } from "vue";
 
+import { IChannel, RChannel } from "@/channels";
 import useComponentKey from "@/composables/useComponentKey";
 import useProfileIcon from "@/composables/useProfileIcon";
 import useSettings from "@/composables/useSettings";
 import routes from "@/apis/needlework/src/data/routes";
-import type { CurrentSummonerDTO } from '@/types/CurrentSummonerDTO';
+import type { CurrentSummonerDTO } from "@/types/CurrentSummonerDTO";
 
 const { theme } = useSettings();
 
@@ -60,7 +61,9 @@ const { componentKey, forceRerender } = useComponentKey();
 
 const currentSummoner: Ref<CurrentSummonerDTO | null> = ref(null);
 
-currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
+currentSummoner.value = await window.ipcRenderer.invoke(
+  IChannel.currentSummoner
+);
 
 let rawProfileIcon = await (await useProfileIcon(currentSummoner)).profileIcon;
 
@@ -82,7 +85,9 @@ const experienceProgress = computed(() => {
 });
 
 const milestoneAwards = ref("");
-const setMilestoneAwards = (currentSummoner: Ref<CurrentSummonerDTO | null>) => {
+const setMilestoneAwards = (
+  currentSummoner: Ref<CurrentSummonerDTO | null>
+) => {
   milestoneAwards.value = "";
   const levelRewardMap: any = {
     2: "450 BE\nPick one: Lux, Master Yi, Miss Fortune, Brand, Darius",
@@ -163,9 +168,11 @@ const setMilestoneAwards = (currentSummoner: Ref<CurrentSummonerDTO | null>) => 
 };
 setMilestoneAwards(currentSummoner);
 
-window.ipcRenderer.receive("needlework-update", async (uri: any) => {
+window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
   if (uri === routes.CURRENT_SUMMONER || uri === routes.LOL_LOOT_READY) {
-    currentSummoner.value = await window.ipcRenderer.invoke("current-summoner");
+    currentSummoner.value = await window.ipcRenderer.invoke(
+      IChannel.currentSummoner
+    );
     profileIcon.value = await (
       await useProfileIcon(currentSummoner)
     ).profileIcon.value;

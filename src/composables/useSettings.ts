@@ -2,6 +2,7 @@ import { useSettingsStore } from "@/stores/settings";
 import { computed } from "vue";
 import themes from "../themes";
 import Serialize from "@/utils/Serialize";
+import { IChannel } from "@/channels";
 
 /**
  * A Vue composable function that returns user persisted settings.
@@ -22,7 +23,7 @@ export default function useSettings() {
     set(value: boolean) {
       store.setDarkMode(value);
       window.ipcRenderer.invoke(
-        "app-set-store",
+        IChannel.setStore,
         Serialize.prepareForIPC(store.getStore())
       );
     },
@@ -34,7 +35,7 @@ export default function useSettings() {
     set(key: string) {
       store.setSelectedTheme(key);
       window.ipcRenderer.invoke(
-        "app-set-store",
+        IChannel.setStore,
         Serialize.prepareForIPC(store.getStore())
       );
     },

@@ -1,11 +1,13 @@
-export {}
+import { SChannel, IChannel, RChannel, OChannel } from "./channels";
+
+export {};
 declare global {
   interface Window {
-    "ipcRenderer": {
-      send: (channel: string, data: any) => void;
-      invoke: (channel: string, data?: any) => Promise<any>;
-      receive: (channel: string, func: any) => void;
-      once: (channel: string, func: any) => void;
-    }
+    ipcRenderer: {
+      send: (channel: SChannel, data: any) => void;
+      invoke: (channel: IChannel, data?: any) => Promise<any>;
+      receive: (channel: RChannel, func: any) => void;
+      once: (channel: OChannel, func: any) => void;
+    };
   }
 }
