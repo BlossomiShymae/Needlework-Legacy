@@ -1,10 +1,15 @@
 const Store = require("electron-store");
 
+/**
+ * A singleton that provides user persisted settings by using `electron-store`.
+ * @see {@link useSettingsStore} `pinia` store
+ * @see {@link useSettings} `Vue` composable
+ */
 export default class ElectronStore {
   static instance: null | ElectronStore = null;
   store: null | any;
 
-  private constructor() { }
+  private constructor() {}
 
   static getInstance() {
     if (ElectronStore.instance != null) return ElectronStore.instance;
@@ -21,8 +26,8 @@ export default class ElectronStore {
       },
       selectedThemes: {
         type: "string",
-        default: "hallowed_seamstress"
-      }
+        default: "hallowed_seamstress",
+      },
     });
     return ElectronStore.instance;
   }

@@ -1,12 +1,17 @@
 import { defineStore } from "pinia";
-import Serialize from '../utils/Serialize';
+import Serialize from "../utils/Serialize";
 
 interface State {
-  darkMode: boolean,
-  debugMode: boolean,
-  selectedTheme: string,
+  darkMode: boolean;
+  debugMode: boolean;
+  selectedTheme: string;
 }
 
+/**
+ * A function that returns front-end store instance of user persisted settings.
+ * @see {@link useSettings} `Vue` composable
+ * @see {@link ElectronStore} singleton in `Electron` mainland
+ */
 export const useSettingsStore = defineStore("settings", {
   state: (): State => ({
     darkMode: false,
@@ -18,8 +23,8 @@ export const useSettingsStore = defineStore("settings", {
       return {
         darkMode: this.darkMode,
         debugMode: this.debugMode,
-        selectedTheme: this.selectedTheme
-      }
+        selectedTheme: this.selectedTheme,
+      };
     },
     // Only use this mutation for initialization of store from persisted storage
     setStore(store: any) {
@@ -31,7 +36,7 @@ export const useSettingsStore = defineStore("settings", {
       this.darkMode = value;
     },
     setSelectedTheme(key: string) {
-     this.selectedTheme = key;
+      this.selectedTheme = key;
     },
     async updateConfig() {
       console.log("Pinia: Updating config...");
@@ -39,7 +44,7 @@ export const useSettingsStore = defineStore("settings", {
       return await window.ipcRenderer.invoke(
         "app-set-store",
         Serialize.prepareForIPC(this)
-      )
-    }
-  }
-})
+      );
+    },
+  },
+});

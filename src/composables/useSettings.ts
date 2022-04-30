@@ -3,11 +3,15 @@ import { computed } from "vue";
 import themes from "../themes";
 import Serialize from "@/utils/Serialize";
 
+/**
+ * A function that returns user persisted settings.
+ * @see {@link ElectronStore} singleton in `Electron` mainland
+ * @see {@link useSettingsStore} `pinia` store
+ */
 export default function useSettings() {
   const store = useSettingsStore();
   // Initialize store
-  const setStore = (sourceState: any) =>
-    store.setStore(sourceState);
+  const setStore = (sourceState: any) => store.setStore(sourceState);
 
   // Themes and colors
   const darkMode = computed({
@@ -16,7 +20,10 @@ export default function useSettings() {
     },
     set(value: boolean) {
       store.setDarkMode(value);
-      window.ipcRenderer.invoke("app-set-store", Serialize.prepareForIPC(store.getStore()));
+      window.ipcRenderer.invoke(
+        "app-set-store",
+        Serialize.prepareForIPC(store.getStore())
+      );
     },
   });
   const selectedTheme = computed({
@@ -25,7 +32,10 @@ export default function useSettings() {
     },
     set(key: string) {
       store.setSelectedTheme(key);
-      window.ipcRenderer.invoke("app-set-store", Serialize.prepareForIPC(store.getStore()));
+      window.ipcRenderer.invoke(
+        "app-set-store",
+        Serialize.prepareForIPC(store.getStore())
+      );
     },
   });
   const themeItems = [];
