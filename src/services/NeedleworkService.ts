@@ -62,9 +62,13 @@ export default class NeedleworkService {
       "craft",
       (
         event,
-        { recipeName, lootId }: { recipeName: string; lootId: string }
+        {
+          recipeName,
+          lootId,
+          repeat,
+        }: { recipeName: string; lootId: string; repeat: number }
       ) => {
-        return this.needlework?.craft(recipeName, lootId);
+        return this.needlework?.craft(recipeName, lootId, repeat);
       }
     );
   }

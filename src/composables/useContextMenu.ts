@@ -25,7 +25,11 @@ export default function useContextMenu() {
     });
   };
   const store = useCraftStatusStore();
-  const doActionOnce = async (loot: PlayerLoot, contextMenu: ContextMenu) => {
+  const doAction = async (
+    loot: PlayerLoot,
+    contextMenu: ContextMenu,
+    repeat: number
+  ) => {
     let response: null | CraftResponse = null;
     switch (contextMenu.actionType) {
       case Context.ActionType.OPEN:
@@ -34,6 +38,7 @@ export default function useContextMenu() {
           Serialize.prepareForIPC({
             recipeName: contextMenu.name,
             lootId: loot.lootId,
+            repeat: repeat,
           })
         )) as CraftResponse;
         break;
@@ -47,7 +52,7 @@ export default function useContextMenu() {
   return {
     contextMenuList,
     setupContextMenu,
-    doActionOnce,
+    doAction,
     capitalize: _.capitalize,
   };
 }

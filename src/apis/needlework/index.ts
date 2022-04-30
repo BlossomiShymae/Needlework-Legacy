@@ -177,7 +177,7 @@ export default class Needlework {
    * Getter for `craft` that is delegated to `_state`. See `ActiveState` and
    * `InactiveState` for implementation.
    */
-  craft(recipeName: string, lootId: string) {
-    return this._state?.craft(recipeName, lootId);
+  craft(recipeName: string, lootId: string, repeat: number = 1) {
+    return this._state?.craft(recipeName, lootId, repeat);
   }
 }

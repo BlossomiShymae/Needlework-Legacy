@@ -86,4 +86,10 @@ span {
 .w-card {
   background-color: v-bind("theme.cardColor") !important;
 }
+
+.w-input__input,
+.w-input__input-wrap,
+.w-input {
+  color: v-bind("theme.textColor") !important;
+}
 </style>

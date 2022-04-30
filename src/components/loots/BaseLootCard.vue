@@ -25,21 +25,28 @@
                 color: theme.textColor,
                 backgroundColor: theme.cardColor,
               }"
-              @click="doActionOnce(loot, contextMenu)"
+              @click="doAction(loot, contextMenu, 1)"
             >
               <p>{{ capitalize(contextMenu.actionType) }}</p>
             </div>
             <div
-              class="action"
+              class="action-form"
               v-for="contextMenu in contextMenuList"
               :key="(contextMenu as any)"
-              :style="{
-                color: theme.textColor,
-                backgroundColor: theme.cardColor,
-              }"
             >
-              <p>{{ capitalize(contextMenu.actionType) }} by amount</p>
+              <div
+                class="action"
+                :style="{
+                  color: theme.textColor,
+                  backgroundColor: theme.cardColor,
+                }"
+                @click="doAction(loot, contextMenu, repeatNumber)"
+              >
+                <p>{{ capitalize(contextMenu.actionType) }} by amount</p>
+              </div>
+              <w-input type="number" v-model="repeatNumber"></w-input>
             </div>
+
             <div
               class="action"
               v-for="contextMenu in contextMenuList"
@@ -48,6 +55,7 @@
                 color: theme.textColor,
                 backgroundColor: theme.cardColor,
               }"
+              @click="doAction(loot, contextMenu, loot.count)"
             >
               <p>
                 {{ capitalize(contextMenu.actionType) }} all
@@ -72,7 +80,7 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { defineProps, toRefs } from "vue";
+import { defineProps, toRefs, ref } from "vue";
 
 import type { PlayerLoot } from "@/types/PlayerLoot";
 import useContextMenu from "@/composables/useContextMenu";
@@ -96,9 +104,32 @@ const { theme } = useSettings();
 /**
  * Loot context menu functions
  */
-const { contextMenuList, setupContextMenu, doActionOnce, capitalize } =
+const { contextMenuList, setupContextMenu, doAction, capitalize } =
   useContextMenu();
+
+/**
+ * Prevalidates a repeatNumber upon props passing
+ */
+function setupRepeatNumber() {
+  let repeatNumber = ref(0);
+  const { loot } = toRefs(props);
+  if (loot.value.count > 10) {
+    repeatNumber.value = 10;
+  } else {
+    repeatNumber.value = loot.value.count;
+  }
+  return repeatNumber;
+}
+
+const repeatNumber = setupRepeatNumber();
 </script>
+
+<style lang="scss">
+#menu-actions {
+  .w-input {
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .caption {
@@ -109,7 +140,6 @@ const { contextMenuList, setupContextMenu, doActionOnce, capitalize } =
   .action {
     padding: 2px;
     text-align: left;
-    width: 100%;
     height: min-content;
     filter: brightness(100%);
     transition: filter 0.25s ease-in-out;
@@ -117,6 +147,13 @@ const { contextMenuList, setupContextMenu, doActionOnce, capitalize } =
     &:hover {
       filter: brightness(100%) invert(95%);
     }
+  }
+
+  .action-form {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 50px);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 4px;
   }
 }
 .loot-item {

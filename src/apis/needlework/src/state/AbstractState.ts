@@ -17,5 +17,5 @@ export abstract class AbstractState {
   abstract wallet(): any;
   abstract playerLootMap(): any;
   abstract contextMenu(lootId: string): any;
-  abstract craft(recipeName: string, lootId: string): any;
+  abstract craft(recipeName: string, lootId: string, repeat: number): any;
 }
