@@ -12,6 +12,11 @@ const settingsRoute: any = {
           /* webpackChunkName: "general" */ "../../views/settings/General.vue"
         ),
     },
+    {
+      path: "data",
+      component: () =>
+        import(/* webpackChunkName: "data" */ "../../views/settings/Data.vue"),
+    },
   ],
 };
 

@@ -41,6 +41,10 @@ window.ipcRenderer.receive(RChannel.needleworkUpdate, (uri: any) => {
 .theme-text-color {
   color: v-bind("theme.textColor");
 }
+.theme-button {
+  background-color: v-bind("theme.paletteColor[0]") !important;
+  color: white !important;
+}
 
 @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 html {

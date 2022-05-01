@@ -6,7 +6,7 @@
         <template #item="{ item }">
           <span>{{ item.label }}</span>
           <div class="spacer"></div>
-          <w-icon md>{{ item.icon }}</w-icon>
+          <w-icon md color="grey-dark2">{{ item.icon }}</w-icon>
         </template>
       </w-list>
       <div id="settings-view">
@@ -40,8 +40,14 @@ const settingLinks = [
   {
     label: "General",
     id: "general",
-    icon: "mdi mdi-information",
+    icon: "mdi mdi-application-settings",
     route: "/settings/general",
+  },
+  {
+    label: "Data",
+    id: "data",
+    icon: "mdi mdi-code-json",
+    route: "/settings/data",
   },
 ];
 

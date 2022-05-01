@@ -27,6 +27,8 @@ export enum IChannel {
   exitApplication = "app-exit-application",
   getStore = "app-get-store",
   setStore = "app-set-store",
+  clearImageCache = "app-clear-image-cache",
+  getImageCacheSize = "app-get-image-cache-size",
 }
 
 /**
