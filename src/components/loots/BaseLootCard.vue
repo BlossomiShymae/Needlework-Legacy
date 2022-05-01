@@ -3,7 +3,7 @@
     <w-menu left shadow @open="setupContextMenu(loot)">
       <template #activator="{ on }">
         <div class="loot-item" v-bind="$attrs" :class="$attrs.class" v-on="on">
-          <img :src="tileIcon" class="tile-icon shimmer" />
+          <img :src="tileIcon" class="tile-icon" />
           <div class="icon-overlay"></div>
           <p class="loot-count">x{{ count }}</p>
         </div>
@@ -245,21 +245,4 @@ const repeatNumber = setupRepeatNumber();
     border-radius: 50% 0 var(--card-border-radius) 0;
     z-index: 99;
   }
-
-  .shimmer {
-    animation: shimmer 6s infinite cubic-bezier(0.19, 1, 0.22, 1);
-  }
-
-  @keyframes shimmer {
-    0% {
-      filter: brightness(1);
-    }
-    50% {
-      filter: brightness(1.25);
-    }
-    100% {
-      filter: brightness(1);
-    }
-  }
-}
 </style>
