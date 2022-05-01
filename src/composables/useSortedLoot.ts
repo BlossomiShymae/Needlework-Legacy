@@ -1,5 +1,5 @@
 import type { PlayerLoot } from "@/types/PlayerLoot";
-import { Ref, ref, computed } from "vue";
+import { Ref, ref } from "vue";
 import _ from "lodash";
 import { Loot } from "@/enums/loot";
 
