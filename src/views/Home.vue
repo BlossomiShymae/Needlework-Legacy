@@ -14,10 +14,6 @@
         <w-button> Disenchant all </w-button>
         <w-button> Disenchant </w-button>
       </div>
-      <img
-        id="doodle"
-        src="local-resource://./src/assets/gwen_doll_doodle.png"
-      />
     </div>
   </div>
 </template>
@@ -168,13 +164,6 @@ onMounted(() => {
     padding-top: 20px;
     row-gap: 10px;
     overflow: hidden;
-
-    #doodle {
-      position: absolute;
-      right: calc(0px - 2px);
-      bottom: calc(0px - 16px);
-      filter: opacity(0.08) drop-shadow(0 0 0px v-bind("theme.paletteColor[1]"));
-    }
   }
 
   #flex-controls {
