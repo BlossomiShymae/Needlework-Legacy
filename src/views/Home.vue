@@ -179,7 +179,6 @@ onMounted(() => {
     grid-template-columns: 1fr;
     grid-template-rows: 15fr 1fr;
     padding-top: 20px;
-    row-gap: 2px;
     overflow: hidden;
   }
 
@@ -191,6 +190,7 @@ onMounted(() => {
     gap: 8px;
     color: v-bind("theme.textColor");
     padding-left: 8px;
+    padding-right: 8px;
 
     &:deep(.w-button) {
       color: white;
