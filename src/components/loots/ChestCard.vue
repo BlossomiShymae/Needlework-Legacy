@@ -22,7 +22,9 @@
           ></div>
         </div>
       </template>
-      <template #fallback> Loading... </template>
+      <template #fallback>
+        <LoadingLootBeeMad />
+      </template>
     </Suspense>
   </div>
 </template>
@@ -30,22 +32,24 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BaseLootCard from "@/components/loots/BaseLootCard.vue";
+import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
 
 export default defineComponent({
   name: "ChestCard",
   components: {
     BaseLootCard,
+    LoadingLootBeeMad,
   },
 });
 </script>
 
 <script setup lang="ts">
 import { defineProps, computed, onMounted, ref } from "vue";
-import type { PlayerLoot } from '@/types/PlayerLoot';
+import type { PlayerLoot } from "@/types/PlayerLoot";
 
 const props = defineProps<{
-  chest: PlayerLoot,
-  rawName: string,
+  chest: PlayerLoot;
+  rawName: string;
 }>();
 
 const canOpen = ref(true);
@@ -54,10 +58,10 @@ const isMasteryToken7 = ref(false);
 
 const lootName = computed(() => {
   if (props.chest.lootName.includes("Mastery")) {
-     return `${props.chest.lootName} ${props.chest.itemDesc}`
+    return `${props.chest.lootName} ${props.chest.itemDesc}`;
   }
   if (props.chest.localizedName) {
-    return props.chest.localizedName
+    return props.chest.localizedName;
   }
   if (props.chest.lootId === "MATERIAL_key_fragment") {
     if (props.chest.count > 1) return "Key Fragments";
@@ -68,7 +72,7 @@ const lootName = computed(() => {
   }
   if (props.chest.lootName !== "") return props.chest.lootName;
   return "Unknown Material, Contact Dev";
-})
+});
 
 onMounted(() => {
   if (props.chest.lootName.includes("Mastery 6")) isMasteryToken6.value = true;
@@ -77,13 +81,15 @@ onMounted(() => {
   const masterialBlacklist = ["token", "essence"];
 
   masterialBlacklist.forEach((name) => {
-    if (props.chest.lootName.toLowerCase().includes(name) ||
-     props.chest.localizedName.toLowerCase().includes(name)) {
+    if (
+      props.chest.lootName.toLowerCase().includes(name) ||
+      props.chest.localizedName.toLowerCase().includes(name)
+    ) {
       canOpen.value = true;
       return true;
     }
-  })
-})
+  });
+});
 </script>
 
 <style lang="scss" scoped>

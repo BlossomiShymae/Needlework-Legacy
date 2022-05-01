@@ -17,6 +17,9 @@
           </div>
         </div>
       </template>
+      <template #fallback>
+        <LoadingLootBeeMad/>
+      </template>
     </Suspense>
   </div>
 </template>
@@ -24,11 +27,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BaseLootCard from "@/components/loots/BaseLootCard.vue";
+import LoadingLootBeeMad from '@/components/fallbacks/LoadingLootBeeMad.vue';
 
 export default defineComponent({
   name: "EternalCard",
   components: {
     BaseLootCard,
+    LoadingLootBeeMad
   },
 });
 </script>

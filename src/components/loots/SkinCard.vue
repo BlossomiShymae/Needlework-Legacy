@@ -26,7 +26,9 @@
           <div class="skin-legacy" v-if="isLegacy"></div>
         </div>
       </template>
-      <template #fallback> Loading... </template>
+      <template #fallback>
+        <LoadingLootBeeMad />
+      </template>
     </Suspense>
   </div>
 </template>
@@ -34,11 +36,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BaseLootCard from "@/components/loots/BaseLootCard.vue";
+import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
 
 export default defineComponent({
   name: "SkinCard",
   components: {
     BaseLootCard,
+    LoadingLootBeeMad,
   },
 });
 </script>

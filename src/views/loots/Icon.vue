@@ -14,6 +14,9 @@
           :can-open="true"
           :loot="icon"
         />
+        <template #fallback>
+          <LoadingLootBeeMad/>
+        </template>
       </Suspense>
     </div>
   </div>
@@ -24,12 +27,14 @@ import { defineComponent } from "vue";
 
 import ContentCard from "@/components/ContentCard.vue";
 import BaseLootCard from "@/components/loots/BaseLootCard.vue";
+import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
 
 export default defineComponent({
   name: "Icon",
   components: {
     BaseLootCard,
     ContentCard,
+    LoadingLootBeeMad,
   },
 });
 </script>
