@@ -16,12 +16,23 @@ export default function useContextMenu() {
       Serialize.prepareForIPC(loot.lootId)
     )) as ContextMenu[];
     contextMenuList.value = rawList.filter((contextMenu) => {
-      if (
-        Object.values(Context.ActionType).includes(
-          contextMenu.actionType as Context.ActionType
-        )
-      ) {
-        return true;
+      switch (contextMenu.actionType) {
+        case Context.ActionType.OPEN:
+          return true;
+          break;
+        case Context.ActionType.DISENCHANT:
+          if (loot.type.toLowerCase() !== "currency") return true;
+          return false;
+          break;
+        case Context.ActionType.REDEEM:
+          if (contextMenu.enabled) return true;
+          return false;
+          break;
+        default:
+          console.log(
+            `Unsupported context menu action type: ${contextMenu.actionType}!`
+          );
+          break;
       }
     });
   };
@@ -32,14 +43,33 @@ export default function useContextMenu() {
     repeat: number
   ) => {
     let response: null | CraftResponse = null;
+    const data = Serialize.prepareForIPC({
+      recipeName: contextMenu.name,
+      lootId: loot.lootId,
+      repeat: repeat,
+    });
+    console.log("Sending craft of data: ");
+    console.log(data);
     switch (contextMenu.actionType) {
       case Context.ActionType.OPEN:
+        response = (await window.ipcRenderer.invoke(
+          IChannel.craft,
+          data
+        )) as CraftResponse;
+        break;
+      case Context.ActionType.DISENCHANT:
+        response = (await window.ipcRenderer.invoke(
+          IChannel.craft,
+          data
+        )) as CraftResponse;
+        break;
+      case Context.ActionType.REDEEM:
         response = (await window.ipcRenderer.invoke(
           IChannel.craft,
           Serialize.prepareForIPC({
             recipeName: contextMenu.name,
             lootId: loot.lootId,
-            repeat: repeat,
+            repeat: 1,
           })
         )) as CraftResponse;
         break;

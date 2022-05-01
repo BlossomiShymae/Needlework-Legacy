@@ -4,5 +4,7 @@ export namespace Context {
    */
   export enum ActionType {
     OPEN = "OPEN",
+    DISENCHANT = "DISENCHANT",
+    REDEEM = "redeem",
   }
 }

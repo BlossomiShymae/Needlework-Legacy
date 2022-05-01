@@ -40,7 +40,7 @@
         class="hextech-icon grayscale-icon"
         src="local-resource://./src/assets/riot_static/portal_chest.png"
       />
-      <p class="body text-bold">{{ capsuleCount + orbCount }}</p>
+      <p class="body text-bold">{{ capsuleCount }}</p>
     </div>
     <div id="hextech-status">
       <div id="hextech-disenchant-title">
