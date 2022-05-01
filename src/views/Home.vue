@@ -2,7 +2,7 @@
   <div class="home">
     <WindowButtonBar />
     <LootMetaPanel />
-    <div id="right-grid-area">
+    <div id="right-grid-area" class="theme-frame-color">
       <div id="loot-view-router" class="styled-scrollbar">
         <router-view v-slot="{ Component }">
           <transition name="swap">
@@ -10,9 +10,26 @@
           </transition>
         </router-view>
       </div>
-      <div id="flex-controls">
-        <w-button> Disenchant all </w-button>
-        <w-button> Disenchant </w-button>
+      <div id="controls-flex">
+        <w-button><w-icon>mdi mdi-help-circle-outline</w-icon></w-button>
+        <w-menu top min-width="180px">
+          <template #activator="{ on }">
+            <w-button v-on="on">
+              <img
+                class="button-icon"
+                src="local-resource://./src/assets/riot_static/chest_generic.png"
+              />
+              <w-icon>mdi mdi-cog-play</w-icon>
+              Hextech automation
+            </w-button>
+          </template>
+          test
+        </w-menu>
+        <w-button><w-icon>mdi mdi-refresh</w-icon></w-button>
+        <div class="flex-divider"></div>
+        <w-button><w-icon>mdi mdi-discord</w-icon></w-button>
+        <div class="version-info">v0.0</div>
+        <w-button><w-icon>mdi mdi-github</w-icon></w-button>
       </div>
     </div>
   </div>
@@ -160,19 +177,39 @@ onMounted(() => {
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 8fr 1fr;
+    grid-template-rows: 15fr 1fr;
     padding-top: 20px;
-    row-gap: 10px;
+    row-gap: 2px;
     overflow: hidden;
   }
 
-  #flex-controls {
+  #controls-flex {
     display: flex;
-    justify-content: flex-start;
+    justify-items: center;
     align-items: center;
-    & * {
+    align-content: center;
+    gap: 8px;
+    color: v-bind("theme.textColor");
+    padding-left: 8px;
+
+    &:deep(.w-button) {
+      color: white;
       background-color: v-bind("theme.paletteColor[0]");
-      margin-left: 20px;
+    }
+
+    .flex-divider {
+      flex: 1;
+    }
+
+    .version-info {
+      height: 100%;
+      font-size: 0.875rem;
+      width: 100px;
+      color: darkgrey;
+      border: 1px solid grey;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -184,19 +221,6 @@ onMounted(() => {
     row-gap: 16px;
 
     margin-top: 32px;
-  }
-
-  div {
-    background-color: v-bind("theme.frameColor");
-    color: black;
-  }
-
-  button {
-    img {
-      height: 20px;
-      width: auto;
-      filter: grayscale(1);
-    }
   }
 }
 </style>

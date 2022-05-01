@@ -245,4 +245,5 @@ const repeatNumber = setupRepeatNumber();
     border-radius: 50% 0 var(--card-border-radius) 0;
     z-index: 99;
   }
+}
 </style>
