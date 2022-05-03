@@ -25,7 +25,9 @@
           </template>
           test
         </w-menu>
-        <w-button><w-icon>mdi mdi-refresh</w-icon></w-button>
+        <w-button @click="refreshLoot()"
+          ><w-icon>mdi mdi-refresh</w-icon></w-button
+        >
         <div class="flex-divider"></div>
         <w-button><w-icon>mdi mdi-discord</w-icon></w-button>
         <div class="version-info">v0.0</div>
@@ -101,6 +103,14 @@ const { theme } = useSettings();
 router.push("/home/all");
 const { componentKey, forceRerender } = useComponentKey();
 const hextechStore = useHextechStatusStore();
+
+const refreshLoot = async () => {
+  playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
+  lootStore.updatePlayerLootMap(playerLootMap.value);
+  hextechStore.updateLootCounters();
+  forceRerender(componentKey);
+};
+
 onMounted(() => {
   window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
     if (uri === routes.PLAYER_LOOT_MAP) {
@@ -110,12 +120,7 @@ onMounted(() => {
           " " +
           Time.toString()
       );
-      playerLootMap.value = await window.ipcRenderer.invoke(
-        IChannel.playerLootMap
-      );
-      lootStore.updatePlayerLootMap(playerLootMap.value);
-      hextechStore.updateLootCounters();
-      forceRerender(componentKey);
+      await refreshLoot();
     }
   });
 });
