@@ -1,6 +1,10 @@
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  preset: '@vue/cli-plugin-unit-jest/presets/typescript-and-babel',
-  transform: {
-    '^.+\\.vue$': 'vue-jest'
-  }
-}
+  preset: "ts-jest",
+  testEnvironment: "node",
+  setupFilesAfterEnv: ["./tests/unit/setup.ts"],
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
+  },
+  globalTeardown: "<rootDir>/test-teardown-globals.js",
+};

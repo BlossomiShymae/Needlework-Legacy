@@ -15,20 +15,21 @@ describe("Needlework.js", () => {
 
   afterEach(() => {
     jest.runOnlyPendingTimers();
+    api?.clientWebSocket?.close();
   });
 
   it("currentSummoner() getter returns an object", async () => {
-    const summoner = await api.currentSummoner;
+    const summoner = await api.currentSummoner();
     expect(summoner).toEqual(expect.any(Object));
   });
 
   it("wallet() getter returns an object", async () => {
-    const wallet = await api.wallet;
+    const wallet = await api.wallet();
     expect(wallet).toEqual(expect.any(Object));
   });
 
   it("playerLootMap() getter returns an object", async () => {
-    const map = await api.playerLootMap;
+    const map = await api.playerLootMap();
     expect(map).toEqual(expect.any(Object));
   });
 });

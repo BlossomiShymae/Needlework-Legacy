@@ -1,5 +1,6 @@
 /*** @jest-environment node*/
 
+import axios from "axios";
 import DataDragon from "../../src/apis/DataDragon";
 
 describe("DataDragon.js", () => {
