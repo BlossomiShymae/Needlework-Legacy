@@ -2,7 +2,7 @@ import NeedleworkConsole from "./NeedleworkConsole";
 import { WS_OPCODES } from "./data/WebSocketOpcodes";
 
 import WebSocket from "ws";
-import LeagueClientAuth from './LeagueClientAuth';
+import LeagueClientAuth from "./LeagueClientAuth";
 
 export default class LeagueClientWebSocket {
   leagueClientAuthentication: null | LeagueClientAuth;
@@ -24,13 +24,18 @@ export default class LeagueClientWebSocket {
 
   reinit() {
     if (this.ws != undefined) {
-      this.ws.removeAllListeners("open");
-      this.ws.removeAllListeners("close");
-      this.ws.removeAllListeners("message");
+      this.close();
     }
 
     this.ws = this.setupWebSocket();
     this.setupWebSocketListeners();
+  }
+
+  close() {
+    const events = ["open", "close", "message"];
+    for (const event of events) {
+      this.ws?.removeAllListeners(event);
+    }
   }
 
   setupWebSocket() {
