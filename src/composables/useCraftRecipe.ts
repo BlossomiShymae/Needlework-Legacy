@@ -7,12 +7,12 @@ import { useCraftStatusStore } from "@/stores/craftStatus";
 export default function useCraftRecipe() {
   const store = useCraftStatusStore();
   const craftRecipe = async (
-    recipeName: string,
     lootId: string,
-    actionType: string,
+    actionType: Context.ActionType,
     repeat: number
   ) => {
     let response: null | CraftResponse = null;
+    const recipeName = `${lootId}_${actionType.toLowerCase()}`;
     const data = Serialize.prepareForIPC({
       recipeName,
       lootId,
@@ -41,7 +41,7 @@ export default function useCraftRecipe() {
           })
         )) as CraftResponse;
         break;
-      case "FORGE":
+      case Context.ActionType.FORGE:
         response = (await window.ipcRenderer.invoke(
           IChannel.craft,
           data

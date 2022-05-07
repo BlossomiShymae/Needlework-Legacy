@@ -69,6 +69,8 @@ import useSettings from "@/composables/useSettings";
 import { useHextechStatusStore } from "@/stores/hextechStatus";
 import usePlayerLoot from "@/composables/usePlayerLoot";
 import useCraftRecipe from "@/composables/useCraftRecipe";
+import { Context } from "@/enums/context";
+import { Loot } from "@/enums/loot";
 
 // Initialize global application state for settings
 async function setupSettingsState() {
@@ -118,9 +120,8 @@ const processAutomationPipeline = async () => {
       if (keyFragments?.value && keyFragments.value.count >= 3) {
         console.log("test");
         await craftRecipe(
-          "MATERIAL_key_fragment_forge",
-          "MATERIAL_key_fragment",
-          "FORGE",
+          Loot.LootId.KEY_FRAGMENT,
+          Context.ActionType.FORGE,
           (keyFragments.value.count / 3) | 0
         );
       }
