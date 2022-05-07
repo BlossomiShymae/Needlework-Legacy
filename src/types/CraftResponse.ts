@@ -5,6 +5,10 @@ export type Crafted = {
   playerLoot?: PlayerLoot;
 };
 
+export type FlattenCrafted = Crafted & {
+  craftType: "added" | "redeemed" | "removed";
+};
+
 export type CraftResponse = {
   added?: Crafted[];
   redeemed?: Crafted[];

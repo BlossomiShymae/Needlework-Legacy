@@ -1,40 +1,26 @@
 <template>
   <div class="crafted-card">
-    <div class="crafted-grid" v-if="craftHistory.length === 0"></div>
+    <div class="crafted-grid" v-if="flatCraftedHistory.length === 0"></div>
     <div class="crafted-grid">
       <div
         class="crafted-item"
-        v-for="addedLoot in added"
-        :key="(addedLoot as any)"
+        v-for="craftedLoot in flatCraftedHistory"
+        :key="(craftedLoot as any)"
       >
         <Suspense>
-          <LootIcon :player-loot="addedLoot.playerLoot" />
+          <LootIcon :player-loot="craftedLoot.playerLoot" />
         </Suspense>
         <div class="crafted-info">
-          <p class="body">
-            x{{ addedLoot.deltaCount }}
-            {{ translate(addedLoot.playerLoot) }}
+          <p class="body" v-if="craftedLoot.craftType === 'removed'">
+            -{{ craftedLoot.deltaCount }}
+            {{ translate(craftedLoot.playerLoot) }}
+          </p>
+          <p class="body" v-else>
+            x{{ craftedLoot.deltaCount }}
+            {{ translate(craftedLoot.playerLoot) }}
           </p>
           <p class="body">
-            {{ (translateLoot(addedLoot.playerLoot) as PlayerLoot).type }}
-          </p>
-        </div>
-      </div>
-      <div
-        class="crafted-item"
-        v-for="redeemedLoot in redeemed"
-        :key="(redeemedLoot as any)"
-      >
-        <Suspense>
-          <LootIcon :player-loot="redeemedLoot.playerLoot" />
-        </Suspense>
-        <div class="crafted-info">
-          <p class="body">
-            x{{ redeemedLoot.deltaCount }}
-            {{ translate(redeemedLoot.playerLoot) }}
-          </p>
-          <p class="body">
-            {{ (translateLoot(redeemedLoot.playerLoot) as PlayerLoot).type }}
+            {{ (translateLoot(craftedLoot.playerLoot) as PlayerLoot).type }}
           </p>
         </div>
       </div>
@@ -64,16 +50,14 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import useCraftStatus from "@/composables/useCraftStatus";
 import useSettings from "@/composables/useSettings";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
 import type { PlayerLoot } from "@/types/PlayerLoot";
-import { Crafted } from "@/types/CraftResponse";
-import _ from "lodash";
 
 const { theme } = useSettings();
-const { craftHistory, resetCraftStore, isCardExpanded } = useCraftStatus();
+const { resetCraftStore, isCardExpanded, flatCraftedHistory } =
+  useCraftStatus();
 const { translateLoot } = useTranslatedLoot();
 const translate = (loot?: PlayerLoot) => {
   if (typeof loot === "undefined") return "";
@@ -81,25 +65,7 @@ const translate = (loot?: PlayerLoot) => {
   if (predicate.itemDesc !== "") return predicate.itemDesc;
   return predicate.lootName;
 };
-const added = computed(() => {
-  let arr: Crafted[] = [];
-  craftHistory.value.forEach((crafted) => {
-    if (typeof crafted.added !== "undefined" && crafted.added !== null) {
-      arr = _.concat(arr, crafted.added);
-    }
-  });
-  return arr;
-});
-const redeemed = computed(() => {
-  let arr: Crafted[] = [];
-  craftHistory.value.forEach((crafted) => {
-    if (typeof crafted.redeemed !== "undefined" && crafted.redeemed !== null) {
-      arr = _.concat(arr, crafted.redeemed);
-    }
-  });
-  return arr;
-});
-console.log(craftHistory.value);
+console.log(flatCraftedHistory.value);
 </script>
 
 <style lang="scss" scoped>

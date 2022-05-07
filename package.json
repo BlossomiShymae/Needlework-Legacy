@@ -12,7 +12,7 @@
     "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "test": "jest"
+    "test": "jest --runInBand --verbose"
   },
   "main": "background.js",
   "dependencies": {

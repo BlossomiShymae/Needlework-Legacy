@@ -7,4 +7,9 @@ module.exports = {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
   globalTeardown: "<rootDir>/test-teardown-globals.js",
+  globals: {
+    "ts-jest": {
+      isolatedModules: true,
+    },
+  },
 };
