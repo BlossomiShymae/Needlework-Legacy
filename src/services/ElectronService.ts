@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { IChannel } from "@/channels";
 import fs from "fs";
 import path from "path";
@@ -13,6 +13,14 @@ export default class ElectronService {
 
   setWindow(win: BrowserWindow) {
     this.handleWindowMinimize(win);
+    this.handleNewWindowEvent(win);
+  }
+
+  handleNewWindowEvent(win: BrowserWindow) {
+    win.webContents.setWindowOpenHandler(({ url }) => {
+      shell.openExternal(url);
+      return { action: "deny" };
+    });
   }
 
   handleWindowMinimize(win: BrowserWindow) {

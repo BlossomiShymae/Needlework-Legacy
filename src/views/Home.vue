@@ -33,7 +33,12 @@
         <div class="flex-divider"></div>
         <w-button><w-icon>mdi mdi-discord</w-icon></w-button>
         <div class="version-info">v0.0</div>
-        <w-button><w-icon>mdi mdi-github</w-icon></w-button>
+        <a
+          href="https://github.com/MissUwuieTime/snip-snip"
+          target="_blank"
+          class="w-button"
+          ><w-icon>mdi mdi-github</w-icon></a
+        >
       </div>
     </div>
   </div>
@@ -229,6 +234,14 @@ onMounted(() => {
     &:deep(.w-button) {
       color: white;
       background-color: v-bind("theme.paletteColor[0]");
+    }
+
+    a.w-button {
+      transition: filter 0.25s ease-in-out;
+      filter: brightness(100%);
+      &:hover {
+        filter: brightness(150%);
+      }
     }
 
     .flex-divider {
