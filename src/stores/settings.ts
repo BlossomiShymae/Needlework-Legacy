@@ -7,6 +7,7 @@ interface State {
   debugMode: boolean;
   selectedTheme: string;
   multipleLootWarningMode: boolean;
+  autoCraftKeyFragmentsMode: boolean;
 }
 
 /**
@@ -20,6 +21,7 @@ export const useSettingsStore = defineStore("settings", {
     debugMode: false,
     selectedTheme: "hallowed_seamstress",
     multipleLootWarningMode: true,
+    autoCraftKeyFragmentsMode: false,
   }),
   actions: {
     getStore(): State {
@@ -28,6 +30,7 @@ export const useSettingsStore = defineStore("settings", {
         debugMode: this.debugMode,
         selectedTheme: this.selectedTheme,
         multipleLootWarningMode: this.multipleLootWarningMode,
+        autoCraftKeyFragmentsMode: this.autoCraftKeyFragmentsMode,
       };
     },
     // Only use this mutation for initialization of store from persisted storage
@@ -35,6 +38,8 @@ export const useSettingsStore = defineStore("settings", {
       this.darkMode = store.darkMode;
       this.debugMode = store.debugMode;
       this.selectedTheme = store.selectedTheme;
+      this.multipleLootWarningMode = store.multipleLootWarningMode;
+      this.autoCraftKeyFragmentsMode = store.autoCraftKeyFragmentsMode;
     },
     setDarkMode(value: boolean) {
       this.darkMode = value;
@@ -51,6 +56,9 @@ export const useSettingsStore = defineStore("settings", {
     },
     setMultipleLootWarningMode(value: boolean) {
       this.multipleLootWarningMode = value;
+    },
+    setAutoCraftKeyFragmentsMode(value: boolean) {
+      this.autoCraftKeyFragmentsMode = value;
     },
   },
 });

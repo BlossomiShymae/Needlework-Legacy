@@ -23,7 +23,9 @@
               Hextech automation
             </w-button>
           </template>
-          test
+          <w-checkbox v-model="autoCraftKeyFragmentsMode" @input="refreshLoot()"
+            >Auto-craft Key Fragments</w-checkbox
+          >
         </w-menu>
         <w-button @click="refreshLoot()"
           ><w-icon>mdi mdi-refresh</w-icon></w-button
@@ -65,6 +67,8 @@ import useComponentKey from "@/composables/useComponentKey";
 import { useLootStore } from "@/stores/loot";
 import useSettings from "@/composables/useSettings";
 import { useHextechStatusStore } from "@/stores/hextechStatus";
+import usePlayerLoot from "@/composables/usePlayerLoot";
+import useCraftRecipe from "@/composables/useCraftRecipe";
 
 // Initialize global application state for settings
 async function setupSettingsState() {
@@ -104,8 +108,30 @@ router.push("/home/all");
 const { componentKey, forceRerender } = useComponentKey();
 const hextechStore = useHextechStatusStore();
 
+const { autoCraftKeyFragmentsMode } = useSettings();
+
+const processAutomationPipeline = async () => {
+  const { craftRecipe } = useCraftRecipe();
+  if (autoCraftKeyFragmentsMode) {
+    await lootStore.mutex.runExclusive(async () => {
+      const { keyFragments } = usePlayerLoot();
+      if (keyFragments?.value && keyFragments.value.count >= 3) {
+        console.log("test");
+        await craftRecipe(
+          "MATERIAL_key_fragment_forge",
+          "MATERIAL_key_fragment",
+          "FORGE",
+          (keyFragments.value.count / 3) | 0
+        );
+      }
+    });
+  }
+  playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
+};
+
 const refreshLoot = async () => {
   playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
+  await processAutomationPipeline();
   lootStore.updatePlayerLootMap(playerLootMap.value);
   hextechStore.updateLootCounters();
   forceRerender(componentKey);
@@ -113,14 +139,16 @@ const refreshLoot = async () => {
 
 onMounted(() => {
   window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
-    if (uri === routes.PLAYER_LOOT_MAP) {
-      console.log(
-        "Received event update from NeedleworkService - " +
-          uri +
-          " " +
-          Time.toString()
-      );
-      await refreshLoot();
+    if (lootStore.mutex.isLocked() === false) {
+      if (uri === routes.PLAYER_LOOT_MAP) {
+        console.log(
+          "Received event update from NeedleworkService - " +
+            uri +
+            " " +
+            Time.toString()
+        );
+        await refreshLoot();
+      }
     }
   });
 });

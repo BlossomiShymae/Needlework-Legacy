@@ -32,6 +32,10 @@ export default class ElectronStore {
         type: "boolean",
         default: true,
       },
+      autoCraftKeyFragmentsMode: {
+        type: "boolean",
+        default: false,
+      },
     });
     return ElectronStore.instance;
   }

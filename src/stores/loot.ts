@@ -2,10 +2,12 @@ import { defineStore } from "pinia";
 import type { PlayerLoot } from "@/types/PlayerLoot";
 import { Loot } from "@/enums/loot";
 import { PlayerLootMap } from "@/types/PlayerLootMap";
+import { Mutex } from "async-mutex";
 
 interface State {
   playerLootMap: PlayerLootMap;
   lootTable: object;
+  mutex: Mutex;
 }
 
 function filterMapByCategory(
@@ -20,6 +22,7 @@ export const useLootStore = defineStore("loot", {
   state: (): State => ({
     playerLootMap: new Map<string, PlayerLoot>(),
     lootTable: {},
+    mutex: new Mutex(),
   }),
   getters: {
     championCapsules: (state) =>
@@ -57,9 +60,12 @@ export const useLootStore = defineStore("loot", {
       filterMapByCategory(state.playerLootMap, Loot.DisplayCategories.OTHER),
     lootUncategorized: (state) =>
       filterMapByCategory(state.playerLootMap, Loot.DisplayCategories.NONE),
-    orangeEssence: (state) => state.playerLootMap.get("CURRENCY_cosmetic"),
-    mythicEssence: (state) => state.playerLootMap.get("CURRENCY_mythic"),
-    keys: (state) => state.playerLootMap.get("MATERIAL_key"),
+    orangeEssence: (state) =>
+      state.playerLootMap.get(Loot.LootId.ORANGE_ESSENCE),
+    mythicEssence: (state) =>
+      state.playerLootMap.get(Loot.LootId.MYTHIC_ESSENCE),
+    keys: (state) => state.playerLootMap.get(Loot.LootId.KEY),
+    keyFragments: (state) => state.playerLootMap.get(Loot.LootId.KEY_FRAGMENT),
   },
   actions: {
     updatePlayerLootMap(jsonMap: object) {

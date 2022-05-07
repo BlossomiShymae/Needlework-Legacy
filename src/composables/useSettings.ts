@@ -65,6 +65,16 @@ export default function useSettings() {
     },
   });
 
+  const autoCraftKeyFragmentsMode = computed({
+    get() {
+      return store.autoCraftKeyFragmentsMode;
+    },
+    async set(value: boolean) {
+      store.setAutoCraftKeyFragmentsMode(value);
+      await store.updateConfig();
+    },
+  });
+
   return {
     setStore,
     getStore,
@@ -73,5 +83,6 @@ export default function useSettings() {
     themeItems,
     theme,
     multipleLootWarningMode,
+    autoCraftKeyFragmentsMode,
   };
 }

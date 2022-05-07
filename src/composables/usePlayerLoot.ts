@@ -17,5 +17,6 @@ export default function usePlayerLoot() {
     orangeEssence: computed(() => store.orangeEssence),
     mythicEssence: computed(() => store.mythicEssence),
     keys: computed(() => store.keys),
+    keyFragments: computed(() => store.keyFragments),
   };
 }
