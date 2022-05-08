@@ -1,6 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <ContentCard><h2 class="title2">Eternals</h2></ContentCard>
+    <ContentCard><h2 class="title2 text-bold">Eternals</h2></ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="sortedEternals">
       <EternalCard
         v-for="eternal in sortedEternals"

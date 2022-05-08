@@ -1,6 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <ContentCard><h2 class="title2">Champions</h2></ContentCard>
+    <ContentCard><h2 class="title2 text-bold">Champions</h2></ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="sortedChampions">
       <ChampionCard
         v-for="champion in sortedChampions"

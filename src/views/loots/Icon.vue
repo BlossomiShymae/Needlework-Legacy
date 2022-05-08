@@ -1,6 +1,6 @@
 <template>
   <div class="loot-view-component">
-    <ContentCard> <h2 class="title2">Icons</h2> </ContentCard>
+    <ContentCard> <h2 class="title2 text-bold">Icons</h2> </ContentCard>
     <div class="loot-dynamic-grid-subcomponent" v-if="sortedIcons">
       <Suspense>
         <BaseLootCard
