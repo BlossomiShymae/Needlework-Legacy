@@ -26,6 +26,26 @@
           <w-checkbox v-model="autoCraftKeyFragmentsMode" @input="refreshLoot()"
             >Auto-craft Key Fragments</w-checkbox
           >
+          <w-flex column gap="1">
+            <w-divider color="grey">Disenchant</w-divider>
+            <w-button class="theme-button fill-width justify-start"
+              >Champion Shards</w-button
+            >
+            <w-button class="theme-button fill-width justify-start">
+              Champion Permanents
+            </w-button>
+            <w-divider color="grey">Open</w-divider>
+            <w-button class="theme-button fill-width justify-start">
+              All Materials, exclude Chests
+            </w-button>
+            <w-divider color="grey">Upgrade</w-divider>
+            <w-button class="theme-button fill-width justify-start">
+              Champion Shards by Highest Tier
+            </w-button>
+            <w-button class="theme-button fill-width justify-start">
+              Champion Shards by Lowest Tier
+            </w-button>
+          </w-flex>
         </w-menu>
         <w-button @click="refreshLoot()"
           ><w-icon>mdi mdi-refresh</w-icon></w-button
