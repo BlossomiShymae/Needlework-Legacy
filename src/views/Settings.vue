@@ -55,12 +55,12 @@ const settingLinks = [
 
 const { theme } = useSettings();
 
-const pushRouter = () => {
-  const isClientActive = window.ipcRenderer.invoke(IChannel.isClientActive);
-  isClientActive.then((active) => {
-    if (active === true) router.push("/home");
-    if (active === false) router.push("/inactive");
-  });
+const pushRouter = async () => {
+  const isClientActive = await window.ipcRenderer.invoke(
+    IChannel.isClientActive
+  );
+  if (isClientActive === true) router.push("/home");
+  if (isClientActive === false) router.push("/inactive");
 };
 </script>
 

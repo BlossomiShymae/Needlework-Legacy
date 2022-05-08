@@ -99,7 +99,8 @@ span {
   box-sizing: inherit;
 }
 
-#app {
+#app,
+.w-app {
   font-family: "Oxygen", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -111,7 +112,7 @@ span {
 .fade-enter-active,
 .fade-leave-active {
   opacity: 1;
-  transition: opacity 0.33s ease;
+  transition: opacity 0.25s ease-in-out;
 }
 
 .fade-enter-from,
