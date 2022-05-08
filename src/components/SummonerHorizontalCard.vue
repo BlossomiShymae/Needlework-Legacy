@@ -1,5 +1,5 @@
 <template>
-  <div id="summoner-horizontal-card" :key="componentKey">
+  <div id="summoner-horizontal-card" :key="componentKey" class="bdrs2">
     <div id="summoner-icon">
       <w-image
         class="bdrs4 sh2"

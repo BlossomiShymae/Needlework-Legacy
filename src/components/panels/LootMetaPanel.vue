@@ -45,7 +45,7 @@ const { theme } = useSettings();
 .loot-meta-panel {
   background-color: v-bind("theme.frameColor");
   overflow: hidden;
-  padding: 20px;
+  padding: 8px;
 }
 
 #main {

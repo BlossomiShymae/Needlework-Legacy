@@ -1,5 +1,5 @@
 <template>
-  <div id="hextech-status-card" :key="componentKey">
+  <div id="hextech-status-card" :key="componentKey" class="bdrs2">
     <div id="hextech-blue-essence" class="hextech-status-item">
       <img
         class="hextech-icon"

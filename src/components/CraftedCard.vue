@@ -1,5 +1,5 @@
 <template>
-  <div class="crafted-card">
+  <div class="crafted-card bdrs2">
     <div class="crafted-grid" v-if="flatCraftedHistory.length === 0"></div>
     <div class="crafted-grid">
       <div

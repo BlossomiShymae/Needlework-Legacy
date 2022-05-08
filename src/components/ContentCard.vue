@@ -20,7 +20,10 @@ const { theme } = useSettings();
 
 <style lang="scss" scoped>
 .content-card {
-  background-color: v-bind("theme.cardColor");
+  background: linear-gradient(
+    v-bind("theme.cardColor"),
+    v-bind("theme.frameColor")
+  );
   width: 98%;
   text-align: left;
 }
