@@ -182,10 +182,8 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .home {
-  // Where is the magic number of 7px coming from? ?.?
-  // 88.8889% is determined from 8fr 1fr #right-grid-area.
   background-color: inherit;
-  --swap-height: calc(88.8889% - 7px);
+  --swap-height: calc(93.75%);
 }
 .swap-enter-active,
 .swap-leave-active {
@@ -205,8 +203,8 @@ onMounted(() => {
   position: absolute;
   width: 99%;
   height: calc(var(--swap-height) - $window-button-bar-height);
-
   transform: translateX(100%);
+  overflow-y: scroll;
 }
 
 #loot-view-router {
