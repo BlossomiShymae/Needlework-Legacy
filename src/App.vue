@@ -1,5 +1,6 @@
 <template>
   <w-app>
+    <WindowButtonBar />
     <router-view v-slot="{ Component }">
       <transition name="fade">
         <Suspense timeout="0">
@@ -12,6 +13,10 @@
     </router-view>
   </w-app>
 </template>
+
+<script lang="ts">
+import WindowButtonBar from "@/components/controls/WindowButtonBar.vue";
+</script>
 
 <script setup lang="ts">
 import { RChannel } from "@/channels";

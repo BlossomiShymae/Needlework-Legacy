@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <WindowButtonBar />
     <LootMetaPanel />
     <div id="right-grid-area" class="theme-frame-color">
       <div id="loot-view-router" class="styled-scrollbar">
@@ -69,13 +68,12 @@ import { defineComponent } from "vue";
 
 import LootMetaPanel from "@/components/panels/LootMetaPanel.vue";
 import SummonerCard from "@/components/SummonerCard.vue";
-import WindowButtonBar from "@/components/controls/WindowButtonBar.vue";
 
 export default defineComponent({
   name: "Home",
   components: {
     SummonerCard,
-    WindowButtonBar,
+
     LootMetaPanel,
   },
 });
