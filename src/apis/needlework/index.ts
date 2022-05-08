@@ -180,4 +180,8 @@ export default class Needlework {
   craft(recipeName: string, lootId: string, repeat: number = 1) {
     return this._state?.craft(recipeName, lootId, repeat);
   }
+
+  isClientActive() {
+    return this.clientAuthentication?.isClientActive() ?? false;
+  }
 }

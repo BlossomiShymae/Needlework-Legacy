@@ -10,6 +10,7 @@ const routes = Object.freeze({
   CONTEXT_MENU_APPEND: "/context-menu",
   CRAFT_PREPEND: "/lol-loot/v1/recipes/",
   CRAFT_APPEND: "/craft",
+  PRESHUTDOWN_BEGIN: "/riotclient/pre-shutdown/begin",
 });
 
 export default routes;

@@ -29,6 +29,7 @@ export enum IChannel {
   setStore = "app-set-store",
   clearImageCache = "app-clear-image-cache",
   getImageCacheSize = "app-get-image-cache-size",
+  isClientActive = "is-client-active",
 }
 
 /**

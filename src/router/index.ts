@@ -10,13 +10,19 @@ import settingsRoute from "./routes/settings";
 const routes = [
   {
     path: "/",
-    redirect: "/home",
+    redirect: "/landing",
   },
   {
     path: "/inactive",
     name: "Inactive",
     component: () =>
       import(/* webpackChunkName: "inactive" */ "../views/Inactive.vue"),
+  },
+  {
+    path: "/landing",
+    name: "Landing",
+    component: () =>
+      import(/* webpackChunkName: "landing" */ "../views/Landing.vue"),
   },
 ];
 

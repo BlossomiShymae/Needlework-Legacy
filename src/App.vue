@@ -7,7 +7,7 @@
           <template #default>
             <component :is="Component" />
           </template>
-          <template #fallback> Loading... uwu </template>
+          <template #fallback></template>
         </Suspense>
       </transition>
     </router-view>
@@ -16,6 +16,9 @@
 
 <script lang="ts">
 import WindowButtonBar from "@/components/controls/WindowButtonBar.vue";
+import { defineComponent } from "vue";
+
+export default defineComponent({});
 </script>
 
 <script setup lang="ts">
@@ -27,7 +30,7 @@ import useSettings from "@/composables/useSettings";
 const { theme } = useSettings();
 
 window.ipcRenderer.receive(RChannel.needleworkUpdate, (uri: any) => {
-  if (uri == routes.CLIENT_INACTIVE) {
+  if (uri == routes.PRESHUTDOWN_BEGIN || uri == routes.CLIENT_INACTIVE) {
     router.push("/inactive");
   }
 });

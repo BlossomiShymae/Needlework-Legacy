@@ -28,6 +28,7 @@ export default class NeedleworkService {
     this.needlework.setUpdateEventCallback(
       this.handleNeedleworkUpdate.bind(this)
     );
+    this.handleIsClientActive();
   }
 
   handleNeedleworkUpdate(messageDTO: MessageDTO) {
@@ -75,5 +76,11 @@ export default class NeedleworkService {
         return this.needlework?.craft(recipeName, lootId, repeat);
       }
     );
+  }
+
+  handleIsClientActive() {
+    ipcMain.handle(IChannel.isClientActive, (event) => {
+      return this.needlework?.isClientActive() ?? false;
+    });
   }
 }

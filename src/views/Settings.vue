@@ -13,7 +13,7 @@
         <router-view />
       </div>
       <div id="settings-exit-area">
-        <w-button id="exit-settings-button" @click="$router.push('/home')"
+        <w-button id="exit-settings-button" @click="pushRouter()"
           >Exit</w-button
         >
       </div>
@@ -35,6 +35,8 @@ export default defineComponent({
 
 <script setup lang="ts">
 import useSettings from "@/composables/useSettings";
+import router from "@/router";
+import { IChannel } from "@/channels";
 
 const settingLinks = [
   {
@@ -52,6 +54,14 @@ const settingLinks = [
 ];
 
 const { theme } = useSettings();
+
+const pushRouter = () => {
+  const isClientActive = window.ipcRenderer.invoke(IChannel.isClientActive);
+  isClientActive.then((active) => {
+    if (active === true) router.push("/home");
+    if (active === false) router.push("/inactive");
+  });
+};
 </script>
 
 <style lang="scss" scoped>
