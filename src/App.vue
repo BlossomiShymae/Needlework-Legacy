@@ -22,10 +22,33 @@ export default defineComponent({});
 </script>
 
 <script setup lang="ts">
-import { RChannel } from "@/channels";
+import { RChannel, IChannel } from "@/channels";
 import router from "@/router";
 import routes from "./apis/needlework/src/data/routes";
 import useSettings from "@/composables/useSettings";
+
+// Initialize global application state for settings
+function setupSettingsState() {
+  const settingsStatePromise = window.ipcRenderer.invoke(IChannel.getStore);
+  const { setStore, getStore } = useSettings();
+  settingsStatePromise.then((settingsState: any) => {
+    if (typeof settingsState !== "undefined") {
+      const state = getStore() as any;
+      for (const key in state) {
+        if (Object.prototype.hasOwnProperty.call(settingsState, key)) {
+          if (
+            typeof settingsState[key] !== "undefined" &&
+            settingsState[key] !== null
+          ) {
+            state[key] = settingsState[key];
+          }
+        }
+      }
+      setStore(state);
+    }
+  });
+}
+setupSettingsState();
 
 const { theme } = useSettings();
 

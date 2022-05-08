@@ -42,7 +42,7 @@ window.ipcRenderer.receive(RChannel.needleworkUpdate, (uri: any) => {
 <style lang="scss" scoped>
 #inactive {
   height: 100vh;
-  background-color: v-bind("theme.backgroundColor");
+  background-color: v-bind("theme.frameColor");
   color: v-bind("theme.textColor");
   display: flex;
   flex-direction: column;

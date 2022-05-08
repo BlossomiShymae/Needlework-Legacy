@@ -95,27 +95,6 @@ import useCraftRecipe from "@/composables/useCraftRecipe";
 import { Context } from "@/enums/context";
 import { Loot } from "@/enums/loot";
 
-// Initialize global application state for settings
-async function setupSettingsState() {
-  const settingsState: any = await window.ipcRenderer.invoke(IChannel.getStore);
-  const { setStore, getStore } = useSettings();
-  if (typeof settingsState !== "undefined") {
-    const state = getStore() as any;
-    for (const key in state) {
-      if (Object.prototype.hasOwnProperty.call(settingsState, key)) {
-        if (
-          typeof settingsState[key] !== "undefined" &&
-          settingsState[key] !== null
-        ) {
-          state[key] = settingsState[key];
-        }
-      }
-    }
-    setStore(state);
-  }
-}
-await setupSettingsState();
-
 // Initalize PlayerLoot and it's store
 const playerLootMap = ref({});
 playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);

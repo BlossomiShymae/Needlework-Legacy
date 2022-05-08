@@ -1,5 +1,5 @@
 <template>
-  <div class="landing">
+  <div class="landing theme-bg-color">
     <w-flex column class="full-width justify-center align-center" gap="4">
       <h2 class="title2 text-bold">Needlework</h2>
       <h3 class="title3">
