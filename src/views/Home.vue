@@ -27,9 +27,16 @@
           >
           <w-flex column gap="1">
             <w-divider color="grey">Disenchant</w-divider>
-            <w-button class="theme-button fill-width justify-start"
-              >Champion Shards</w-button
+            <w-confirm
+              class="theme-button fill-width justify-start pa0 bd0"
+              no-arrow
+              @confirm="disenchantChampionShards()"
             >
+              <w-button class="theme-button fill-width justify-start"
+                >Champion Shards</w-button
+              >
+            </w-confirm>
+
             <w-button class="theme-button fill-width justify-start">
               Champion Permanents
             </w-button>
@@ -120,7 +127,6 @@ const processAutomationPipeline = async () => {
     await lootStore.mutex.runExclusive(async () => {
       const { keyFragments } = usePlayerLoot();
       if (keyFragments?.value && keyFragments.value.count >= 3) {
-        console.log("test");
         await craftRecipe(
           Loot.LootId.KEY_FRAGMENT,
           Context.ActionType.FORGE,
@@ -138,6 +144,27 @@ const refreshLoot = async () => {
   lootStore.updatePlayerLootMap(playerLootMap.value);
   hextechStore.updateLootCounters();
   forceRerender(componentKey);
+};
+
+const disenchantChampionShards = async () => {
+  const { craftRecipe } = useCraftRecipe();
+  await lootStore.mutex.runExclusive(async () => {
+    const { champions } = usePlayerLoot();
+    const shards = champions.value.filter((loot) => {
+      if (loot.type === Loot.Type.CHAMPION_SHARD) return true;
+      return false;
+    });
+    if (shards.length > 0) {
+      for (const shard of shards) {
+        await craftRecipe(
+          shard.lootId,
+          Context.ActionType.DISENCHANT,
+          shard.count
+        );
+      }
+    }
+  });
+  playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
 };
 
 onMounted(() => {
@@ -158,6 +185,13 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.theme-button {
+  filter: brightness(100%);
+  transition: filter 0.25s ease-in-out;
+  &:hover {
+    filter: brightness(125%);
+  }
+}
 .home {
   background-color: inherit;
   --swap-height: calc(93.75%);

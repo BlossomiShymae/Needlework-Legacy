@@ -16,7 +16,7 @@ export namespace Loot {
     EPIC = "EPIC",
     LEGENDARY = "LEGENDARY",
     MYTHIC = "MYTHIC",
-    ULTIMATE = "ULTIMATE"
+    ULTIMATE = "ULTIMATE",
   }
   export enum LootId {
     RP = "CURRENCY_RP",
@@ -28,6 +28,10 @@ export namespace Loot {
     KEY = "MATERIAL_key",
     GLORIOUS_CHAMPION_CAPSULE_MYTHIC = "CHEST_212",
     GLORIOUS_CHAMPION_CAPSULE = "CHEST_129",
-    CHAMPION_CAPSULE = "CHEST_128"
+    CHAMPION_CAPSULE = "CHEST_128",
+  }
+  export enum Type {
+    CHAMPION_PERMANENT = "CHAMPION",
+    CHAMPION_SHARD = "CHAMPION_RENTAL",
   }
 }
