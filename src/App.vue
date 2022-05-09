@@ -113,11 +113,13 @@ span {
 .fade-leave-active {
   opacity: 1;
   transition: opacity 0.25s ease-in-out;
+  user-select: none;
 }
 
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+  user-select: none;
 }
 
 .w-card {
