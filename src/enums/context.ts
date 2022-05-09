@@ -7,5 +7,6 @@ export namespace Context {
     DISENCHANT = "DISENCHANT",
     REDEEM = "redeem",
     FORGE = "FORGE",
+    UPGRADE = "UPGRADE",
   }
 }

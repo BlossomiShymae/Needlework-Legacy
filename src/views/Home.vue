@@ -58,12 +58,25 @@
             </w-confirm>
 
             <w-divider color="grey">Upgrade</w-divider>
-            <w-button class="theme-button fill-width justify-start">
-              Champion Shards by Highest Tier
-            </w-button>
-            <w-button class="theme-button fill-width justify-start">
-              Champion Shards by Lowest Tier
-            </w-button>
+            <w-confirm
+              class="theme-button fill-width justify-start pa0 bd0"
+              no-arrow
+              @confirm="upgradeChampionShards('highest')"
+            >
+              <w-button class="theme-button fill-width justify-start">
+                Champion Shards by Highest Tier
+              </w-button>
+            </w-confirm>
+
+            <w-confirm
+              class="theme-button fill-width justify-start pa0 bd0"
+              no-arrow
+              @confirm="upgradeChampionShards('lowest')"
+            >
+              <w-button class="theme-button fill-width justify-start">
+                Champion Shards by Lowest Tier
+              </w-button>
+            </w-confirm>
           </w-flex>
         </w-menu>
         <w-button @click="refreshLoot()"
@@ -115,6 +128,10 @@ import useCraftRecipe from "@/composables/useCraftRecipe";
 import { Context } from "@/enums/context";
 import { Loot } from "@/enums/loot";
 import useTranslatedLoot from "@/composables/useTranslatedLoot";
+import _ from "lodash";
+import Serialize from "@/utils/Serialize";
+import { ContextMenu } from "@/types/ContextMenu";
+import { WalletDTO } from "../types/WalletDTO";
 
 // Initalize PlayerLoot and it's store
 const playerLootMap = ref({});
@@ -233,6 +250,46 @@ const openAllMaterialsExcludeChests = async () => {
           Context.ActionType.OPEN,
           material.count
         );
+      }
+    }
+  });
+  playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
+};
+
+const upgradeChampionShards = async (tierOrder: "highest" | "lowest") => {
+  const { craftRecipe } = useCraftRecipe();
+  await lootStore.mutex.runExclusive(async () => {
+    const { champions } = usePlayerLoot();
+    const shards = champions.value.filter((loot) => {
+      if (loot.type === Loot.Type.CHAMPION_SHARD) return true;
+      return false;
+    });
+    if (shards.length > 0) {
+      const sortedShards = _.sortBy(shards, ["upgradeEssenceValue"]);
+      let currentBlueEssence = (
+        (await window.ipcRenderer.invoke(IChannel.wallet)) as WalletDTO
+      ).ip;
+      if (tierOrder === "lowest") sortedShards.reverse();
+      for (const shard of sortedShards) {
+        const contextMenuList = (await window.ipcRenderer.invoke(
+          IChannel.contextMenu,
+          Serialize.prepareForIPC(shard.lootId)
+        )) as ContextMenu[];
+        const contextMenu = contextMenuList.find((context) => {
+          if (context.actionType === Context.ActionType.UPGRADE) return true;
+        });
+        // Can the champion shard be upgraded?
+        if (contextMenu && contextMenu.enabled) {
+          const cost = shard.upgradeEssenceValue || currentBlueEssence;
+          // Is there enough blue essence to fulfill the upgrade?
+          if (currentBlueEssence >= cost) {
+            currentBlueEssence -= cost;
+            await craftRecipe(shard.lootId, Context.ActionType.UPGRADE, 1);
+          } else {
+            // Not enough blue essence. End upgrade loop.
+            break;
+          }
+        }
       }
     }
   });
