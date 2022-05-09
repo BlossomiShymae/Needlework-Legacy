@@ -37,9 +37,15 @@
               >
             </w-confirm>
 
-            <w-button class="theme-button fill-width justify-start">
-              Champion Permanents
-            </w-button>
+            <w-confirm
+              class="theme-button fill-width justify-start pa0 bd0"
+              no-arrow
+              @confirm="disenchantChampionPermanents()"
+            >
+              <w-button class="theme-button fill-width justify-start">
+                Champion Permanents
+              </w-button>
+            </w-confirm>
             <w-divider color="grey">Open</w-divider>
             <w-button class="theme-button fill-width justify-start">
               All Materials, exclude Chests
@@ -160,6 +166,27 @@ const disenchantChampionShards = async () => {
           shard.lootId,
           Context.ActionType.DISENCHANT,
           shard.count
+        );
+      }
+    }
+  });
+  playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
+};
+
+const disenchantChampionPermanents = async () => {
+  const { craftRecipe } = useCraftRecipe();
+  await lootStore.mutex.runExclusive(async () => {
+    const { champions } = usePlayerLoot();
+    const permanents = champions.value.filter((loot) => {
+      if (loot.type === Loot.Type.CHAMPION_PERMANENT) return true;
+      return false;
+    });
+    if (permanents.length > 0) {
+      for (const permanent of permanents) {
+        await craftRecipe(
+          permanent.lootId,
+          Context.ActionType.DISENCHANT,
+          permanent.count
         );
       }
     }
