@@ -47,9 +47,16 @@
               </w-button>
             </w-confirm>
             <w-divider color="grey">Open</w-divider>
-            <w-button class="theme-button fill-width justify-start">
-              All Materials, exclude Chests
-            </w-button>
+            <w-confirm
+              class="theme-button fill-width justify-start pa0 bd0"
+              no-arrow
+              @confirm="openAllMaterialsExcludeChests()"
+            >
+              <w-button class="theme-button fill-width justify-start">
+                All Materials, exclude Chests
+              </w-button>
+            </w-confirm>
+
             <w-divider color="grey">Upgrade</w-divider>
             <w-button class="theme-button fill-width justify-start">
               Champion Shards by Highest Tier
@@ -107,6 +114,7 @@ import usePlayerLoot from "@/composables/usePlayerLoot";
 import useCraftRecipe from "@/composables/useCraftRecipe";
 import { Context } from "@/enums/context";
 import { Loot } from "@/enums/loot";
+import useTranslatedLoot from "@/composables/useTranslatedLoot";
 
 // Initalize PlayerLoot and it's store
 const playerLootMap = ref({});
@@ -187,6 +195,43 @@ const disenchantChampionPermanents = async () => {
           permanent.lootId,
           Context.ActionType.DISENCHANT,
           permanent.count
+        );
+      }
+    }
+  });
+  playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
+};
+
+const openAllMaterialsExcludeChests = async () => {
+  const { craftRecipe } = useCraftRecipe();
+  await lootStore.mutex.runExclusive(async () => {
+    const { chests } = usePlayerLoot();
+    const translatedChests = useTranslatedLoot(chests).translatedLoots;
+    const nameWhitelist = [
+      "capsule",
+      "orb",
+      "egg",
+      "bag",
+      "shard",
+      "chest_212",
+    ];
+    const materials = translatedChests.value.filter((loot) => {
+      for (const name of nameWhitelist) {
+        if (
+          loot.localizedName.toLowerCase().includes(name) ||
+          loot.lootName.toLowerCase().includes(name)
+        ) {
+          return true;
+        }
+      }
+      return false;
+    });
+    if (materials.length > 0) {
+      for (const material of materials) {
+        await craftRecipe(
+          material.lootId,
+          Context.ActionType.OPEN,
+          material.count
         );
       }
     }
