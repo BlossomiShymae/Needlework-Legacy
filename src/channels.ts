@@ -30,6 +30,7 @@ export enum IChannel {
   clearImageCache = 'app-clear-image-cache',
   getImageCacheSize = 'app-get-image-cache-size',
   isClientActive = 'is-client-active',
+  hideWindow = 'app-hide-window',
 }
 
 /**

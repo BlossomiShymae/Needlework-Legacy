@@ -6,7 +6,7 @@
     <button class="window-button" @click="openSettings()">
       <w-icon>mdi mdi-cog</w-icon>
     </button>
-    <button class="window-button" @click="exitApplication()">
+    <button class="window-button" @click="hideWindow()">
       <w-icon>mdi mdi-close</w-icon>
     </button>
   </div>
@@ -33,8 +33,9 @@ function openSettings() {
   router.push('/settings');
 }
 
-function exitApplication() {
-  window.ipcRenderer.invoke(IChannel.exitApplication);
+function hideWindow() {
+  router.push('/landing');
+  window.ipcRenderer.invoke(IChannel.hideWindow);
 }
 
 const { theme } = useSettings();

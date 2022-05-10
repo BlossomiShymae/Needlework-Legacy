@@ -14,6 +14,7 @@ export default class ElectronService {
   setWindow(win: BrowserWindow) {
     this.handleWindowMinimize(win);
     this.handleNewWindowEvent(win);
+    this.handleWindowHide(win);
   }
 
   handleNewWindowEvent(win: BrowserWindow) {
@@ -26,6 +27,12 @@ export default class ElectronService {
   handleWindowMinimize(win: BrowserWindow) {
     ipcMain.handle(IChannel.minimizeWindow, (event, args) => {
       win.minimize();
+    });
+  }
+
+  handleWindowHide(win: BrowserWindow) {
+    ipcMain.handle(IChannel.hideWindow, (event, args) => {
+      win.hide();
     });
   }
 

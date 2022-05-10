@@ -1,6 +1,13 @@
 'use strict';
 
-import { app, protocol, BrowserWindow } from 'electron';
+import {
+  app,
+  protocol,
+  BrowserWindow,
+  nativeImage,
+  Tray,
+  Menu,
+} from 'electron';
 import path from 'path';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer';
@@ -31,6 +38,29 @@ async function initializeServices(window: BrowserWindow) {
   const electronStoreService = ElectronStoreService.getInstance();
 }
 
+async function createTrayIcon(win: BrowserWindow) {
+  const iconPath = path.join(__dirname, '.icon-ico/icon.ico');
+  const icon = nativeImage.createFromPath(iconPath);
+  const tray = new Tray(icon);
+  const contextMenu = Menu.buildFromTemplate([
+    {
+      label: 'Quit',
+      type: 'normal',
+      click: () => {
+        app.exit(0);
+      },
+    },
+  ]);
+  tray.setToolTip('Needlework');
+  tray.setContextMenu(contextMenu);
+
+  tray.on('click', () => {
+    win.show();
+  });
+
+  return tray;
+}
+
 async function createWindow() {
   // Frameless for release, framed for testing.
   const isFrame = process.env.WEBPACK_DEV_SERVER_URL ? true : false;
@@ -47,6 +77,8 @@ async function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  tray = createTrayIcon(win);
 
   win.setResizable(false);
 
@@ -101,6 +133,9 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
+
+// Create tray variable in global scope with null to avoid garbage collection.
+let tray = null;
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
