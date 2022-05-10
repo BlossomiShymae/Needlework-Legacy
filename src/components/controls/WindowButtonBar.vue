@@ -43,11 +43,17 @@ const { theme } = useSettings();
 <style lang="scss" scoped>
 #window-button-bar {
   position: absolute;
-  top: -2px;
+  top: 0;
   right: 0;
   z-index: 9999;
   height: $window-button-bar-height;
   background-color: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  -webkit-app-region: drag;
+  user-select: none;
 
   .window-button {
     height: inherit;
@@ -55,6 +61,8 @@ const { theme } = useSettings();
     background-color: v-bind("theme.cardColor");
     color: v-bind("theme.textColor");
     border: 0;
+    -webkit-app-region: no-drag;
+    user-select: text;
 
     &:first-of-type {
       border-radius: 0 0 0 20px;
