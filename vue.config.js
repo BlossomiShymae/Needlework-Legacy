@@ -23,6 +23,15 @@ module.exports = {
         "src/static",
         "src/themes",
       ],
+      builderOptions: {
+        productName: "Needlework",
+      },
+      chainWebpackRendererProcess: (config) => {
+        config.plugin("html").tap((args) => {
+          args[0].title = "Needlework";
+          return args;
+        });
+      },
     },
   },
 };
