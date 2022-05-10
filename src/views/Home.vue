@@ -96,7 +96,7 @@
         <w-button><w-icon>mdi mdi-discord</w-icon></w-button>
         <div class="version-info">v0.0</div>
         <a
-          href="https://github.com/MissUwuieTime/snip-snip"
+          href="https://github.com/MissUwuieTime/Needlework"
           target="_blank"
           class="w-button"
           ><w-icon>mdi mdi-github</w-icon></a
