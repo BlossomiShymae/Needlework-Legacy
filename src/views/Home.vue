@@ -30,6 +30,8 @@
             <w-confirm
               class="theme-button fill-width justify-start pa0 bd0"
               no-arrow
+              left
+              align-bottom
               @confirm="disenchantChampionShards()"
             >
               <w-button class="theme-button fill-width justify-start"
@@ -40,6 +42,8 @@
             <w-confirm
               class="theme-button fill-width justify-start pa0 bd0"
               no-arrow
+              left
+              align-bottom
               @confirm="disenchantChampionPermanents()"
             >
               <w-button class="theme-button fill-width justify-start">
@@ -50,6 +54,8 @@
             <w-confirm
               class="theme-button fill-width justify-start pa0 bd0"
               no-arrow
+              left
+              align-bottom
               @confirm="openAllMaterialsExcludeChests()"
             >
               <w-button class="theme-button fill-width justify-start">
@@ -61,6 +67,8 @@
             <w-confirm
               class="theme-button fill-width justify-start pa0 bd0"
               no-arrow
+              left
+              align-bottom
               @confirm="upgradeChampionShards('highest')"
             >
               <w-button class="theme-button fill-width justify-start">
@@ -71,6 +79,8 @@
             <w-confirm
               class="theme-button fill-width justify-start pa0 bd0"
               no-arrow
+              left
+              align-bottom
               @confirm="upgradeChampionShards('lowest')"
             >
               <w-button class="theme-button fill-width justify-start">
