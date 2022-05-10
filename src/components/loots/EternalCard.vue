@@ -18,7 +18,7 @@
         </div>
       </template>
       <template #fallback>
-        <LoadingLootBeeMad/>
+        <LoadingLootBeeMad />
       </template>
     </Suspense>
   </div>
@@ -27,13 +27,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BaseLootCard from "@/components/loots/BaseLootCard.vue";
-import LoadingLootBeeMad from '@/components/fallbacks/LoadingLootBeeMad.vue';
+import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
 
 export default defineComponent({
   name: "EternalCard",
   components: {
     BaseLootCard,
-    LoadingLootBeeMad
+    LoadingLootBeeMad,
   },
 });
 </script>
@@ -42,10 +42,11 @@ export default defineComponent({
 import { defineProps } from "vue";
 
 import useSettings from "@/composables/useSettings";
-import type { PlayerLoot } from '@/types/PlayerLoot';
+import type { PlayerLoot } from "@/types/PlayerLoot";
 
+// eslint-disable-next-line no-unused-vars
 const props = defineProps<{
-  eternal: PlayerLoot,
+  eternal: PlayerLoot;
 }>();
 
 function toRoman(num: any) {

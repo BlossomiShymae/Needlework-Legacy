@@ -20,6 +20,7 @@ export default defineComponent({
 import { defineProps } from "vue";
 import type { WalletDTO } from "@/types/WalletDTO";
 
+// eslint-disable-next-line no-unused-vars
 const props = defineProps<{
   wallet: WalletDTO;
 }>();

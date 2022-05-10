@@ -15,7 +15,7 @@
         }"
       />
       <template #fallback>
-        <LoadingLootBeeMad/>
+        <LoadingLootBeeMad />
       </template>
     </Suspense>
   </div>
@@ -25,7 +25,6 @@
 import { defineComponent } from "vue";
 import BaseLootCard from "@/components/loots/BaseLootCard.vue";
 import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
-
 
 export default defineComponent({
   name: "ChampionCard",
@@ -38,10 +37,11 @@ export default defineComponent({
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import type { PlayerLoot } from '@/types/PlayerLoot';
+import type { PlayerLoot } from "@/types/PlayerLoot";
 
+// eslint-disable-next-line no-unused-vars
 const props = defineProps<{
-  champion: PlayerLoot,
+  champion: PlayerLoot;
 }>();
 </script>
 

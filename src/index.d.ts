@@ -2,4 +2,4 @@
 declare module 'wave-ui' {
   const shim: any;
   export default shim;
-};
+}
