@@ -1,14 +1,14 @@
-import type { PlayerLoot } from "@/types/PlayerLoot";
-import { Ref, ref } from "vue";
-import _ from "lodash";
-import { Loot } from "@/enums/loot";
+import type { PlayerLoot } from '@/types/PlayerLoot';
+import { Ref, ref } from 'vue';
+import _ from 'lodash';
+import { Loot } from '@/enums/loot';
 
 export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
   const sortedChests = (chestLoots: Ref<PlayerLoot[]>) => {
     const sortedLoots: Ref<PlayerLoot[]> = ref([]);
     const push = (array: Ref<PlayerLoot[]>, ...values: any[]) => {
       for (const value of values) {
-        if (typeof value !== "undefined") array.value.push(value);
+        if (typeof value !== 'undefined') array.value.push(value);
       }
       return array;
     };
@@ -43,45 +43,45 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
         return true;
       }
       if (playerLoot.lootName.toLowerCase().includes(word)) {
-        if (playerLoot.lootName.toLowerCase().includes("_")) return false;
+        if (playerLoot.lootName.toLowerCase().includes('_')) return false;
         return true;
       }
     };
-    const capsules = remainingUnsortedLoots.filter(lootHas("capsule"));
+    const capsules = remainingUnsortedLoots.filter(lootHas('capsule'));
     sortedLoots.value = _.concat(sortedLoots.value, capsules);
 
     remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
-    const chests = remainingUnsortedLoots.filter(lootHas("chest"));
+    const chests = remainingUnsortedLoots.filter(lootHas('chest'));
     sortedLoots.value = _.concat(sortedLoots.value, chests);
 
     remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
-    const orbs = remainingUnsortedLoots.filter(lootHas("orb"));
+    const orbs = remainingUnsortedLoots.filter(lootHas('orb'));
     sortedLoots.value = _.concat(sortedLoots.value, orbs);
 
     remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
-    const emotes = remainingUnsortedLoots.filter(lootHas("emote"));
+    const emotes = remainingUnsortedLoots.filter(lootHas('emote'));
     sortedLoots.value = _.concat(sortedLoots.value, emotes);
 
     remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
-    const eggs = remainingUnsortedLoots.filter(lootHas("egg"));
+    const eggs = remainingUnsortedLoots.filter(lootHas('egg'));
     sortedLoots.value = _.concat(sortedLoots.value, eggs);
 
     remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
     const lootHasTokens = (playerLoot: PlayerLoot) => {
-      if (playerLoot.lootId.includes("CHAMPION_TOKEN")) return false;
-      return lootHas("token")(playerLoot);
+      if (playerLoot.lootId.includes('CHAMPION_TOKEN')) return false;
+      return lootHas('token')(playerLoot);
     };
     const tokens = remainingUnsortedLoots.filter(lootHasTokens);
     sortedLoots.value = _.concat(sortedLoots.value, tokens);
 
     remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
-    const shards = remainingUnsortedLoots.filter(lootHas("shard"));
+    const shards = remainingUnsortedLoots.filter(lootHas('shard'));
     sortedLoots.value = _.concat(sortedLoots.value, shards);
 
     remainingUnsortedLoots = _.difference(loots.value, sortedLoots.value);
     remainingUnsortedLoots = _.sortBy(remainingUnsortedLoots, [
-      "lootName",
-      "itemDesc",
+      'lootName',
+      'itemDesc',
     ]);
     sortedLoots.value = _.concat(sortedLoots.value, remainingUnsortedLoots);
 
@@ -89,14 +89,14 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
   };
   const sortedChampions = (championLoots: Ref<PlayerLoot[]>) => {
     const sortedLoots: Ref<PlayerLoot[]> = ref([]);
-    sortedLoots.value = _.sortBy(championLoots.value, ["type", "itemDesc"]);
+    sortedLoots.value = _.sortBy(championLoots.value, ['type', 'itemDesc']);
 
     return sortedLoots;
   };
 
   const sortedSkins = (skinLoots: Ref<PlayerLoot[]>) => {
     const sortedLoots: Ref<PlayerLoot[]> = ref([]);
-    sortedLoots.value = _.sortBy(skinLoots.value, ["type", "itemDesc"]);
+    sortedLoots.value = _.sortBy(skinLoots.value, ['type', 'itemDesc']);
 
     return sortedLoots;
   };
@@ -104,8 +104,8 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
   const sortedEternals = (eternalLoots: Ref<PlayerLoot[]>) => {
     const sortedLoots: Ref<PlayerLoot[]> = ref([]);
     sortedLoots.value = _.sortBy(eternalLoots.value, [
-      "localizedDescription",
-      "localizedName",
+      'localizedDescription',
+      'localizedName',
     ]);
 
     return sortedLoots;
@@ -113,7 +113,7 @@ export default function useSortedLoot(loots: Ref<PlayerLoot[]>) {
 
   const sortedByName = (anyLoots: Ref<PlayerLoot[]>) => {
     const sortedLoots: Ref<PlayerLoot[]> = ref([]);
-    sortedLoots.value = _.sortBy(anyLoots.value, ["itemDesc", "lootName"]);
+    sortedLoots.value = _.sortBy(anyLoots.value, ['itemDesc', 'lootName']);
 
     return sortedLoots;
   };

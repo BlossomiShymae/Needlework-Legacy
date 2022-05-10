@@ -1,7 +1,7 @@
-import { AxiosInstance, AxiosResponse } from "axios";
-import LeagueClientAuth from "./LeagueClientAuth";
-const axios = require("axios");
-import { HTTPMethods } from "@/enums/httpMethods";
+import { AxiosInstance, AxiosResponse } from 'axios';
+import LeagueClientAuth from './LeagueClientAuth';
+const axios = require('axios');
+import { HTTPMethods } from '@/enums/httpMethods';
 export default class LeagueClientHTTPS {
   leagueClientAuthentication: null | LeagueClientAuth;
   axiosInstance: null | AxiosInstance;
@@ -25,10 +25,10 @@ export default class LeagueClientHTTPS {
 
   createAxiosInstance() {
     const instance = axios.create({
-      baseURL: "https://127.0.0.1:" + this.leagueClientAuthentication?.port,
+      baseURL: 'https://127.0.0.1:' + this.leagueClientAuthentication?.port,
       timeout: 10 * 1000,
       headers: {
-        authorization: "Basic " + this.leagueClientAuthentication?.auth,
+        authorization: 'Basic ' + this.leagueClientAuthentication?.auth,
       },
       httpsAgent: this.leagueClientAuthentication?.agent,
     });
@@ -51,7 +51,7 @@ export default class LeagueClientHTTPS {
           }
           break;
         case HTTPMethods.PUT:
-          if (typeof data !== "undefined") {
+          if (typeof data !== 'undefined') {
             response = await this.axiosInstance?.put(api, data);
           } else {
             response = await this.axiosInstance?.put(api);

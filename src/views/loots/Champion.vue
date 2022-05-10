@@ -12,13 +12,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import ChampionCard from "@/components/loots/ChampionCard.vue";
-import ContentCard from "@/components/ContentCard.vue";
+import ChampionCard from '@/components/loots/ChampionCard.vue';
+import ContentCard from '@/components/ContentCard.vue';
 
 export default defineComponent({
-  name: "Champion",
+  name: 'Champion',
   components: {
     ChampionCard,
     ContentCard,
@@ -27,12 +27,12 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { onBeforeUnmount } from "@vue/runtime-core";
+import { onBeforeUnmount } from '@vue/runtime-core';
 
-import useHextechStatus from "@/composables/useHextechStatus";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useSortedLoot from "../../composables/useSortedLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
+import useHextechStatus from '@/composables/useHextechStatus';
+import usePlayerLoot from '@/composables/usePlayerLoot';
+import useSortedLoot from '../../composables/useSortedLoot';
+import useTranslatedLoot from '@/composables/useTranslatedLoot';
 
 const { champions } = usePlayerLoot();
 const translatedChampions = useTranslatedLoot(champions).translatedLoots;

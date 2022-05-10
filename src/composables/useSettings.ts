@@ -1,8 +1,8 @@
-import { useSettingsStore } from "@/stores/settings";
-import { computed } from "vue";
-import themes from "../themes";
-import Serialize from "@/utils/Serialize";
-import { IChannel } from "@/channels";
+import { useSettingsStore } from '@/stores/settings';
+import { computed } from 'vue';
+import themes from '../themes';
+import Serialize from '@/utils/Serialize';
+import { IChannel } from '@/channels';
 
 /**
  * A Vue composable function that returns user persisted settings.
@@ -42,8 +42,8 @@ export default function useSettings() {
   });
   const themeItems = [];
   const createLabel = (string: string) => {
-    const words = string.split("_");
-    const label = words.join(" ");
+    const words = string.split('_');
+    const label = words.join(' ');
     return label.replace(/\b(\w)/g, (s) => s.toUpperCase());
   };
   for (const key of themes.keys()) {

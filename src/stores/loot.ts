@@ -1,8 +1,8 @@
-import { defineStore } from "pinia";
-import type { PlayerLoot } from "@/types/PlayerLoot";
-import { Loot } from "@/enums/loot";
-import { PlayerLootMap } from "@/types/PlayerLootMap";
-import { Mutex } from "async-mutex";
+import { defineStore } from 'pinia';
+import type { PlayerLoot } from '@/types/PlayerLoot';
+import { Loot } from '@/enums/loot';
+import { PlayerLootMap } from '@/types/PlayerLootMap';
+import { Mutex } from 'async-mutex';
 
 interface State {
   playerLootMap: PlayerLootMap;
@@ -18,7 +18,7 @@ function filterMapByCategory(
   return array.filter((loot) => loot.displayCategories === category);
 }
 
-export const useLootStore = defineStore("loot", {
+export const useLootStore = defineStore('loot', {
   state: (): State => ({
     playerLootMap: new Map<string, PlayerLoot>(),
     lootTable: {},

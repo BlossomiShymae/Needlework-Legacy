@@ -13,13 +13,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import ChestCard from "@/components/loots/ChestCard.vue";
-import ContentCard from "@/components/ContentCard.vue";
+import ChestCard from '@/components/loots/ChestCard.vue';
+import ContentCard from '@/components/ContentCard.vue';
 
 export default defineComponent({
-  name: "Material",
+  name: 'Material',
   components: {
     ChestCard,
     ContentCard,
@@ -28,9 +28,9 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useSortedLoot from "@/composables/useSortedLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
+import usePlayerLoot from '@/composables/usePlayerLoot';
+import useSortedLoot from '@/composables/useSortedLoot';
+import useTranslatedLoot from '@/composables/useTranslatedLoot';
 
 const { chests } = usePlayerLoot();
 const translatedChests = useTranslatedLoot(chests).translatedLoots;

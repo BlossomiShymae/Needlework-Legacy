@@ -1,21 +1,21 @@
 const settingsRoute: any = {
-  path: "/settings",
-  name: "Settings",
-  redirect: "/settings/general",
+  path: '/settings',
+  name: 'Settings',
+  redirect: '/settings/general',
   component: () =>
-    import(/* webpackChunkName: "settings" */ "../../views/Settings.vue"),
+    import(/* webpackChunkName: "settings" */ '../../views/Settings.vue'),
   children: [
     {
-      path: "general",
+      path: 'general',
       component: () =>
         import(
-          /* webpackChunkName: "general" */ "../../views/settings/General.vue"
+          /* webpackChunkName: "general" */ '../../views/settings/General.vue'
         ),
     },
     {
-      path: "data",
+      path: 'data',
       component: () =>
-        import(/* webpackChunkName: "data" */ "../../views/settings/Data.vue"),
+        import(/* webpackChunkName: "data" */ '../../views/settings/Data.vue'),
     },
   ],
 };

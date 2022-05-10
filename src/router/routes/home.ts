@@ -1,63 +1,63 @@
-import Home from "@/views/Home.vue";
+import Home from '@/views/Home.vue';
 
 const homeRoute: any = {
-  path: "/home",
-  name: "Home",
+  path: '/home',
+  name: 'Home',
   component: Home,
   children: [
     {
-      path: "all",
+      path: 'all',
       component: () =>
-        import(/* webpackChunkName: "all" */ "../../views/loots/All.vue"),
+        import(/* webpackChunkName: "all" */ '../../views/loots/All.vue'),
     },
     {
-      path: "material",
+      path: 'material',
       component: () =>
         import(
-          /* webpackChunkName: "material" */ "../../views/loots/Material.vue"
+          /* webpackChunkName: "material" */ '../../views/loots/Material.vue'
         ),
     },
     {
-      path: "champion",
+      path: 'champion',
       component: () =>
         import(
-          /* webpackChunkName: "champion" */ "../../views/loots/Champion.vue"
+          /* webpackChunkName: "champion" */ '../../views/loots/Champion.vue'
         ),
     },
     {
-      path: "eternal",
+      path: 'eternal',
       component: () =>
         import(
-          /* webpackChunkName: "eternal" */ "../../views/loots/Eternal.vue"
+          /* webpackChunkName: "eternal" */ '../../views/loots/Eternal.vue'
         ),
     },
     {
-      path: "emote",
+      path: 'emote',
       component: () =>
-        import(/* webpackChunkName: "emote" */ "../../views/loots/Emote.vue"),
+        import(/* webpackChunkName: "emote" */ '../../views/loots/Emote.vue'),
     },
     {
-      path: "icon",
+      path: 'icon',
       component: () =>
-        import(/* webpackChunkName: "icon" */ "../../views/loots/Icon.vue"),
+        import(/* webpackChunkName: "icon" */ '../../views/loots/Icon.vue'),
     },
     {
-      path: "skin",
+      path: 'skin',
       component: () =>
-        import(/* webpackChunkName: "skin" */ "../../views/loots/Skin.vue"),
+        import(/* webpackChunkName: "skin" */ '../../views/loots/Skin.vue'),
     },
     {
-      path: "tactician",
+      path: 'tactician',
       component: () =>
         import(
-          /* webpackChunkName: "tactician" */ "../../views/loots/Tactician.vue"
+          /* webpackChunkName: "tactician" */ '../../views/loots/Tactician.vue'
         ),
     },
     {
-      path: "wardskin",
+      path: 'wardskin',
       component: () =>
         import(
-          /* webpackChunkName: "wardskin" */ "../../views/loots/WardSkin.vue"
+          /* webpackChunkName: "wardskin" */ '../../views/loots/WardSkin.vue'
         ),
     },
   ],

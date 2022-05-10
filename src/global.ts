@@ -1,4 +1,4 @@
-import { SChannel, IChannel, RChannel, OChannel } from "./channels";
+import { SChannel, IChannel, RChannel, OChannel } from './channels';
 
 export {};
 declare global {

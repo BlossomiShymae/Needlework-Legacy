@@ -58,15 +58,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "LootButtonCard",
+  name: 'LootButtonCard',
 });
 </script>
 
 <script setup lang="ts">
-import useSettings from "@/composables/useSettings";
+import useSettings from '@/composables/useSettings';
 
 const { theme } = useSettings();
 </script>
@@ -78,7 +78,7 @@ const { theme } = useSettings();
   align-items: center;
 
   button {
-    background-color: v-bind("theme.paletteColor[0]");
+    background-color: v-bind('theme.paletteColor[0]');
     padding: 16px;
     border-radius: 0.5rem;
     height: 32px;

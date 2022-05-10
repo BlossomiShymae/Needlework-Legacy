@@ -107,13 +107,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import LootMetaPanel from "@/components/panels/LootMetaPanel.vue";
-import SummonerCard from "@/components/SummonerCard.vue";
+import LootMetaPanel from '@/components/panels/LootMetaPanel.vue';
+import SummonerCard from '@/components/SummonerCard.vue';
 
 export default defineComponent({
-  name: "Home",
+  name: 'Home',
   components: {
     SummonerCard,
 
@@ -123,25 +123,25 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import router from "@/router";
-import Time from "@/utils/Time";
-import routes from "@/apis/needlework/src/data/routes";
-import { IChannel, RChannel } from "@/channels";
+import { ref, onMounted } from 'vue';
+import router from '@/router';
+import Time from '@/utils/Time';
+import routes from '@/apis/needlework/src/data/routes';
+import { IChannel, RChannel } from '@/channels';
 
-import useComponentKey from "@/composables/useComponentKey";
-import { useLootStore } from "@/stores/loot";
-import useSettings from "@/composables/useSettings";
-import { useHextechStatusStore } from "@/stores/hextechStatus";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useCraftRecipe from "@/composables/useCraftRecipe";
-import { Context } from "@/enums/context";
-import { Loot } from "@/enums/loot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import _ from "lodash";
-import Serialize from "@/utils/Serialize";
-import { ContextMenu } from "@/types/ContextMenu";
-import { WalletDTO } from "../types/WalletDTO";
+import useComponentKey from '@/composables/useComponentKey';
+import { useLootStore } from '@/stores/loot';
+import useSettings from '@/composables/useSettings';
+import { useHextechStatusStore } from '@/stores/hextechStatus';
+import usePlayerLoot from '@/composables/usePlayerLoot';
+import useCraftRecipe from '@/composables/useCraftRecipe';
+import { Context } from '@/enums/context';
+import { Loot } from '@/enums/loot';
+import useTranslatedLoot from '@/composables/useTranslatedLoot';
+import _ from 'lodash';
+import Serialize from '@/utils/Serialize';
+import { ContextMenu } from '@/types/ContextMenu';
+import { WalletDTO } from '../types/WalletDTO';
 
 // Initalize PlayerLoot and it's store
 const playerLootMap = ref({});
@@ -156,7 +156,7 @@ lootStore.setLootTable(lootTable.value);
 
 const { theme } = useSettings();
 
-router.push("/home/all");
+router.push('/home/all');
 const { componentKey, forceRerender } = useComponentKey();
 const hextechStore = useHextechStatusStore();
 
@@ -235,12 +235,12 @@ const openAllMaterialsExcludeChests = async () => {
     const { chests } = usePlayerLoot();
     const translatedChests = useTranslatedLoot(chests).translatedLoots;
     const nameWhitelist = [
-      "capsule",
-      "orb",
-      "egg",
-      "bag",
-      "shard",
-      "chest_212",
+      'capsule',
+      'orb',
+      'egg',
+      'bag',
+      'shard',
+      'chest_212',
     ];
     const materials = translatedChests.value.filter((loot) => {
       for (const name of nameWhitelist) {
@@ -266,7 +266,7 @@ const openAllMaterialsExcludeChests = async () => {
   playerLootMap.value = await window.ipcRenderer.invoke(IChannel.playerLootMap);
 };
 
-const upgradeChampionShards = async (tierOrder: "highest" | "lowest") => {
+const upgradeChampionShards = async (tierOrder: 'highest' | 'lowest') => {
   const { craftRecipe } = useCraftRecipe();
   await lootStore.mutex.runExclusive(async () => {
     const { champions } = usePlayerLoot();
@@ -275,11 +275,11 @@ const upgradeChampionShards = async (tierOrder: "highest" | "lowest") => {
       return false;
     });
     if (shards.length > 0) {
-      const sortedShards = _.sortBy(shards, ["upgradeEssenceValue"]);
+      const sortedShards = _.sortBy(shards, ['upgradeEssenceValue']);
       let currentBlueEssence = (
         (await window.ipcRenderer.invoke(IChannel.wallet)) as WalletDTO
       ).ip;
-      if (tierOrder === "lowest") sortedShards.reverse();
+      if (tierOrder === 'lowest') sortedShards.reverse();
       for (const shard of sortedShards) {
         const contextMenuList = (await window.ipcRenderer.invoke(
           IChannel.contextMenu,
@@ -311,9 +311,9 @@ onMounted(() => {
     if (lootStore.mutex.isLocked() === false) {
       if (uri === routes.PLAYER_LOOT_MAP) {
         console.log(
-          "Received event update from NeedleworkService - " +
+          'Received event update from NeedleworkService - ' +
             uri +
-            " " +
+            ' ' +
             Time.toString()
         );
         await refreshLoot();
@@ -364,7 +364,7 @@ onMounted(() => {
 
 .home {
   height: 100vh;
-  background-color: v-bind("theme.backgroundColor");
+  background-color: v-bind('theme.backgroundColor');
 
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -395,13 +395,13 @@ onMounted(() => {
     align-items: center;
     align-content: center;
     gap: 8px;
-    color: v-bind("theme.textColor");
+    color: v-bind('theme.textColor');
     padding-left: 8px;
     padding-right: 8px;
 
     &:deep(.w-button) {
       color: white;
-      background-color: v-bind("theme.paletteColor[0]");
+      background-color: v-bind('theme.paletteColor[0]');
     }
 
     a.w-button {

@@ -1,4 +1,4 @@
 export type WalletDTO = {
-  ip: number,
-  rp: number,
-}
+  ip: number;
+  rp: number;
+};

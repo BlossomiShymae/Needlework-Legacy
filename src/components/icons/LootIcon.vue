@@ -11,17 +11,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "LootIcon",
+  name: 'LootIcon',
 });
 </script>
 
 <script setup lang="ts">
-import { defineProps, toRefs, Ref } from "vue";
-import useTileIcon from "@/composables/useTileIcon";
-import type { PlayerLoot } from "@/types/PlayerLoot";
+import { defineProps, toRefs, Ref } from 'vue';
+import useTileIcon from '@/composables/useTileIcon';
+import type { PlayerLoot } from '@/types/PlayerLoot';
 
 const props = defineProps<{
   playerLoot: undefined | PlayerLoot;
@@ -30,8 +30,8 @@ const props = defineProps<{
 const { playerLoot } = toRefs(props);
 let tileIcon: Ref<string>;
 if (
-  typeof playerLoot !== "undefined" &&
-  typeof playerLoot.value !== "undefined"
+  typeof playerLoot !== 'undefined' &&
+  typeof playerLoot.value !== 'undefined'
 ) {
   tileIcon = await (await useTileIcon(playerLoot.value.tilePath)).tileIcon;
 }

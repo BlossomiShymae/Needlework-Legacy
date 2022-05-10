@@ -1,6 +1,6 @@
-const axios = require("axios");
-import { ResponseType } from "axios";
-import rateLimit, { RateLimitedAxiosInstance } from "axios-rate-limit";
+const axios = require('axios');
+import { ResponseType } from 'axios';
+import rateLimit, { RateLimitedAxiosInstance } from 'axios-rate-limit';
 
 export default class FileDownloader {
   static hostMap = new Map();

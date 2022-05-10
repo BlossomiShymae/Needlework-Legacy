@@ -86,25 +86,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "HextechStatusCard",
+  name: 'HextechStatusCard',
 });
 </script>
 
 <script setup lang="ts">
-import { Ref, ref, onMounted } from "vue";
+import { Ref, ref, onMounted } from 'vue';
 
-import { RChannel, IChannel } from "@/channels";
-import useComponentKey from "@/composables/useComponentKey";
-import useHextechStatus from "@/composables/useHextechStatus";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useSettings from "@/composables/useSettings";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import routes from "@/apis/needlework/src/data/routes";
-import type { WalletDTO } from "@/types/WalletDTO";
-import { useHextechStatusStore } from "@/stores/hextechStatus";
+import { RChannel, IChannel } from '@/channels';
+import useComponentKey from '@/composables/useComponentKey';
+import useHextechStatus from '@/composables/useHextechStatus';
+import usePlayerLoot from '@/composables/usePlayerLoot';
+import useSettings from '@/composables/useSettings';
+import useTranslatedLoot from '@/composables/useTranslatedLoot';
+import routes from '@/apis/needlework/src/data/routes';
+import type { WalletDTO } from '@/types/WalletDTO';
+import { useHextechStatusStore } from '@/stores/hextechStatus';
 
 onMounted(() => {
   window.ipcRenderer.receive(RChannel.needleworkUpdate, async (uri: any) => {
@@ -140,26 +140,26 @@ const updateLootCounters = () => {
   orbCount.value = 0;
 
   translatedChests.value?.forEach((chest) => {
-    if (chest.localizedName !== "") {
-      if (chest.localizedName.toLowerCase().includes("chest"))
+    if (chest.localizedName !== '') {
+      if (chest.localizedName.toLowerCase().includes('chest'))
         chestCount.value += chest.count;
-      if (chest.localizedName.toLowerCase().includes("capsule"))
+      if (chest.localizedName.toLowerCase().includes('capsule'))
         capsuleCount.value += chest.count;
-      if (chest.localizedName.toLowerCase().includes("orb"))
+      if (chest.localizedName.toLowerCase().includes('orb'))
         orbCount.value += chest.count;
       return;
     }
 
-    if (chest.lootName !== "") {
+    if (chest.lootName !== '') {
       if (
-        chest.lootName.toLowerCase().includes("chest") &&
-        chest.lootName !== "CHEST_212"
+        chest.lootName.toLowerCase().includes('chest') &&
+        chest.lootName !== 'CHEST_212'
       ) {
         chestCount.value += chest.count;
       }
-      if (chest.lootName.toLowerCase().includes("capsule"))
+      if (chest.lootName.toLowerCase().includes('capsule'))
         capsuleCount.value += chest.count;
-      if (chest.lootName.toLowerCase().includes("orb"))
+      if (chest.lootName.toLowerCase().includes('orb'))
         orbCount.value += chest.count;
     }
   });
@@ -192,14 +192,14 @@ store.setUpdateLootCountersFn(updateLootCounters);
 
 <style lang="scss" scoped>
 #hextech-status-card {
-  background-color: v-bind("theme.cardColor");
+  background-color: v-bind('theme.cardColor');
   padding: 12px;
 
   display: grid;
   grid-template-areas:
-    "blue orange mythic"
-    "chests keys capsules"
-    "status status status";
+    'blue orange mythic'
+    'chests keys capsules'
+    'status status status';
   grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
@@ -242,8 +242,8 @@ store.setUpdateLootCountersFn(updateLootCounters);
     grid-area: status;
     display: grid;
     grid-template-areas:
-      "dtitle dtitle ttitle ttitle"
-      "dblue dorange tblue torange";
+      'dtitle dtitle ttitle ttitle'
+      'dblue dorange tblue torange';
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-rows: minmax(0, 16px) minmax(0, 1fr);
     gap: 2px;

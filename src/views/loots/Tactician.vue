@@ -23,14 +23,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import BaseLootCard from "@/components/loots/BaseLootCard.vue";
-import ContentCard from "@/components/ContentCard.vue";
-import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
+import BaseLootCard from '@/components/loots/BaseLootCard.vue';
+import ContentCard from '@/components/ContentCard.vue';
+import LoadingLootBeeMad from '@/components/fallbacks/LoadingLootBeeMad.vue';
 
 export default defineComponent({
-  name: "Tactician",
+  name: 'Tactician',
   components: {
     BaseLootCard,
     ContentCard,
@@ -40,12 +40,12 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { onBeforeUnmount } from "@vue/runtime-core";
+import { onBeforeUnmount } from '@vue/runtime-core';
 
-import useHextechStatus from "@/composables/useHextechStatus";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useSortedLoot from "@/composables/useSortedLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
+import useHextechStatus from '@/composables/useHextechStatus';
+import usePlayerLoot from '@/composables/usePlayerLoot';
+import useSortedLoot from '@/composables/useSortedLoot';
+import useTranslatedLoot from '@/composables/useTranslatedLoot';
 
 const { tacticians } = usePlayerLoot();
 const translatedTacticians = useTranslatedLoot(tacticians).translatedLoots;

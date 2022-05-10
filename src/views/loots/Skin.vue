@@ -8,13 +8,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import ContentCard from "@/components/ContentCard.vue";
-import SkinCard from "@/components/loots/SkinCard.vue";
+import ContentCard from '@/components/ContentCard.vue';
+import SkinCard from '@/components/loots/SkinCard.vue';
 
 export default defineComponent({
-  name: "Skin",
+  name: 'Skin',
   components: {
     SkinCard,
     ContentCard,
@@ -23,12 +23,12 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { onBeforeUnmount } from "vue";
+import { onBeforeUnmount } from 'vue';
 
-import useHextechStatus from "@/composables/useHextechStatus";
-import usePlayerLoot from "@/composables/usePlayerLoot";
-import useSortedLoot from "@/composables/useSortedLoot";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
+import useHextechStatus from '@/composables/useHextechStatus';
+import usePlayerLoot from '@/composables/usePlayerLoot';
+import useSortedLoot from '@/composables/useSortedLoot';
+import useTranslatedLoot from '@/composables/useTranslatedLoot';
 
 const { skins } = usePlayerLoot();
 const translatedSkins = useTranslatedLoot(skins).translatedLoots;

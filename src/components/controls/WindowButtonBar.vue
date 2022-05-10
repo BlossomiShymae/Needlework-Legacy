@@ -13,24 +13,24 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "WindowButtonBar",
+  name: 'WindowButtonBar',
 });
 </script>
 
 <script setup lang="ts">
-import router from "@/router";
-import { IChannel } from "@/channels";
-import useSettings from "@/composables/useSettings";
+import router from '@/router';
+import { IChannel } from '@/channels';
+import useSettings from '@/composables/useSettings';
 
 function minimizeWindow() {
   window.ipcRenderer.invoke(IChannel.minimizeWindow);
 }
 
 function openSettings() {
-  router.push("/settings");
+  router.push('/settings');
 }
 
 function exitApplication() {
@@ -58,8 +58,8 @@ const { theme } = useSettings();
   .window-button {
     height: inherit;
     width: 36px;
-    background-color: v-bind("theme.cardColor");
-    color: v-bind("theme.textColor");
+    background-color: v-bind('theme.cardColor');
+    color: v-bind('theme.textColor');
     border: 0;
     -webkit-app-region: no-drag;
     user-select: text;

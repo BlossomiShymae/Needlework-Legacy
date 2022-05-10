@@ -20,16 +20,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "Data",
+  name: 'Data',
 });
 </script>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { IChannel } from "@/channels";
+import { ref } from 'vue';
+import { IChannel } from '@/channels';
 
 const imageCacheSize = ref(
   await window.ipcRenderer.invoke(IChannel.getImageCacheSize)

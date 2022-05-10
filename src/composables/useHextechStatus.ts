@@ -1,12 +1,12 @@
-import { Ref, computed } from "vue";
-import { Loot } from "@/enums/loot";
+import { Ref, computed } from 'vue';
+import { Loot } from '@/enums/loot';
 import { useHextechStatusStore } from '../stores/hextechStatus';
 import { PlayerLoot } from '@/types/PlayerLoot';
 
 export default function useHextechStatus(lootList?: Ref<PlayerLoot[]>) {
   const store = useHextechStatusStore();
   // Check for empty proxy
-  if (typeof lootList !== "undefined") {
+  if (typeof lootList !== 'undefined') {
     const fn = (actionFunction: Function) => () => {
       lootList.value.forEach((item) => {
         actionFunction(item?.disenchantValue);
@@ -22,14 +22,8 @@ export default function useHextechStatus(lootList?: Ref<PlayerLoot[]>) {
         Loot.DisplayCategories.ETERNALS,
         fn(store.addDisenchantOrangeEssenceTotal),
       ],
-      [
-        Loot.DisplayCategories.EMOTE,
-        fn(store.addDisenchantOrangeEssenceTotal),
-      ],
-      [
-        Loot.DisplayCategories.SKIN,
-        fn(store.addDisenchantOrangeEssenceTotal),
-      ],
+      [Loot.DisplayCategories.EMOTE, fn(store.addDisenchantOrangeEssenceTotal)],
+      [Loot.DisplayCategories.SKIN, fn(store.addDisenchantOrangeEssenceTotal)],
       [
         Loot.DisplayCategories.SUMMONER_ICON,
         fn(store.addDisenchantOrangeEssenceTotal),
@@ -45,9 +39,10 @@ export default function useHextechStatus(lootList?: Ref<PlayerLoot[]>) {
     ]);
 
     // Check for empty proxy array
-    if (typeof lootList.value[0] !== "undefined") {
-      lookupFunctionByCategoryTable
-        .get(lootList.value[0].displayCategories as Loot.DisplayCategories)?.();
+    if (typeof lootList.value[0] !== 'undefined') {
+      lookupFunctionByCategoryTable.get(
+        lootList.value[0].displayCategories as Loot.DisplayCategories
+      )?.();
     }
   }
 

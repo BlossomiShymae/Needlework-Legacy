@@ -12,15 +12,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "General",
+  name: 'General',
 });
 </script>
 
 <script setup lang="ts">
-import useSettings from "@/composables/useSettings";
+import useSettings from '@/composables/useSettings';
 
 const { darkMode, multipleLootWarningMode } = useSettings();
 </script>

@@ -1,8 +1,8 @@
-import NeedleworkConsole from "./NeedleworkConsole";
-import { WS_OPCODES } from "./data/WebSocketOpcodes";
+import NeedleworkConsole from './NeedleworkConsole';
+import { WS_OPCODES } from './data/WebSocketOpcodes';
 
-import WebSocket from "ws";
-import LeagueClientAuth from "./LeagueClientAuth";
+import WebSocket from 'ws';
+import LeagueClientAuth from './LeagueClientAuth';
 
 export default class LeagueClientWebSocket {
   leagueClientAuthentication: null | LeagueClientAuth;
@@ -32,7 +32,7 @@ export default class LeagueClientWebSocket {
   }
 
   close() {
-    const events = ["open", "close", "message"];
+    const events = ['open', 'close', 'message'];
     for (const event of events) {
       this.ws?.removeAllListeners(event);
     }
@@ -44,7 +44,7 @@ export default class LeagueClientWebSocket {
     const agent = this.leagueClientAuthentication?.agent ?? false;
     const wsURL = `wss://riot:${password}@127.0.0.1:${port}/`;
 
-    const webSocket = new WebSocket(wsURL, "wamp", {
+    const webSocket = new WebSocket(wsURL, 'wamp', {
       agent: agent,
     });
 
@@ -62,20 +62,20 @@ export default class LeagueClientWebSocket {
   }
 
   setupWebSocketListeners() {
-    const event = "OnJsonApiEvent";
+    const event = 'OnJsonApiEvent';
 
-    this.ws?.addListener("open", () => {
-      NeedleworkConsole.log("WebSocket opened! :3");
+    this.ws?.addListener('open', () => {
+      NeedleworkConsole.log('WebSocket opened! :3');
       this.subscribe(event, NeedleworkConsole.log);
     });
 
-    this.ws?.addListener("close", () => {
-      NeedleworkConsole.log("WebSocket closed! :<");
+    this.ws?.addListener('close', () => {
+      NeedleworkConsole.log('WebSocket closed! :<');
       this.unsubscribe(event, NeedleworkConsole.log);
     });
   }
 
   handleMessageEvent(callback: (...args: any) => void) {
-    this.ws?.on("message", callback);
+    this.ws?.on('message', callback);
   }
 }

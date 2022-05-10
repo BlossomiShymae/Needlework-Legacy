@@ -1,4 +1,4 @@
-import Needlework from "../..";
+import Needlework from '../..';
 
 /**
  * @abstract

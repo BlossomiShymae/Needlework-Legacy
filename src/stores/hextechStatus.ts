@@ -1,4 +1,4 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia';
 
 interface State {
   disenchantBlueEssenceTotal: number;
@@ -6,7 +6,7 @@ interface State {
   updateLootCountersFn: () => void;
 }
 
-export const useHextechStatusStore = defineStore("hextechStatus", {
+export const useHextechStatusStore = defineStore('hextechStatus', {
   state: (): State => ({
     disenchantBlueEssenceTotal: 0,
     disenchantOrangeEssenceTotal: 0,

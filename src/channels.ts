@@ -5,7 +5,7 @@
  * ```
  */
 export enum SChannel {
-  empty = "",
+  empty = '',
 }
 
 /**
@@ -15,21 +15,21 @@ export enum SChannel {
  * ```
  */
 export enum IChannel {
-  currentSummoner = "current-summoner",
-  wallet = "wallet",
-  playerLootMap = "playerLootMap",
-  contextMenu = "context-menu",
-  craft = "craft",
-  profileIcon = "dd-profile-icon",
-  lootTranslation = "cd-loot-translation",
-  tileIcon = "cd-tile-icon",
-  minimizeWindow = "app-minimize-window",
-  exitApplication = "app-exit-application",
-  getStore = "app-get-store",
-  setStore = "app-set-store",
-  clearImageCache = "app-clear-image-cache",
-  getImageCacheSize = "app-get-image-cache-size",
-  isClientActive = "is-client-active",
+  currentSummoner = 'current-summoner',
+  wallet = 'wallet',
+  playerLootMap = 'playerLootMap',
+  contextMenu = 'context-menu',
+  craft = 'craft',
+  profileIcon = 'dd-profile-icon',
+  lootTranslation = 'cd-loot-translation',
+  tileIcon = 'cd-tile-icon',
+  minimizeWindow = 'app-minimize-window',
+  exitApplication = 'app-exit-application',
+  getStore = 'app-get-store',
+  setStore = 'app-set-store',
+  clearImageCache = 'app-clear-image-cache',
+  getImageCacheSize = 'app-get-image-cache-size',
+  isClientActive = 'is-client-active',
 }
 
 /**
@@ -39,7 +39,7 @@ export enum IChannel {
  * ```
  */
 export enum RChannel {
-  needleworkUpdate = "needlework-update",
+  needleworkUpdate = 'needlework-update',
 }
 
 /**
@@ -49,5 +49,5 @@ export enum RChannel {
  * ```
  */
 export enum OChannel {
-  empty = "",
+  empty = '',
 }

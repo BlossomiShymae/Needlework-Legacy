@@ -1,4 +1,4 @@
-import type { PlayerLoot } from "@/types/PlayerLoot";
+import type { PlayerLoot } from '@/types/PlayerLoot';
 
 export type Crafted = {
   deltaCount?: number;
@@ -6,7 +6,7 @@ export type Crafted = {
 };
 
 export type FlattenCrafted = Crafted & {
-  craftType: "added" | "redeemed" | "removed";
+  craftType: 'added' | 'redeemed' | 'removed';
 };
 
 export type CraftResponse = {

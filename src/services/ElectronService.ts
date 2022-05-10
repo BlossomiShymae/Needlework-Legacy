@@ -1,8 +1,8 @@
-import { app, BrowserWindow, ipcMain, shell } from "electron";
-import { IChannel } from "@/channels";
-import fs from "fs";
-import path from "path";
-import paths from "@/static/paths";
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { IChannel } from '@/channels';
+import fs from 'fs';
+import path from 'path';
+import paths from '@/static/paths';
 
 export default class ElectronService {
   constructor() {
@@ -19,7 +19,7 @@ export default class ElectronService {
   handleNewWindowEvent(win: BrowserWindow) {
     win.webContents.setWindowOpenHandler(({ url }) => {
       shell.openExternal(url);
-      return { action: "deny" };
+      return { action: 'deny' };
     });
   }
 
@@ -41,7 +41,7 @@ export default class ElectronService {
         const files = await fs.promises.readdir(paths.data);
         for (const file of files) {
           const ext = path.extname(file);
-          if (ext === ".png" || ext === ".jpg") {
+          if (ext === '.png' || ext === '.jpg') {
             await fs.promises.unlink(path.join(paths.data, file));
           }
         }
@@ -59,7 +59,7 @@ export default class ElectronService {
         const files = await fs.promises.readdir(paths.data);
         for (const file of files) {
           const ext = path.extname(file);
-          if (ext === ".png" || ext === ".jpg") {
+          if (ext === '.png' || ext === '.jpg') {
             const { size } = await fs.promises.stat(
               path.join(paths.data, file)
             );

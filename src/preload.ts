@@ -1,8 +1,8 @@
-import { ipcRenderer, contextBridge } from "electron";
-import { SChannel, IChannel, RChannel, OChannel} from "./channels";
+import { ipcRenderer, contextBridge } from 'electron';
+import { SChannel, IChannel, RChannel, OChannel } from './channels';
 
 // Expose ipcRenderer functions to renderer process.
-contextBridge.exposeInMainWorld("ipcRenderer", {
+contextBridge.exposeInMainWorld('ipcRenderer', {
   send: (channel: SChannel, data: any) => {
     if (Object.values(SChannel).includes(channel)) {
       ipcRenderer.send(channel, data);

@@ -1,6 +1,6 @@
-import DataDragon from "../apis/DataDragon";
-import { ipcMain } from "electron";
-import { IChannel } from "@/channels";
+import DataDragon from '../apis/DataDragon';
+import { ipcMain } from 'electron';
+import { IChannel } from '@/channels';
 
 export default class DataDragonService {
   dataDragonAPI: DataDragon;

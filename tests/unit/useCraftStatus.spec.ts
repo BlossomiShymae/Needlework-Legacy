@@ -1,9 +1,9 @@
 /*** @jest-environment node */
-import { setActivePinia, createPinia } from "pinia";
-import useCraftStatus from "../../src/composables/useCraftStatus";
-import * as Fake from "../fake/FakeCraftResponse";
+import { setActivePinia, createPinia } from 'pinia';
+import useCraftStatus from '../../src/composables/useCraftStatus';
+import * as Fake from '../fake/FakeCraftResponse';
 
-describe("useCraftStatus.ts", () => {
+describe('useCraftStatus.ts', () => {
   setActivePinia(createPinia());
   const use = useCraftStatus();
 
@@ -11,17 +11,17 @@ describe("useCraftStatus.ts", () => {
     use.resetCraftStore();
   });
 
-  it("craftHistory property returns same data set", () => {
+  it('craftHistory property returns same data set', () => {
     use.addToCraftedHistory(Fake.CraftResponseA);
     expect(use.craftHistory.value).toContainEqual(Fake.CraftResponseA);
   });
 
-  it("flatCraftHistory property has items with correct craftType", () => {
+  it('flatCraftHistory property has items with correct craftType', () => {
     use.addToCraftedHistory(Fake.CraftResponseB);
     const isCraftTypeEqual = () => {
       if (
         use.flatCraftedHistory.value[use.flatCraftedHistory.value.length - 1]
-          .craftType === "removed"
+          .craftType === 'removed'
       ) {
         return true;
       }

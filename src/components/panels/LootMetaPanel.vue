@@ -16,14 +16,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import CraftedCard from "@/components/CraftedCard.vue";
-import SummonerHorizontalCard from "@/components/SummonerHorizontalCard.vue";
-import HextechStatusCard from "@/components/HextechStatusCard.vue";
-import LootButtonCard from "@/components/LootButtonCard.vue";
+import { defineComponent } from 'vue';
+import CraftedCard from '@/components/CraftedCard.vue';
+import SummonerHorizontalCard from '@/components/SummonerHorizontalCard.vue';
+import HextechStatusCard from '@/components/HextechStatusCard.vue';
+import LootButtonCard from '@/components/LootButtonCard.vue';
 
 export default defineComponent({
-  name: "LootMetaPanel",
+  name: 'LootMetaPanel',
   components: {
     SummonerHorizontalCard,
     HextechStatusCard,
@@ -34,8 +34,8 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import useCraftStatus from "@/composables/useCraftStatus";
-import useSettings from "@/composables/useSettings";
+import useCraftStatus from '@/composables/useCraftStatus';
+import useSettings from '@/composables/useSettings';
 
 const { isCardExpanded } = useCraftStatus();
 const { theme } = useSettings();
@@ -43,7 +43,7 @@ const { theme } = useSettings();
 
 <style lang="scss" scoped>
 .loot-meta-panel {
-  background-color: v-bind("theme.frameColor");
+  background-color: v-bind('theme.frameColor');
   overflow: hidden;
   padding: 8px;
 }

@@ -38,11 +38,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import LootIcon from "@/components/icons/LootIcon.vue";
+import { defineComponent } from 'vue';
+import LootIcon from '@/components/icons/LootIcon.vue';
 
 export default defineComponent({
-  name: "CraftedCard",
+  name: 'CraftedCard',
   components: {
     LootIcon,
   },
@@ -50,19 +50,19 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import useCraftStatus from "@/composables/useCraftStatus";
-import useSettings from "@/composables/useSettings";
-import useTranslatedLoot from "@/composables/useTranslatedLoot";
-import type { PlayerLoot } from "@/types/PlayerLoot";
+import useCraftStatus from '@/composables/useCraftStatus';
+import useSettings from '@/composables/useSettings';
+import useTranslatedLoot from '@/composables/useTranslatedLoot';
+import type { PlayerLoot } from '@/types/PlayerLoot';
 
 const { theme } = useSettings();
 const { resetCraftStore, isCardExpanded, flatCraftedHistory } =
   useCraftStatus();
 const { translateLoot } = useTranslatedLoot();
 const translate = (loot?: PlayerLoot) => {
-  if (typeof loot === "undefined") return "";
+  if (typeof loot === 'undefined') return '';
   const predicate = translateLoot(loot) as PlayerLoot;
-  if (predicate.itemDesc !== "") return predicate.itemDesc;
+  if (predicate.itemDesc !== '') return predicate.itemDesc;
   return predicate.lootName;
 };
 console.log(flatCraftedHistory.value);
@@ -77,8 +77,8 @@ console.log(flatCraftedHistory.value);
 }
 
 .crafted-card {
-  background-color: v-bind("theme.cardColor");
-  color: v-bind("theme.textColor");
+  background-color: v-bind('theme.cardColor');
+  color: v-bind('theme.textColor');
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr) minmax(min-content, max-content);
@@ -96,7 +96,7 @@ console.log(flatCraftedHistory.value);
   overflow-y: auto;
 
   display: grid;
-  background-color: v-bind("theme.frameColor");
+  background-color: v-bind('theme.frameColor');
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-auto-rows: minmax(min-content, max-content);
   gap: 12px;
@@ -135,7 +135,7 @@ console.log(flatCraftedHistory.value);
 }
 
 .crafted-button {
-  background-color: v-bind("theme.paletteColor[0]");
+  background-color: v-bind('theme.paletteColor[0]');
   color: white;
   border: 0;
   width: 80%;

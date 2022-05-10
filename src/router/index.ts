@@ -2,27 +2,27 @@ import {
   createRouter,
   createWebHashHistory,
   createWebHistory,
-} from "vue-router";
+} from 'vue-router';
 
-import homeRoute from "./routes/home";
-import settingsRoute from "./routes/settings";
+import homeRoute from './routes/home';
+import settingsRoute from './routes/settings';
 
 const routes = [
   {
-    path: "/",
-    redirect: "/landing",
+    path: '/',
+    redirect: '/landing',
   },
   {
-    path: "/inactive",
-    name: "Inactive",
+    path: '/inactive',
+    name: 'Inactive',
     component: () =>
-      import(/* webpackChunkName: "inactive" */ "../views/Inactive.vue"),
+      import(/* webpackChunkName: "inactive" */ '../views/Inactive.vue'),
   },
   {
-    path: "/landing",
-    name: "Landing",
+    path: '/landing',
+    name: 'Landing',
     component: () =>
-      import(/* webpackChunkName: "landing" */ "../views/Landing.vue"),
+      import(/* webpackChunkName: "landing" */ '../views/Landing.vue'),
   },
 ];
 

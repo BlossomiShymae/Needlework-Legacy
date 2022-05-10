@@ -17,22 +17,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "Landing",
+  name: 'Landing',
 });
 </script>
 
 <script setup lang="ts">
-import { IChannel } from "@/channels";
-import router from "@/router";
+import { IChannel } from '@/channels';
+import router from '@/router';
 
 const isClientActive = window.ipcRenderer.invoke(IChannel.isClientActive);
 isClientActive.then((active) => {
   setTimeout(() => {
-    if (active === true) router.push("/home");
-    if (active === false) router.push("/inactive");
+    if (active === true) router.push('/home');
+    if (active === false) router.push('/inactive');
   }, 5000);
 });
 </script>

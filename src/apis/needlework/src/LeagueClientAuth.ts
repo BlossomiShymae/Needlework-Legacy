@@ -1,10 +1,10 @@
-import NeedleworkConsole from "./NeedleworkConsole";
-import paths from "@/static/paths";
-import DynamicFileService from "@/services/DynamicFileService";
-import { Agent } from "https";
+import NeedleworkConsole from './NeedleworkConsole';
+import paths from '@/static/paths';
+import DynamicFileService from '@/services/DynamicFileService';
+import { Agent } from 'https';
 
-const exec = require("child_process").execSync;
-const https = require("https");
+const exec = require('child_process').execSync;
+const https = require('https');
 
 export default class LeagueClientAuth {
   static _instance: LeagueClientAuth | null = null;
@@ -24,7 +24,7 @@ export default class LeagueClientAuth {
     this.agent = null;
 
     if (this.isClientActive()) {
-      NeedleworkConsole.log("Client is active!");
+      NeedleworkConsole.log('Client is active!');
       const _data = this.getAuthForWindows();
       this.setAuthentication(_data);
     }
@@ -36,7 +36,15 @@ export default class LeagueClientAuth {
     this.agent = await this.createAgent();
   }
 
-  setAuthentication({ auth, port, token } : { auth: string, port: string, token: string}) {
+  setAuthentication({
+    auth,
+    port,
+    token,
+  }: {
+    auth: string;
+    port: string;
+    token: string;
+  }) {
     this.auth = auth;
     this.port = port;
     this.token = token;
@@ -74,12 +82,12 @@ export default class LeagueClientAuth {
       const stdout = exec(cmd);
 
       const _data = {} as any;
-      _data.port = portRe.exec(stdout)?.[0] ?? "";
-      _data.token = tokenRe.exec(stdout)?.[0] ?? "";
+      _data.port = portRe.exec(stdout)?.[0] ?? '';
+      _data.token = tokenRe.exec(stdout)?.[0] ?? '';
       // Encode token for Riot Basic Authentication
-      _data.auth = Buffer.from("riot:" + _data.token).toString("base64");
+      _data.auth = Buffer.from('riot:' + _data.token).toString('base64');
 
-      NeedleworkConsole.log("Established authentication!");
+      NeedleworkConsole.log('Established authentication!');
       NeedleworkConsole.log(_data);
 
       return _data;
@@ -89,10 +97,10 @@ export default class LeagueClientAuth {
   }
 
   async createAgent() {
-    const url = "https://static.developer.riotgames.com/docs/lol/riotgames.pem";
+    const url = 'https://static.developer.riotgames.com/docs/lol/riotgames.pem';
     const file = new DynamicFileService({
       url,
-      responseType: "stream",
+      responseType: 'stream',
       filePath: paths.certificate,
     });
 

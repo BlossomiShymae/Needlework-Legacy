@@ -44,7 +44,7 @@ installed, then do:
 yarn install
 ```
 
-Serve, build, and unit tests commands are listed below:
+Serve, build, unit test, and format commands are listed below:
 ```
 yarn electron:serve
 ```
@@ -53,4 +53,7 @@ yarn electron:build
 ```
 ```
 yarn test
+```
+```
+yarn format
 ```

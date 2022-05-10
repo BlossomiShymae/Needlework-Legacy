@@ -22,11 +22,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import WindowButtonBar from "@/components/controls/WindowButtonBar.vue";
+import { defineComponent } from 'vue';
+import WindowButtonBar from '@/components/controls/WindowButtonBar.vue';
 
 export default defineComponent({
-  name: "Settings",
+  name: 'Settings',
   components: {
     WindowButtonBar,
   },
@@ -34,22 +34,22 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import useSettings from "@/composables/useSettings";
-import router from "@/router";
-import { IChannel } from "@/channels";
+import useSettings from '@/composables/useSettings';
+import router from '@/router';
+import { IChannel } from '@/channels';
 
 const settingLinks = [
   {
-    label: "General",
-    id: "general",
-    icon: "mdi mdi-application-settings",
-    route: "/settings/general",
+    label: 'General',
+    id: 'general',
+    icon: 'mdi mdi-application-settings',
+    route: '/settings/general',
   },
   {
-    label: "Data",
-    id: "data",
-    icon: "mdi mdi-code-json",
-    route: "/settings/data",
+    label: 'Data',
+    id: 'data',
+    icon: 'mdi mdi-code-json',
+    route: '/settings/data',
   },
 ];
 
@@ -59,15 +59,15 @@ const pushRouter = async () => {
   const isClientActive = await window.ipcRenderer.invoke(
     IChannel.isClientActive
   );
-  if (isClientActive === true) router.push("/home");
-  if (isClientActive === false) router.push("/inactive");
+  if (isClientActive === true) router.push('/home');
+  if (isClientActive === false) router.push('/inactive');
 };
 </script>
 
 <style lang="scss" scoped>
 #settings {
-  background-color: v-bind("theme.frameColor");
-  color: v-bind("theme.textColor");
+  background-color: v-bind('theme.frameColor');
+  color: v-bind('theme.textColor');
   z-index: 10;
   height: 100%;
   width: 100%;
@@ -88,7 +88,7 @@ const pushRouter = async () => {
 }
 
 #exit-settings-button {
-  background-color: v-bind("theme.paletteColor[0]");
+  background-color: v-bind('theme.paletteColor[0]');
   margin: auto;
   padding: 16px;
   border: 1px solid grey;
@@ -96,7 +96,7 @@ const pushRouter = async () => {
 
 #settings-exit-area {
   grid-column: 2;
-  background-color: v-bind("theme.cardColor");
+  background-color: v-bind('theme.cardColor');
   display: flex;
   justify-content: center;
   align-items: center;

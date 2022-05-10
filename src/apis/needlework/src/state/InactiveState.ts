@@ -1,7 +1,7 @@
-import Needlework from "../..";
-import routes from "../data/routes";
-import NeedleworkConsole from "../NeedleworkConsole";
-import { AbstractState, ActiveState } from "./index";
+import Needlework from '../..';
+import routes from '../data/routes';
+import NeedleworkConsole from '../NeedleworkConsole';
+import { AbstractState, ActiveState } from './index';
 
 /** Represents a state of no connection with League Client. */
 export class InactiveState extends AbstractState {
@@ -18,14 +18,14 @@ export class InactiveState extends AbstractState {
    * setup web protocols before setting state to ActiveState.
    */
   pollingEventLoop() {
-    NeedleworkConsole.log("Attempting to connect with League Client...");
+    NeedleworkConsole.log('Attempting to connect with League Client...');
     if (this._api.clientAuthentication?.isClientActive()) {
       /**
        * Clear poll interval before using setTimeout later in function.
        */
       this._api.clearPollInterval();
 
-      NeedleworkConsole.log("Establishing connection with League Client...");
+      NeedleworkConsole.log('Establishing connection with League Client...');
       const _data = this._api.clientAuthentication.getAuthForWindows();
       this._api.clientAuthentication.setAuthentication(_data);
 
@@ -43,10 +43,10 @@ export class InactiveState extends AbstractState {
         this._api.handleWebSocketMessage(
           JSON.stringify([
             8,
-            "",
+            '',
             {
-              data: "inactive",
-              eventType: "",
+              data: 'inactive',
+              eventType: '',
               uri: routes.CLIENT_ACTIVE,
             },
           ])

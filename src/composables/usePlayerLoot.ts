@@ -1,5 +1,5 @@
-import { useLootStore } from "@/stores/loot";
-import { computed } from "vue";
+import { useLootStore } from '@/stores/loot';
+import { computed } from 'vue';
 
 export default function usePlayerLoot() {
   const store = useLootStore();

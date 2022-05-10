@@ -1,12 +1,12 @@
-import { defineStore } from "pinia";
-import { CraftResponse } from "../types/CraftResponse";
+import { defineStore } from 'pinia';
+import { CraftResponse } from '../types/CraftResponse';
 
 interface State {
   craftedHistory: CraftResponse[];
   isCardExpanded: boolean;
 }
 
-export const useCraftStatusStore = defineStore("craftStatus", {
+export const useCraftStatusStore = defineStore('craftStatus', {
   state: (): State => ({
     craftedHistory: [],
     isCardExpanded: false,

@@ -34,12 +34,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import BaseLootCard from "@/components/loots/BaseLootCard.vue";
-import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
+import { defineComponent } from 'vue';
+import BaseLootCard from '@/components/loots/BaseLootCard.vue';
+import LoadingLootBeeMad from '@/components/fallbacks/LoadingLootBeeMad.vue';
 
 export default defineComponent({
-  name: "SkinCard",
+  name: 'SkinCard',
   components: {
     BaseLootCard,
     LoadingLootBeeMad,
@@ -48,10 +48,10 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { defineProps, onMounted, ref } from "vue";
+import { defineProps, onMounted, ref } from 'vue';
 
-import type { PlayerLoot } from "@/types/PlayerLoot";
-import { Loot } from "@/enums/loot";
+import type { PlayerLoot } from '@/types/PlayerLoot';
+import { Loot } from '@/enums/loot';
 
 const props = defineProps<{
   skin: PlayerLoot;
@@ -69,7 +69,7 @@ onMounted(() => {
     isLegendary.value = true;
   if (props.skin.rarity.includes(Loot.Rarity.MYTHIC)) isMythic.value = true;
   if (props.skin.rarity.includes(Loot.Rarity.ULTIMATE)) isUltimate.value = true;
-  if (props.skin.tags?.includes("legacy")) isLegacy.value = true;
+  if (props.skin.tags?.includes('legacy')) isLegacy.value = true;
 });
 </script>
 

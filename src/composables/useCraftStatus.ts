@@ -1,7 +1,7 @@
-import { useCraftStatusStore } from "@/stores/craftStatus";
-import { FlattenCrafted } from "@/types/CraftResponse";
-import { computed } from "@vue/reactivity";
-import _ from "lodash";
+import { useCraftStatusStore } from '@/stores/craftStatus';
+import { FlattenCrafted } from '@/types/CraftResponse';
+import { computed } from '@vue/reactivity';
+import _ from 'lodash';
 
 export default function useCraftStatus() {
   const store = useCraftStatusStore();
@@ -17,19 +17,19 @@ export default function useCraftStatus() {
   const flatCraftedHistory = computed(() => {
     let flattedList: FlattenCrafted[] = [];
     craftHistory.value.forEach((crafted) => {
-      if (typeof crafted.added !== "undefined" && crafted.added !== null) {
+      if (typeof crafted.added !== 'undefined' && crafted.added !== null) {
         flattedList = _.concat(
           flattedList,
           crafted.added.map((crafted) => {
             return {
               ...crafted,
-              craftType: "added",
+              craftType: 'added',
             };
           })
         );
       }
       if (
-        typeof crafted.redeemed !== "undefined" &&
+        typeof crafted.redeemed !== 'undefined' &&
         crafted.redeemed !== null
       ) {
         flattedList = _.concat(
@@ -37,18 +37,18 @@ export default function useCraftStatus() {
           crafted.redeemed.map((crafted) => {
             return {
               ...crafted,
-              craftType: "redeemed",
+              craftType: 'redeemed',
             };
           })
         );
       }
-      if (typeof crafted.removed !== "undefined" && crafted.removed !== null) {
+      if (typeof crafted.removed !== 'undefined' && crafted.removed !== null) {
         flattedList = _.concat(
           flattedList,
           crafted.removed.map((crafted) => {
             return {
               ...crafted,
-              craftType: "removed",
+              craftType: 'removed',
             };
           })
         );

@@ -18,12 +18,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import BaseLootCard from "@/components/loots/BaseLootCard.vue";
-import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
+import { defineComponent } from 'vue';
+import BaseLootCard from '@/components/loots/BaseLootCard.vue';
+import LoadingLootBeeMad from '@/components/fallbacks/LoadingLootBeeMad.vue';
 
 export default defineComponent({
-  name: "EmoteCard",
+  name: 'EmoteCard',
   components: {
     BaseLootCard,
     LoadingLootBeeMad,
@@ -32,8 +32,8 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
-import type { PlayerLoot } from "@/types/PlayerLoot";
+import { defineProps } from 'vue';
+import type { PlayerLoot } from '@/types/PlayerLoot';
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps<{

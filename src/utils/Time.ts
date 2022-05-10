@@ -13,6 +13,6 @@ export default class Time {
    * // Contains: '12:00 AM'
    */
   static toString() {
-    return new Date(Date.now()).toLocaleTimeString("en-US");
+    return new Date(Date.now()).toLocaleTimeString('en-US');
   }
 }

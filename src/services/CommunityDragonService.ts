@@ -1,6 +1,6 @@
-import CommunityDragon from "../apis/CommunityDragon";
-import { ipcMain } from "electron";
-import { IChannel } from "@/channels";
+import CommunityDragon from '../apis/CommunityDragon';
+import { ipcMain } from 'electron';
+import { IChannel } from '@/channels';
 
 export default class CommunityDragonService {
   communityDragonAPI: CommunityDragon;

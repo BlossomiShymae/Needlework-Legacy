@@ -14,7 +14,8 @@
     "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "test": "jest --runInBand --verbose"
+    "test": "jest --runInBand --verbose",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json|vue)\""
   },
   "main": "background.js",
   "dependencies": {
@@ -53,9 +54,11 @@
     "electron": "^13.0.0",
     "electron-devtools-installer": "^3.1.0",
     "eslint": "^6.7.2",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-vue": "^7.0.0",
     "jest": "^28.0.3",
     "jsdoc": "^3.6.10",
+    "prettier": "^2.6.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "ts-jest": "^28.0.1",

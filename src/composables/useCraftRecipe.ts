@@ -1,8 +1,8 @@
-import { IChannel } from "@/channels";
-import Serialize from "@/utils/Serialize";
-import { Context } from "@/enums/context";
-import { CraftResponse } from "@/types/CraftResponse";
-import { useCraftStatusStore } from "@/stores/craftStatus";
+import { IChannel } from '@/channels';
+import Serialize from '@/utils/Serialize';
+import { Context } from '@/enums/context';
+import { CraftResponse } from '@/types/CraftResponse';
+import { useCraftStatusStore } from '@/stores/craftStatus';
 
 export default function useCraftRecipe() {
   const store = useCraftStatusStore();

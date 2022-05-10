@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "ContentCard",
+  name: 'ContentCard',
 });
 </script>
 
 <script setup lang="ts">
-import useSettings from "@/composables/useSettings";
+import useSettings from '@/composables/useSettings';
 
 const { theme } = useSettings();
 </script>
@@ -21,8 +21,8 @@ const { theme } = useSettings();
 <style lang="scss" scoped>
 .content-card {
   background: linear-gradient(
-    v-bind("theme.cardColor"),
-    v-bind("theme.frameColor")
+    v-bind('theme.cardColor'),
+    v-bind('theme.frameColor')
   );
   width: 98%;
   text-align: left;

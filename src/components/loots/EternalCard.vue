@@ -13,7 +13,7 @@
             :loot="eternal"
           />
           <div class="eternals-badge">
-            {{ toRoman(eternal.tags.split("seriesNumber=")[1]) }}
+            {{ toRoman(eternal.tags.split('seriesNumber=')[1]) }}
           </div>
         </div>
       </template>
@@ -25,12 +25,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import BaseLootCard from "@/components/loots/BaseLootCard.vue";
-import LoadingLootBeeMad from "@/components/fallbacks/LoadingLootBeeMad.vue";
+import { defineComponent } from 'vue';
+import BaseLootCard from '@/components/loots/BaseLootCard.vue';
+import LoadingLootBeeMad from '@/components/fallbacks/LoadingLootBeeMad.vue';
 
 export default defineComponent({
-  name: "EternalCard",
+  name: 'EternalCard',
   components: {
     BaseLootCard,
     LoadingLootBeeMad,
@@ -39,10 +39,10 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps } from 'vue';
 
-import useSettings from "@/composables/useSettings";
-import type { PlayerLoot } from "@/types/PlayerLoot";
+import useSettings from '@/composables/useSettings';
+import type { PlayerLoot } from '@/types/PlayerLoot';
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps<{
@@ -57,7 +57,7 @@ function toRoman(num: any) {
     IV: 4,
     I: 1,
   };
-  let str = "";
+  let str = '';
 
   for (const i of Object.keys(roman)) {
     const q = Math.floor(num / roman[i]);
@@ -82,12 +82,12 @@ $badge-height: 16px;
   width: $badge-width;
   height: $badge-height;
   z-index: 99;
-  background-color: v-bind("theme.cardColor");
+  background-color: v-bind('theme.cardColor');
   border-radius: 0.25rem;
 
   font-size: 0.875rem;
   color: white;
-  font-family: "Consolas", sans-serif;
+  font-family: 'Consolas', sans-serif;
   font-weight: bold;
   text-shadow: 2px 2px 2px #000, -1px -1px 2px #000, 1px -1px 0 #000,
     -1px 1px 0 #000, 1px 1px 0 #000, 2px 2px 2px #000, -1px -1px 2px #000,

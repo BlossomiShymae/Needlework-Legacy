@@ -1,7 +1,7 @@
-import Needlework from "../apis/needlework";
-import { BrowserWindow, ipcMain } from "electron";
-import { MessageDTO } from "@/types/MessageDTO";
-import { IChannel, RChannel } from "@/channels";
+import Needlework from '../apis/needlework';
+import { BrowserWindow, ipcMain } from 'electron';
+import { MessageDTO } from '@/types/MessageDTO';
+import { IChannel, RChannel } from '@/channels';
 
 const POLL_PERIOD = 2500;
 
@@ -57,14 +57,14 @@ export default class NeedleworkService {
   }
 
   handleContextMenu() {
-    ipcMain.handle("context-menu", (event, data) => {
+    ipcMain.handle('context-menu', (event, data) => {
       return this.needlework?.contextMenu(data);
     });
   }
 
   handleCraft() {
     ipcMain.handle(
-      "craft",
+      'craft',
       (
         event,
         {

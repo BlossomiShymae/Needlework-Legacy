@@ -1,6 +1,6 @@
-import { ipcMain } from "electron";
-import ElectronStore from "../apis/ElectronStore";
-import { IChannel } from "@/channels";
+import { ipcMain } from 'electron';
+import ElectronStore from '../apis/ElectronStore';
+import { IChannel } from '@/channels';
 
 export default class ElectronStoreService {
   static instance: null | ElectronStoreService = null;

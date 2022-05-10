@@ -1,7 +1,7 @@
-import FileReader from "../libs/FileReader";
-import FileWriter from "../libs/FileWriter";
-import paths from "../static/paths";
-import fs from "fs";
+import FileReader from '../libs/FileReader';
+import FileWriter from '../libs/FileWriter';
+import paths from '../static/paths';
+import fs from 'fs';
 
 export default class FileService {
   filePath: string;

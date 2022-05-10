@@ -1,15 +1,15 @@
 /*** @jest-environment node*/
 
-import ElectronStore from "../../src/apis/ElectronStore";
+import ElectronStore from '../../src/apis/ElectronStore';
 
-describe("ElectronStore.js", () => {
+describe('ElectronStore.js', () => {
   let api: ElectronStore;
 
   beforeEach(() => {
     api = ElectronStore.getInstance();
   });
 
-  it("getStore() returns an object", () => {
+  it('getStore() returns an object', () => {
     const store = api.getStore();
     expect(store).toEqual(expect.any(Object));
   });

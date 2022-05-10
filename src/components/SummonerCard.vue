@@ -24,11 +24,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import WalletStatus from "@/components/WalletStatus.vue";
+import { defineComponent } from 'vue';
+import WalletStatus from '@/components/WalletStatus.vue';
 
 export default defineComponent({
-  name: "SummonerCard",
+  name: 'SummonerCard',
   components: {
     WalletStatus,
   },
@@ -36,17 +36,16 @@ export default defineComponent({
 </script>
 
 <script setup lang="ts">
-import { toRefs, defineProps } from "vue";
+import { toRefs, defineProps } from 'vue';
 
 import type { CurrentSummonerDTO } from '@/types/CurrentSummonerDTO';
 import type { WalletDTO } from '@/types/WalletDTO';
-import useProfileIcon from "@/composables/useProfileIcon";
-import useSettings from "@/composables/useSettings";
-
+import useProfileIcon from '@/composables/useProfileIcon';
+import useSettings from '@/composables/useSettings';
 
 const props = defineProps<{
-  currentSummoner: CurrentSummonerDTO,
-  wallet: WalletDTO,
+  currentSummoner: CurrentSummonerDTO;
+  wallet: WalletDTO;
 }>();
 
 const { currentSummoner } = toRefs(props);
@@ -64,12 +63,12 @@ const { theme } = useSettings();
 
   #summoner-content {
     z-index: 10;
-    background-color: v-bind("theme.cardColor");
+    background-color: v-bind('theme.cardColor');
     width: 200px;
     border-radius: 0.5rem;
     padding: 8px;
     padding-top: 32px;
-    color: v-bind("theme.textColor");
+    color: v-bind('theme.textColor');
 
     display: flex;
     flex-direction: column;
@@ -78,7 +77,7 @@ const { theme } = useSettings();
 
   #summoner-level {
     z-index: 12;
-    background-color: v-bind("theme.paletteColor[0]");
+    background-color: v-bind('theme.paletteColor[0]');
     border-radius: 0.5rem;
     color: white;
     padding: 4px;
@@ -100,17 +99,17 @@ const { theme } = useSettings();
     border-radius: 0.5rem;
 
     &::before {
-      content: "";
+      content: '';
       display: block;
       position: absolute;
       top: calc(0px - 20%);
       left: calc(0px - 20%);
       border-radius: 0.5rem;
       background: conic-gradient(
-        v-bind("theme.paletteColor[0]"),
-        v-bind("theme.paletteColor[1]"),
-        v-bind("theme.paletteColor[2]"),
-        v-bind("theme.paletteColor[0]")
+        v-bind('theme.paletteColor[0]'),
+        v-bind('theme.paletteColor[1]'),
+        v-bind('theme.paletteColor[2]'),
+        v-bind('theme.paletteColor[0]')
       );
 
       height: 140%;

@@ -9,16 +9,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "WalletStatus",
+  name: 'WalletStatus',
 });
 </script>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
-import type { WalletDTO } from "@/types/WalletDTO";
+import { defineProps } from 'vue';
+import type { WalletDTO } from '@/types/WalletDTO';
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps<{

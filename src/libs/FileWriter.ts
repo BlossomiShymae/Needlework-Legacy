@@ -1,5 +1,5 @@
-import { AxiosResponse } from "axios";
-import fs from "fs";
+import { AxiosResponse } from 'axios';
+import fs from 'fs';
 
 export default class FileWriter {
   filePath: string;
@@ -15,8 +15,8 @@ export default class FileWriter {
         response.data.pipe(stream);
 
         const promise = new Promise((resolve, reject) => {
-          stream.on("finish", resolve);
-          stream.on("error", reject);
+          stream.on('finish', resolve);
+          stream.on('error', reject);
         });
 
         return await promise;

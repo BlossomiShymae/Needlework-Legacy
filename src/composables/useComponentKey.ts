@@ -1,4 +1,4 @@
-import { Ref, ref } from "vue";
+import { Ref, ref } from 'vue';
 
 export default function useComponentKey() {
   const componentKey = ref(0);

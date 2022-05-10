@@ -1,4 +1,4 @@
-const Store = require("electron-store");
+const Store = require('electron-store');
 
 /**
  * A singleton that provides user persisted settings by using `electron-store`.
@@ -17,23 +17,23 @@ export default class ElectronStore {
     ElectronStore.instance = new ElectronStore();
     ElectronStore.instance.store = new Store({
       darkMode: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       debugMode: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
       selectedThemes: {
-        type: "string",
-        default: "hallowed_seamstress",
+        type: 'string',
+        default: 'hallowed_seamstress',
       },
       multipleLootWarningMode: {
-        type: "boolean",
+        type: 'boolean',
         default: true,
       },
       autoCraftKeyFragmentsMode: {
-        type: "boolean",
+        type: 'boolean',
         default: false,
       },
     });

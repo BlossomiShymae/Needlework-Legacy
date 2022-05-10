@@ -1,13 +1,13 @@
-import NeedleworkConsole from "../NeedleworkConsole";
-import { AbstractState, InactiveState } from "./index";
-import routes from "../data/routes";
-import Needlework from "../..";
-import { CurrentSummonerDTO } from "@/types/CurrentSummonerDTO";
-import { WalletDTO } from "@/types/WalletDTO";
-import { PlayerLootMap } from "@/types/PlayerLootMap";
-import { ContextMenu } from "@/types/ContextMenu";
-import { CraftResponse } from "@/types/CraftResponse";
-import { HTTPMethods } from "@/enums/httpMethods";
+import NeedleworkConsole from '../NeedleworkConsole';
+import { AbstractState, InactiveState } from './index';
+import routes from '../data/routes';
+import Needlework from '../..';
+import { CurrentSummonerDTO } from '@/types/CurrentSummonerDTO';
+import { WalletDTO } from '@/types/WalletDTO';
+import { PlayerLootMap } from '@/types/PlayerLootMap';
+import { ContextMenu } from '@/types/ContextMenu';
+import { CraftResponse } from '@/types/CraftResponse';
+import { HTTPMethods } from '@/enums/httpMethods';
 
 /** Represents a state of active connection with League Client */
 export class ActiveState extends AbstractState {
@@ -25,14 +25,14 @@ export class ActiveState extends AbstractState {
    */
   pollingEventLoop() {
     if (!this._api.clientAuthentication?.isClientActive()) {
-      NeedleworkConsole.log("Lost connection with League Client!");
+      NeedleworkConsole.log('Lost connection with League Client!');
       this._api.handleWebSocketMessage(
         JSON.stringify([
           8,
-          "",
+          '',
           {
-            data: "active",
-            eventType: "",
+            data: 'active',
+            eventType: '',
             uri: routes.CLIENT_INACTIVE,
           },
         ])

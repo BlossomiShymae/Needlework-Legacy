@@ -1,12 +1,12 @@
-import LeagueClientAuth from "./src/LeagueClientAuth";
-import LeagueClientHTTPS from "./src/LeagueClientHTTPS";
-import LeagueClientWebSocket from "./src/LeagueClientWebSocket";
-import { AbstractState, ActiveState, InactiveState } from "./src/state";
-import { WS_OPCODES } from "./src/data/WebSocketOpcodes";
-import routes from "./src/data/routes";
+import LeagueClientAuth from './src/LeagueClientAuth';
+import LeagueClientHTTPS from './src/LeagueClientHTTPS';
+import LeagueClientWebSocket from './src/LeagueClientWebSocket';
+import { AbstractState, ActiveState, InactiveState } from './src/state';
+import { WS_OPCODES } from './src/data/WebSocketOpcodes';
+import routes from './src/data/routes';
 
-import { isEqual } from "lodash";
-import { MessageDTO } from "../../types/MessageDTO";
+import { isEqual } from 'lodash';
+import { MessageDTO } from '../../types/MessageDTO';
 
 export default class Needlework {
   clientAuthentication: LeagueClientAuth | null;

@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
-import Serialize from "@/utils/Serialize";
-import { IChannel } from "@/channels";
+import { defineStore } from 'pinia';
+import Serialize from '@/utils/Serialize';
+import { IChannel } from '@/channels';
 
 interface State {
   darkMode: boolean;
@@ -15,11 +15,11 @@ interface State {
  * @see {@link useSettings} `Vue` composable
  * @see {@link ElectronStore} singleton in `Electron` mainland
  */
-export const useSettingsStore = defineStore("settings", {
+export const useSettingsStore = defineStore('settings', {
   state: (): State => ({
     darkMode: false,
     debugMode: false,
-    selectedTheme: "hallowed_seamstress",
+    selectedTheme: 'hallowed_seamstress',
     multipleLootWarningMode: true,
     autoCraftKeyFragmentsMode: false,
   }),
@@ -48,7 +48,7 @@ export const useSettingsStore = defineStore("settings", {
       this.selectedTheme = key;
     },
     async updateConfig() {
-      console.log("Pinia: Updating config...");
+      console.log('Pinia: Updating config...');
       return await window.ipcRenderer.invoke(
         IChannel.setStore,
         Serialize.prepareForIPC(this.getStore())

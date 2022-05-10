@@ -111,20 +111,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "BaseLootCard",
+  name: 'BaseLootCard',
 });
 </script>
 
 <script setup lang="ts">
-import { defineProps, toRefs, ref } from "vue";
+import { defineProps, toRefs, ref } from 'vue';
 
-import type { PlayerLoot } from "@/types/PlayerLoot";
-import useContextMenu from "@/composables/useContextMenu";
-import useTileIcon from "@/composables/useTileIcon";
-import useSettings from "@/composables/useSettings";
+import type { PlayerLoot } from '@/types/PlayerLoot';
+import useContextMenu from '@/composables/useContextMenu';
+import useTileIcon from '@/composables/useTileIcon';
+import useSettings from '@/composables/useSettings';
 
 const props = defineProps<{
   tileIconPath: string;
@@ -168,7 +168,7 @@ const repeatNumber = setupRepeatNumber();
   margin-top: 2px;
 }
 .caption {
-  color: v-bind("theme.textColor");
+  color: v-bind('theme.textColor');
 }
 
 #menu-actions {
@@ -234,7 +234,7 @@ const repeatNumber = setupRepeatNumber();
     position: absolute;
     font-size: 1rem;
     color: white;
-    font-family: "Consolas", sans-serif;
+    font-family: 'Consolas', sans-serif;
     font-weight: bold;
     text-shadow: 2px 2px 2px #000, -1px -1px 2px #000, 1px -1px 0 #000,
       -1px 1px 0 #000, 1px 1px 0 #000, 2px 2px 2px #000, -1px -1px 2px #000,

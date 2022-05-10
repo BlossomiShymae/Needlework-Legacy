@@ -1,6 +1,6 @@
-import { Ref, ref } from "vue";
-import Serialize from "../utils/Serialize";
-import { IChannel } from "@/channels";
+import { Ref, ref } from 'vue';
+import Serialize from '../utils/Serialize';
+import { IChannel } from '@/channels';
 
 function isRefString(
   refString: Ref<string> | string
@@ -9,9 +9,9 @@ function isRefString(
 }
 
 export default async function useTileIcon(tilePath: Ref<string> | string) {
-  const tileIcon = ref("");
+  const tileIcon = ref('');
   let arg: any;
-  if (typeof tilePath === "string") {
+  if (typeof tilePath === 'string') {
     arg = Serialize.prepareForIPC(tilePath);
   }
   if (isRefString(tilePath)) {
@@ -20,7 +20,7 @@ export default async function useTileIcon(tilePath: Ref<string> | string) {
   const data = await window.ipcRenderer.invoke(IChannel.tileIcon, arg);
 
   if (data == null) {
-    tileIcon.value = "@/assets/riot_static/rcp-fe-lol-loot/chest_115.png";
+    tileIcon.value = '@/assets/riot_static/rcp-fe-lol-loot/chest_115.png';
 
     return { tileIcon };
   }
@@ -28,7 +28,7 @@ export default async function useTileIcon(tilePath: Ref<string> | string) {
   const binaryData = [];
   binaryData.push(data);
 
-  const blob = new Blob(binaryData, { type: "image/png" });
+  const blob = new Blob(binaryData, { type: 'image/png' });
 
   tileIcon.value = window.URL.createObjectURL(blob);
 

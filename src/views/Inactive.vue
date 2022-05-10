@@ -8,18 +8,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "Inactive",
+  name: 'Inactive',
 });
 </script>
 
 <script setup lang="ts">
-import routes from "@/apis/needlework/src/data/routes";
-import router from "@/router";
-import { RChannel } from "@/channels";
-import useSettings from "@/composables/useSettings";
+import routes from '@/apis/needlework/src/data/routes';
+import router from '@/router';
+import { RChannel } from '@/channels';
+import useSettings from '@/composables/useSettings';
 
 let isClientActive = false;
 
@@ -30,7 +30,7 @@ window.ipcRenderer.receive(RChannel.needleworkUpdate, (uri: any) => {
     isClientActive = true;
   }
   if (uri === routes.LOL_LOOT_READY && isClientActive) {
-    router.push("/home");
+    router.push('/home');
     isClientActive = false;
   }
 });
@@ -39,8 +39,8 @@ window.ipcRenderer.receive(RChannel.needleworkUpdate, (uri: any) => {
 <style lang="scss" scoped>
 #inactive {
   height: 100vh;
-  background-color: v-bind("theme.frameColor");
-  color: v-bind("theme.textColor");
+  background-color: v-bind('theme.frameColor');
+  color: v-bind('theme.textColor');
   display: flex;
   flex-direction: column;
   justify-content: center;
