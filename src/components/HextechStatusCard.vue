@@ -3,42 +3,42 @@
     <div id="hextech-blue-essence" class="hextech-status-item">
       <img
         class="hextech-icon"
-        src="local-resource://./src/assets/riot_static/currency_champion.png"
+        src="@/assets/riot_static/currency_champion.png"
       />
       <p class="body text-bold">{{ wallet?.ip ?? 0 }}</p>
     </div>
     <div id="hextech-orange-essence" class="hextech-status-item">
       <img
         class="hextech-icon"
-        src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
+        src="@/assets/riot_static/currency_cosmetic.png"
       />
       <p class="body text-bold">{{ orangeEssence?.count ?? 0 }}</p>
     </div>
     <div id="hextech-mythic-essence" class="hextech-status-item">
       <img
         class="hextech-icon"
-        src="local-resource://./src/assets/riot_static/currency_mythic.png"
+        src="@/assets/riot_static/currency_mythic.png"
       />
       <p class="body text-bold">{{ mythicEssence?.count ?? 0 }}</p>
     </div>
     <div id="hextech-keys" class="hextech-status-item">
       <img
         class="hextech-icon grayscale-icon"
-        src="local-resource://./src/assets/riot_static/material_key.png"
+        src="@/assets/riot_static/material_key.png"
       />
       <p class="body text-bold">{{ keys?.count ?? 0 }}</p>
     </div>
     <div id="hextech-chests" class="hextech-status-item">
       <img
         class="hextech-icon grayscale-icon"
-        src="local-resource://./src/assets/riot_static/chest_generic.png"
+        src="@/assets/riot_static/chest_generic.png"
       />
       <p class="body text-bold">{{ chestCount }}</p>
     </div>
     <div id="hextech-capsules" class="hextech-status-item">
       <img
         class="hextech-icon grayscale-icon"
-        src="local-resource://./src/assets/riot_static/portal_chest.png"
+        src="@/assets/riot_static/portal_chest.png"
       />
       <p class="body text-bold">{{ capsuleCount }}</p>
     </div>
@@ -52,21 +52,21 @@
       <div id="hextech-disenchant-blue-essence" class="hextech-status-item">
         <img
           class="hextech-icon"
-          src="local-resource://./src/assets/riot_static/currency_champion.png"
+          src="@/assets/riot_static/currency_champion.png"
         />
         <p class="body text-bold blue">{{ disenchantBlueEssenceTotal }}</p>
       </div>
       <div id="hextech-disenchant-orange-essence" class="hextech-status-item">
         <img
           class="hextech-icon"
-          src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
+          src="@/assets/riot_static/currency_cosmetic.png"
         />
         <p class="body text-bold blue">{{ disenchantOrangeEssenceTotal }}</p>
       </div>
       <div id="hextech-total-blue-essence" class="hextech-status-item">
         <img
           class="hextech-icon"
-          src="local-resource://./src/assets/riot_static/currency_champion.png"
+          src="@/assets/riot_static/currency_champion.png"
         />
         <p class="body text-bold green">
           {{ (wallet?.ip ?? 0) + disenchantBlueEssenceTotal }}
@@ -75,7 +75,7 @@
       <div id="hextech-total-orange-essence" class="hextech-status-item">
         <img
           class="hextech-icon"
-          src="local-resource://./src/assets/riot_static/currency_cosmetic.png"
+          src="@/assets/riot_static/currency_cosmetic.png"
         />
         <p class="body text-bold green">
           {{ (orangeEssence?.count ?? 0) + disenchantOrangeEssenceTotal }}

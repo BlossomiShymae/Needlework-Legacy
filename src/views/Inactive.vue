@@ -1,9 +1,6 @@
 <template>
   <div id="inactive">
-    <img
-      src="local-resource://./src/assets/emotes/bee_sad.webp"
-      class="emote-img"
-    />
+    <img src="@/assets/emotes/bee_sad.webp" class="emote-img" />
     <p class="text-bold">
       Oh no... we lost connection with the League Client. ;w;
     </p>

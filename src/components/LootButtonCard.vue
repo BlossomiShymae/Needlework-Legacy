@@ -2,55 +2,55 @@
   <div id="loot-button-card">
     <w-button @click="$router.push('/home/all')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/all.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/all.png"
         alt="All loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/material')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/chest.png"
         alt="Chest loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/champion')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/champion.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/champion.png"
         alt="Champion loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/skin')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/skin.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/skin.png"
         alt="Skin loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/tactician')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/companion.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/companion.png"
         alt="Companion loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/eternal')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/eternals.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/eternals.png"
         alt="Eternals loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/emote')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/emote.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/emote.png"
         alt="Emote loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/wardskin')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/wardskin.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/wardskin.png"
         alt="Ward skin loot button"
       />
     </w-button>
     <w-button @click="$router.push('/home/icon')">
       <img
-        src="local-resource://./src/assets/riot_static/rcp-fe-lol-loot/summonericon.png"
+        src="@/assets/riot_static/rcp-fe-lol-loot/summonericon.png"
         alt="Summoner loot button"
       />
     </w-button>

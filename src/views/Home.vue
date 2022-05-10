@@ -16,7 +16,7 @@
             <w-button v-on="on">
               <img
                 class="button-icon"
-                src="local-resource://./src/assets/riot_static/chest_generic.png"
+                src="@/assets/riot_static/chest_generic.png"
               />
               <w-icon>mdi mdi-cog-play</w-icon>
               Hextech automation

@@ -1,7 +1,7 @@
 <template>
   <div id="wallet">
     <img
-      src="local-resource://./src/assets/riot_static/icon-blue-essence.png"
+      src="@/assets/riot_static/icon-blue-essence.png"
       alt="Blue essence icon"
     />
     <p class="body">{{ wallet.ip }}</p>
@@ -18,10 +18,10 @@ export default defineComponent({
 
 <script setup lang="ts">
 import { defineProps } from "vue";
-import type { WalletDTO } from '@/types/WalletDTO';
+import type { WalletDTO } from "@/types/WalletDTO";
 
 const props = defineProps<{
-  wallet: WalletDTO,
+  wallet: WalletDTO;
 }>();
 </script>
 

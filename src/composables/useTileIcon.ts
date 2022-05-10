@@ -20,8 +20,7 @@ export default async function useTileIcon(tilePath: Ref<string> | string) {
   const data = await window.ipcRenderer.invoke(IChannel.tileIcon, arg);
 
   if (data == null) {
-    tileIcon.value =
-      "local-resource://./src/assets/riot_static/rcp-fe-lol-loot/chest_115.png";
+    tileIcon.value = "@/assets/riot_static/rcp-fe-lol-loot/chest_115.png";
 
     return { tileIcon };
   }

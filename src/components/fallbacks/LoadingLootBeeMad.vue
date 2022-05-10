@@ -1,9 +1,6 @@
 <template>
   <div class="loading-loot-bee-mad">
-    <img
-      src="local-resource://./src/assets/emotes/bee_mad.webp"
-      class="bee-img"
-    />
+    <img src="@/assets/emotes/bee_mad.webp" class="bee-img" />
   </div>
 </template>
 
