@@ -48,6 +48,8 @@ async function createWindow() {
     },
   });
 
+  win.setResizable(false);
+
   await initializeServices(win);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
