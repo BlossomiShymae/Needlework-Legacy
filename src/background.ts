@@ -17,6 +17,7 @@ import CommunityDragonService from './services/CommunityDragonService';
 import ElectronService from './services/ElectronService';
 import ElectronStoreService from './services/ElectronStoreService';
 import { OpenDevToolsOptions } from 'electron/main';
+import routes from './apis/needlework/src/data/routes';
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
 // Scheme must be registered before the app is ready
@@ -24,22 +25,45 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } },
 ]);
 
-async function initializeServices(window: BrowserWindow) {
-  // Service modules
-  const apiService = new NeedleworkService();
-  await apiService.initialize(window);
+type ServiceCollection = {
+  needleworkService: NeedleworkService;
+  dataDragonService: DataDragonService;
+  communityDragonService: CommunityDragonService;
+  electronService: ElectronService;
+  electronStoreService: ElectronStoreService;
+};
 
-  const ddService = new DataDragonService();
-  const cdService = new CommunityDragonService();
+async function initializeServices(
+  window: BrowserWindow
+): Promise<ServiceCollection> {
+  // Service modules
+  const needleworkService = new NeedleworkService();
+  await needleworkService.initialize(window);
+
+  const dataDragonService = new DataDragonService();
+  const communityDragonService = new CommunityDragonService();
 
   const electronService = new ElectronService();
   electronService.setWindow(window);
 
   const electronStoreService = ElectronStoreService.getInstance();
+
+  return {
+    needleworkService,
+    dataDragonService,
+    communityDragonService,
+    electronService,
+    electronStoreService,
+  };
 }
 
-async function createTrayIcon(win: BrowserWindow) {
-  const iconPath = path.join(__dirname, '.icon-ico/icon.ico');
+async function createTrayIcon(win: BrowserWindow, services: ServiceCollection) {
+  let iconPath = '';
+  if (isDevelopment) {
+    iconPath = path.join(__dirname, '..', 'build', 'icon.png');
+  } else {
+    iconPath = path.join(path.dirname(__dirname), 'extraResources', 'icon.png');
+  }
   const icon = nativeImage.createFromPath(iconPath);
   const tray = new Tray(icon);
   const contextMenu = Menu.buildFromTemplate([
@@ -57,6 +81,49 @@ async function createTrayIcon(win: BrowserWindow) {
   tray.on('click', () => {
     win.show();
   });
+
+  if (services) {
+    services.needleworkService.addFnToEventListener((messageDTO) => {
+      const options: Electron.DisplayBalloonOptions = {
+        title: '',
+        content: '',
+        iconType: 'info',
+      };
+      if (messageDTO.object.uri === routes.LOL_LOOT_READY) {
+        options.title = 'Client Active';
+        options.content =
+          'Connection to the League of Legends client has been found! Loot ready to be used. :bee_happy:';
+      }
+      if (messageDTO.object.uri === routes.CLIENT_INACTIVE) {
+        options.title = 'Client Inactive';
+        options.content =
+          'Lost connection to the League of Legends client! :bee_sad:';
+      }
+      if (options.title.length > 0) tray.displayBalloon(options);
+    });
+    const options: Electron.DisplayBalloonOptions = {
+      title: '',
+      content: '',
+      iconType: 'info',
+    };
+    try {
+      if (services.needleworkService.needlework?.isClientActive()) {
+        options.title = 'Connected';
+        options.content =
+          'Needlework has established connected with the League of Legends client!';
+      } else {
+        options.title = 'Unable to connect';
+        options.content =
+          'Needlework failed to connect with the League of Legends client!';
+      }
+      tray.displayBalloon(options);
+    } catch (error) {
+      options.title = 'Error';
+      options.content = 'Unknown error has occured!';
+      console.log(error);
+      tray.displayBalloon(options);
+    }
+  }
 
   return tray;
 }
@@ -78,11 +145,10 @@ async function createWindow() {
     },
   });
 
-  tray = createTrayIcon(win);
-
   win.setResizable(false);
 
-  await initializeServices(win);
+  const services = await initializeServices(win);
+  tray = createTrayIcon(win, services);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -148,6 +214,10 @@ app.on('ready', async () => {
     } catch (e: any) {
       console.error('Vue Devtools failed to install:', e.toString());
     }
+  }
+  // Set app model id for Windows with name of application
+  if (process.platform === 'win32') {
+    app.setAppUserModelId(app.name);
   }
   registerLocalResourceProtocol();
   createWindow();

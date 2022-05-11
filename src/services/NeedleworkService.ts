@@ -8,10 +8,16 @@ const POLL_PERIOD = 2500;
 export default class NeedleworkService {
   needlework: null | Needlework;
   win: null | BrowserWindow;
+  eventFnList: Array<(a: MessageDTO) => void>;
 
   constructor() {
     this.needlework = null;
     this.win = null;
+    this.eventFnList = [];
+  }
+
+  addFnToEventListener(fn: (a: MessageDTO) => void) {
+    this.eventFnList.push(fn);
   }
 
   async initialize(window: BrowserWindow) {
@@ -36,6 +42,12 @@ export default class NeedleworkService {
       RChannel.needleworkUpdate,
       messageDTO.object.uri
     );
+
+    if (this.eventFnList.length > 0) {
+      this.eventFnList.forEach((fn) => {
+        fn(messageDTO);
+      });
+    }
   }
 
   currentSummonerHandler() {

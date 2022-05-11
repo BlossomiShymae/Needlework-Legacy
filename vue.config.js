@@ -25,6 +25,13 @@ module.exports = {
       ],
       builderOptions: {
         productName: 'Needlework',
+        extraResources: [
+          {
+            from: './build',
+            to: 'extraResources',
+            filter: '**/*',
+          },
+        ],
       },
       chainWebpackRendererProcess: (config) => {
         config.plugin('html').tap((args) => {
