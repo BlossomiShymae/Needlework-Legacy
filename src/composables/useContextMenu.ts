@@ -37,11 +37,18 @@ export default function useContextMenu() {
     });
   };
   const store = useCraftStatusStore();
+  const isRepeatValid = (loot: PlayerLoot, repeat: number): boolean => {
+    if (repeat > loot.count) return false;
+    if (repeat <= 0) return false;
+    return true;
+  };
   const doAction = async (
     loot: PlayerLoot,
     contextMenu: ContextMenu,
     repeat: number
   ) => {
+    // Repeat number validation
+    if (isRepeatValid(loot, repeat) === false) return;
     let response: null | CraftResponse = null;
     const data = Serialize.prepareForIPC({
       recipeName: contextMenu.name,
