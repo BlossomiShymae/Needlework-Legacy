@@ -66,7 +66,8 @@ export default class LeagueClientHTTPS {
       }
       return response?.data;
     } catch (error) {
-      console.error(error);
+      const e = error as any;
+      console.error(e.response.data);
     }
   }
 }

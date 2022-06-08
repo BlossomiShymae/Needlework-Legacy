@@ -181,6 +181,22 @@ export default class Needlework {
     return this._state?.craft(recipeName, lootId, repeat);
   }
 
+  /**
+   * Getter for `championMasteries` that is delegated to `_state`. See
+   * `ActiveState` and `InactiveState` for implementation.
+   */
+  championMasteries(summonerId: number) {
+    return this._state?.championMasteries(summonerId);
+  }
+
+  /**
+   * Getter for 'ownedChampionsMinimal` that is delegated to `_state`. See
+   * `ActiveState` and `InactiveState` for implementation.
+   */
+  ownedChampionsMinimal() {
+    return this._state?.ownedChampionsMinimal();
+  }
+
   isClientActive() {
     return this.clientAuthentication?.isClientActive() ?? false;
   }

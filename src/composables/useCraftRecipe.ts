@@ -8,18 +8,26 @@ export default function useCraftRecipe() {
   const store = useCraftStatusStore();
   const craftRecipe = async (
     lootId: string,
+    lootType: string,
     actionType: Context.ActionType,
     repeat: number
   ) => {
     let response: null | CraftResponse = null;
-    const recipeName = `${lootId}_${actionType.toLowerCase()}`;
-    const data = Serialize.prepareForIPC({
+    const recipeName = `${lootType}_${actionType.toLowerCase()}`;
+    let data = Serialize.prepareForIPC({
       recipeName,
       lootId,
       repeat,
     });
+    console.log('Sending craft of data: ');
     switch (actionType) {
       case Context.ActionType.OPEN:
+        data = Serialize.prepareForIPC({
+          recipeName: `${lootId}_${actionType}`,
+          lootId,
+          repeat,
+        });
+        console.log(data);
         response = (await window.ipcRenderer.invoke(
           IChannel.craft,
           data
@@ -52,7 +60,9 @@ export default function useCraftRecipe() {
         break;
     }
     console.log(response);
-    if (response !== null) store.addToCraftedHistory(response);
+    if (response !== null && typeof response !== 'undefined') {
+      store.addToCraftedHistory(response);
+    }
   };
 
   return {

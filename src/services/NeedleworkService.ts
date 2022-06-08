@@ -31,6 +31,8 @@ export default class NeedleworkService {
     this.playerLootMapHandler();
     this.handleContextMenu();
     this.handleCraft();
+    this.handleChampionMasteries();
+    this.handleOwnedChampionsMinimal();
     this.needlework.setUpdateEventCallback(
       this.handleNeedleworkUpdate.bind(this)
     );
@@ -88,6 +90,18 @@ export default class NeedleworkService {
         return this.needlework?.craft(recipeName, lootId, repeat);
       }
     );
+  }
+
+  handleChampionMasteries() {
+    ipcMain.handle(IChannel.championMasteries, (event, summonerId: number) => {
+      return this.needlework?.championMasteries(summonerId);
+    });
+  }
+
+  handleOwnedChampionsMinimal() {
+    ipcMain.handle(IChannel.ownedChampionsMinimal, (event, data: any) => {
+      return this.needlework?.ownedChampionsMinimal();
+    });
   }
 
   handleIsClientActive() {

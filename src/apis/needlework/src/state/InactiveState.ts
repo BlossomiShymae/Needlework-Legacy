@@ -92,4 +92,18 @@ export class InactiveState extends AbstractState {
   craft(recipeName: string, lootId: string, repeat: number) {
     return null;
   }
+
+  /**
+   * Returns null type since League Client process is dead.
+   */
+  championMasteries(summonerId: number) {
+    return null;
+  }
+
+  /**
+   * Returns null type since League Client process is dead.
+   */
+  ownedChampionsMinimal() {
+    return null;
+  }
 }

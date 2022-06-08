@@ -17,6 +17,9 @@ export enum SChannel {
 export enum IChannel {
   currentSummoner = 'current-summoner',
   wallet = 'wallet',
+  championMasteries = 'champion-masteries',
+  ownedChampionsMinimal = 'owned-champions-minimal',
+  champion = 'champion',
   playerLootMap = 'playerLootMap',
   contextMenu = 'context-menu',
   craft = 'craft',

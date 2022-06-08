@@ -40,4 +40,22 @@ export default class DataDragon {
       console.error(error);
     }
   }
+
+  async getChampion() {
+    try {
+      const latestVersion = await this.getLatestVersion();
+      const endpoint = '/cdn/' + latestVersion + '/data/en_US/champion.json';
+      const file = new DynamicFileService({
+        url: this.baseURL + endpoint,
+        responseType: 'stream',
+        filePath: path.join(paths.data, 'champion.json'),
+      });
+      const buffer = await file.toBuffer();
+
+      return JSON.parse(buffer!.toString());
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
 }

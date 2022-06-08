@@ -9,11 +9,18 @@ export default class DataDragonService {
     this.dataDragonAPI = new DataDragon();
 
     this.profileIconHandler();
+    this.handleChampion();
   }
 
   profileIconHandler() {
     ipcMain.handle(IChannel.profileIcon, (event, id) => {
       return this.dataDragonAPI.getProfileIcon(id);
+    });
+  }
+
+  handleChampion() {
+    ipcMain.handle(IChannel.champion, (event, data) => {
+      return this.dataDragonAPI.getChampion();
     });
   }
 }

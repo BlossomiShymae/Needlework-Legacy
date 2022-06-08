@@ -8,6 +8,8 @@ import { PlayerLootMap } from '@/types/PlayerLootMap';
 import { ContextMenu } from '@/types/ContextMenu';
 import { CraftResponse } from '@/types/CraftResponse';
 import { HTTPMethods } from '@/enums/httpMethods';
+import { ChampionMasteryDTO } from '@/types/ChampionMasteryDTO';
+import { ChampionDTO } from '@/types/ChampionDTO';
 
 /** Represents a state of active connection with League Client */
 export class ActiveState extends AbstractState {
@@ -92,6 +94,26 @@ export class ActiveState extends AbstractState {
       }?repeat=${repeat.toString(10)}`,
       HTTPMethods.POST,
       [lootId]
+    );
+  }
+
+  /**
+   * Returns ChampionMasteryDTO[] promise from League Client by HTTPS.
+   */
+  championMasteries(summonerId: number): undefined | Promise<ChampionMasteryDTO[]> {
+    return this._api.clientHTTPS?.fetch(
+      `${routes.COLLECTION_PREPEND}${summonerId}${routes.COLLECTION_CHAMPION_MASTERY_APPEND}`,
+      HTTPMethods.GET
+    );
+  }
+
+  /**
+   * Returns ChampionDTO[] promise from League Client by HTTPS.
+   */
+  ownedChampionsMinimal(): undefined | Promise<ChampionDTO> {
+    return this._api.clientHTTPS?.fetch(
+      `${routes.OWNED_CHAMPIONS_MINIMAL}`,
+      HTTPMethods.GET
     );
   }
 }
