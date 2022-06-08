@@ -22,7 +22,10 @@
               Hextech automation
             </w-button>
           </template>
-          <w-checkbox v-model="autoCraftKeyFragmentsMode" @input="refreshLoot()"
+          <w-checkbox
+            v-model="autoCraftKeyFragmentsMode"
+            @input="refreshLoot()"
+            class="my1"
             >Auto-craft Key Fragments</w-checkbox
           >
           <w-flex column gap="1">
