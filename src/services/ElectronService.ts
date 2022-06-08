@@ -9,6 +9,7 @@ export default class ElectronService {
     this.handleApplicationExit();
     this.handleClearImageCache();
     this.handleGetImageCacheSize();
+    this.handleGetVersionNumber();
   }
 
   setWindow(win: BrowserWindow) {
@@ -77,6 +78,12 @@ export default class ElectronService {
       } catch (error) {
         console.error(error);
       }
+    });
+  }
+
+  handleGetVersionNumber() {
+    ipcMain.handle(IChannel.getVersionNumber, async (event, args) => {
+      return await app.getVersion();
     });
   }
 }

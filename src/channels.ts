@@ -32,6 +32,7 @@ export enum IChannel {
   setStore = 'app-set-store',
   clearImageCache = 'app-clear-image-cache',
   getImageCacheSize = 'app-get-image-cache-size',
+  getVersionNumber = 'app-get-version-number',
   isClientActive = 'is-client-active',
   hideWindow = 'app-hide-window',
 }

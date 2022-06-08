@@ -123,7 +123,7 @@
         >
         <div class="flex-divider"></div>
         <w-button><w-icon>mdi mdi-discord</w-icon></w-button>
-        <div class="version-info">v0.0</div>
+        <div class="version-info">v{{ app_version }}</div>
         <a
           href="https://github.com/MissUwuieTime/Needlework"
           target="_blank"
@@ -187,6 +187,9 @@ lootTable.value = await window.ipcRenderer.invoke(IChannel.lootTranslation);
 lootStore.setLootTable(lootTable.value);
 
 const { theme } = useSettings();
+
+// App version
+const app_version = await window.ipcRenderer.invoke(IChannel.getVersionNumber);
 
 router.push('/home/all');
 const { componentKey, forceRerender } = useComponentKey();
