@@ -10,7 +10,13 @@
         </router-view>
       </div>
       <div id="controls-flex">
-        <w-button><w-icon>mdi mdi-help-circle-outline</w-icon></w-button>
+        <a
+          href="https://github.com/MissUwuieTime/Needlework#Guide"
+          target="_blank"
+          class="w-button"
+          ><w-icon>mdi mdi-help-circle-outline</w-icon></a
+        >
+
         <w-menu top min-width="180px">
           <template #activator="{ on }">
             <w-button v-on="on">
@@ -122,7 +128,7 @@
           ><w-icon>mdi mdi-refresh</w-icon></w-button
         >
         <div class="flex-divider"></div>
-        <w-button><w-icon>mdi mdi-discord</w-icon></w-button>
+        <!-- <w-button><w-icon>mdi mdi-discord</w-icon></w-button> -->
         <div class="version-info">v{{ app_version }}</div>
         <a
           href="https://github.com/MissUwuieTime/Needlework"
