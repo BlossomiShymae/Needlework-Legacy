@@ -1,3 +1,5 @@
+![needlework_wordmark](https://user-images.githubusercontent.com/87099578/172766442-137dc140-b68b-45de-a0dc-7e60a24e068e.png)
+
 # 🪡 Needlework
 Needlework helps make hextech crafting faster, easier, and newsier from the 
 League of Legends client. Process hextech loot with much fewer~* clicks, learn 
@@ -10,6 +12,8 @@ the total blue essence or orange essence value of your loot stash, bee happy! :3
 
 # Guide
 ## Out-of-box experience a.k.a. Getting started
+![image](https://user-images.githubusercontent.com/87099578/172766783-08a8d01f-fb0c-4b6d-9061-f5fb403f08e5.png)
+
 When running Needlework for the first time, the title loading screen will 
 appear before launching the Home view. The view should be similar enough to the 
 screenshot above.
@@ -20,11 +24,17 @@ icons are cached for later use, so the corresponding servers are not
 excessively called each time the program is used.
 
 Needlework supports **dark mode**, which is disabled by default. To toggle, 
-click on the cog/gear icon on the upper-left corner. This is the Settings view. 
-Click the checkmark box for dark mode. Clicking on *Exit* will save your 
-settings for future use before returning back to the Home view.
+click on the cog/gear icon on the upper-left corner.
+
+![image](https://user-images.githubusercontent.com/87099578/172767097-60224457-b0d5-43ff-bb28-7a402d257fa6.png)
+
+This is the Settings view. Click the checkmark box for dark mode. Clicking on 
+*Exit* will save your settings for future use before returning back to the 
+Home view.
 
 ## Bulk hextech crafting (wowie!)
+![image](https://user-images.githubusercontent.com/87099578/172767312-36418c66-96d8-4353-8e95-b9aa98c3ecf6.png)
+
 Bulk hextech crafting can be done by accessing the **Hextech automation** menu 
 button. Each action, sans auto-craft, will give a confirmation prompt to avoid 
 accidental crafting. Items upon successful craft will be displayed in the 
@@ -82,6 +92,8 @@ From left to right:
 
 By default, the All category will used for navigation.
 ## Traditional hextech crafting (for the poor angy kitties)
+![image](https://user-images.githubusercontent.com/87099578/172767487-b12cee0e-a3cc-4c4e-8697-675e93155070.png)
+
 Hextech crafting that is similar to that of the League client is done in the 
 Loot view of Home. Each loot item can be left clicked to display a crafting 
 context menu. The following actions can be done based on the action type of the 
@@ -108,6 +120,8 @@ The total amount of capsules are also displayed, which can be found below the
 mythic essence counter.
 
 ## Crafted panel
+![image](https://user-images.githubusercontent.com/87099578/172767672-8b14799d-c31e-40f4-bd20-aa8b125c6fea.png)
+
 When Needlework successfully crafts loot items, the leftover crafted items will 
 be displayed in this panel. This includes the loot item that was used for 
 crafting, and the added items after.
