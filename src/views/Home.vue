@@ -10,7 +10,13 @@
         </router-view>
       </div>
       <div id="controls-flex">
-        <w-button><w-icon>mdi mdi-help-circle-outline</w-icon></w-button>
+        <a
+          href="https://github.com/MissUwuieTime/Needlework#Guide"
+          target="_blank"
+          class="w-button"
+          ><w-icon>mdi mdi-help-circle-outline</w-icon></a
+        >
+
         <w-menu top min-width="180px">
           <template #activator="{ on }">
             <w-button v-on="on">
