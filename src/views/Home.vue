@@ -128,7 +128,7 @@
           ><w-icon>mdi mdi-refresh</w-icon></w-button
         >
         <div class="flex-divider"></div>
-        <w-button><w-icon>mdi mdi-discord</w-icon></w-button>
+        <!-- <w-button><w-icon>mdi mdi-discord</w-icon></w-button> -->
         <div class="version-info">v{{ app_version }}</div>
         <a
           href="https://github.com/MissUwuieTime/Needlework"
