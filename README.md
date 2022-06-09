@@ -6,9 +6,13 @@ League of Legends client. Process hextech loot with much fewer~* clicks, learn
 the total blue essence or orange essence value of your loot stash, bee happy! :3
 
 # Table of Contents
-1. [Guide](#Guide)
-2. [FAQ](#FAQ)
-3. [Developers](#Developers)
+1. [Download](#Download)
+2. [Guide](#Guide)
+3. [FAQ](#FAQ)
+4. [Developers](#Developers)
+
+# Download
+Ready to use Needlework? [Get it here!](https://github.com/MissUwuieTime/Needlework/releases)
 
 # Guide
 ## Out-of-box experience a.k.a. Getting started
