@@ -109,12 +109,11 @@ async function createTrayIcon(win: BrowserWindow, services: ServiceCollection) {
     try {
       if (services.needleworkService.needlework?.isClientActive()) {
         options.title = 'Connected';
-        options.content =
-          'Needlework has connected with the League of Legends client!';
+        options.content = 'Needlework has connected with the League client!';
       } else {
         options.title = 'Unable to connect';
         options.content =
-          'Needlework failed to connect with the League of Legends client!';
+          'Needlework failed to connect with the League client!';
       }
       tray.displayBalloon(options);
     } catch (error) {
