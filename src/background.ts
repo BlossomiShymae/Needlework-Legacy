@@ -92,12 +92,12 @@ async function createTrayIcon(win: BrowserWindow, services: ServiceCollection) {
       if (messageDTO.object.uri === routes.LOL_LOOT_READY) {
         options.title = 'Client Active';
         options.content =
-          'Connection to the League of Legends client has been found! Loot ready to be used. :bee_happy:';
+          'Connected with the League client! Loot ready to be used. :bee_happy:';
       }
       if (messageDTO.object.uri === routes.CLIENT_INACTIVE) {
         options.title = 'Client Inactive';
         options.content =
-          'Lost connection to the League of Legends client! :bee_sad:';
+          'Connection dropped with the League client! :bee_sad:';
       }
       if (options.title.length > 0) tray.displayBalloon(options);
     });
@@ -110,7 +110,7 @@ async function createTrayIcon(win: BrowserWindow, services: ServiceCollection) {
       if (services.needleworkService.needlework?.isClientActive()) {
         options.title = 'Connected';
         options.content =
-          'Needlework has established connected with the League of Legends client!';
+          'Needlework has connected with the League of Legends client!';
       } else {
         options.title = 'Unable to connect';
         options.content =
