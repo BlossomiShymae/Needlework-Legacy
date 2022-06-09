@@ -68,7 +68,15 @@ async function createTrayIcon(win: BrowserWindow, services: ServiceCollection) {
   const tray = new Tray(icon);
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Quit',
+      label: 'Needlework',
+      type: 'normal',
+      enabled: false,
+    },
+    {
+      type: 'separator',
+    },
+    {
+      label: 'Quit Needlework',
       type: 'normal',
       click: () => {
         app.exit(0);
