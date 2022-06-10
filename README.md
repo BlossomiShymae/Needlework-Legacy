@@ -10,6 +10,7 @@ the total blue essence or orange essence value of your loot stash, bee happy! :3
 2. [Guide](#Guide)
 3. [FAQ](#FAQ)
 4. [Developers](#Developers)
+5. [License](#License)
 
 # Download
 Ready to use Needlework? [Get it here!](https://github.com/MissUwuieTime/Needlework/releases)
@@ -214,3 +215,6 @@ yarn test
 ```
 yarn format
 ```
+
+# License
+Needlework is licensed under the terms of the GNU GPL v3 license.
