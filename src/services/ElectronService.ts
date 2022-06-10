@@ -94,7 +94,13 @@ export default class ElectronService {
     autoUpdater.autoDownload = false;
 
     ipcMain.handle(IChannel.checkForUpdates, async (event, args) => {
-      return await autoUpdater.checkForUpdates();
+      // In the event that the updater fails to request from feed URL (400, 500).
+      try {
+        return await autoUpdater.checkForUpdates();
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
     });
   }
 
