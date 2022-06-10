@@ -35,6 +35,8 @@ export enum IChannel {
   getVersionNumber = 'app-get-version-number',
   isClientActive = 'is-client-active',
   hideWindow = 'app-hide-window',
+  checkForUpdates = 'app-check-for-updates',
+  updateToLatest = 'app-update-to-latest',
 }
 
 /**
