@@ -129,7 +129,31 @@
         >
         <div class="flex-divider"></div>
         <!-- <w-button><w-icon>mdi mdi-discord</w-icon></w-button> -->
-        <div class="version-info">v{{ app_version }}</div>
+        <w-menu show-on-hover top>
+          <template #activator="{ on }">
+            <div v-on="on" class="version-info">
+              v{{ app_version }}
+              <span v-if="isOldVersion" class="ml2 warning text-bold">!</span>
+              <span v-else class="ml2 success text-bold">✓</span>
+            </div>
+          </template>
+          <w-flex column gap="1">
+            <p>Latest release: v{{ latestVersion }}</p>
+            <w-button
+              @click="checkForUpdates()"
+              class="theme-button fill-width justify-start"
+            >
+              Check for updates
+            </w-button>
+            <w-button
+              v-if="isOldVersion"
+              @click="updateToLatest()"
+              class="theme-button fill-width justify-start"
+              >Update to latest release</w-button
+            >
+          </w-flex>
+        </w-menu>
+
         <a
           href="https://github.com/MissUwuieTime/Needlework"
           target="_blank"
@@ -195,7 +219,24 @@ lootStore.setLootTable(lootTable.value);
 const { theme } = useSettings();
 
 // App version
-const app_version = await window.ipcRenderer.invoke(IChannel.getVersionNumber);
+const app_version: string = await window.ipcRenderer.invoke(
+  IChannel.getVersionNumber
+);
+const isOldVersion = ref(false);
+const latestVersion = ref(app_version);
+const checkForUpdates = async () => {
+  const result = await window.ipcRenderer.invoke(IChannel.checkForUpdates);
+  isOldVersion.value = !!result ?? false;
+
+  if (result !== null) {
+    latestVersion.value = result.updateInfo.version;
+  }
+};
+const updateToLatest = async () => {
+  const path = await window.ipcRenderer.invoke(IChannel.updateToLatest);
+  console.log(path);
+};
+await checkForUpdates();
 
 router.push('/home/all');
 const { componentKey, forceRerender } = useComponentKey();

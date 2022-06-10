@@ -1,7 +1,7 @@
 <template>
   <div class="landing theme-bg-color">
     <w-flex column class="full-width justify-center align-center" gap="4">
-      <h2 class="title2 text-bold">Needlework</h2>
+      <img src="@/assets/wordmark.png" alt="Needlework" />
       <h3 class="title3">
         Little hextech crafting helper program. Powered by love, bees, and
         kitties.
@@ -42,5 +42,7 @@ isClientActive.then((active) => {
 .w-flex {
   width: 100%;
   height: 100vh;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 </style>

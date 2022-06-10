@@ -3,6 +3,7 @@ import { IChannel } from '@/channels';
 import fs from 'fs';
 import path from 'path';
 import paths from '@/static/paths';
+import { autoUpdater } from 'electron-updater';
 
 export default class ElectronService {
   constructor() {
@@ -10,6 +11,8 @@ export default class ElectronService {
     this.handleClearImageCache();
     this.handleGetImageCacheSize();
     this.handleGetVersionNumber();
+    this.handleCheckForUpdates();
+    this.handleUpdateToLatest();
   }
 
   setWindow(win: BrowserWindow) {
@@ -84,6 +87,31 @@ export default class ElectronService {
   handleGetVersionNumber() {
     ipcMain.handle(IChannel.getVersionNumber, async (event, args) => {
       return await app.getVersion();
+    });
+  }
+
+  handleCheckForUpdates() {
+    autoUpdater.autoDownload = false;
+
+    ipcMain.handle(IChannel.checkForUpdates, async (event, args) => {
+      // In the event that the updater fails to request from feed URL (400, 500).
+      try {
+        return await autoUpdater.checkForUpdates();
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    });
+  }
+
+  handleUpdateToLatest() {
+    autoUpdater.on('update-downloaded', () => {
+      autoUpdater.quitAndInstall();
+    });
+
+    ipcMain.handle(IChannel.updateToLatest, async (event, args) => {
+      const path = await autoUpdater.downloadUpdate();
+      return path;
     });
   }
 }
