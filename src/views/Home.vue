@@ -226,10 +226,14 @@ const isOldVersion = ref(false);
 const latestVersion = ref(app_version);
 const checkForUpdates = async () => {
   const result = await window.ipcRenderer.invoke(IChannel.checkForUpdates);
-  isOldVersion.value = !!result ?? false;
+  console.log(app_version);
+  console.log(result);
 
   if (result !== null) {
-    latestVersion.value = result.updateInfo.version;
+    if (result.updateInfo.version !== app_version) {
+      latestVersion.value = result.updateInfo.version;
+      isOldVersion.value = true;
+    }
   }
 };
 const updateToLatest = async () => {
