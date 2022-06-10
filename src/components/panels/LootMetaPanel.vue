@@ -62,7 +62,7 @@ const { theme } = useSettings();
 #alternate {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: minmax(0, 1fr);
   gap: 8px;
 }
 </style>
